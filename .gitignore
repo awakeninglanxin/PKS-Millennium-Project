@@ -1,0 +1,75 @@
+# =============================================================
+# PKS Millennium Project — .gitignore
+# 排除大型二进制文件（参考/视频/安装包），仅上传核心研究文件
+# =============================================================
+
+# --- 大文件（PDF/文档/视频/压缩包/安装包）---
+*.pdf
+*.docx
+*.doc
+*.pptx
+*.ppt
+*.mp4
+*.avi
+*.mov
+*.exe
+*.msi
+*.zip
+*.rar
+*.7z
+*.tar.gz
+*.nb
+
+# --- 大图片和网页存档（可选，取消注释即可上传）---
+*.gif
+*.mhtml
+*.pyd
+*.doc
+
+# --- Python 缓存和虚拟环境 ---
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+env/
+venv/
+*.egg
+
+# --- 系统和编辑器 ---
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# --- 临时解压目录 ---
+docx_images_temp/
+/tmp/
+
+# --- 超大单文件（GitHub 限制单文件 100MB）---
+432mystery.docx
+瑟尔技术总结SEG-Concept-Review.pdf
+Universal-Laws-Never-Before-Revealed-Keelys-Secrets-to-Understanding-the-Science-of-Sympathetic-Vibration.pdf
+羚羊角螺贝数学基础模型.pdf
+使用ai加rhino绘舒伯格螺旋核心元件7天教学从零到落地打印成产品(自学成才).docx
+searl机模拟程序nb视频教学.mp4
+韩国youtube公开莲花算法模型.zip
+typora-setup-x64-1.10.8V.exe
+
+# --- 非核心参考资料 ---
+PJKbook 25.92.pdf
+ufopolitics motor/
+PIL/
+
+# --- 第三方依赖 ---
+pdf2image/
+pillow-12.2.0.dist-info/
+
+# --- 元数据 ---
+.workbuddy/
