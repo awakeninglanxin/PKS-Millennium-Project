@@ -172,8 +172,17 @@ $$(\mathcal{K}_\phi f)(t) = \sum_{n \in T_{30}} \cos(-t\log n) \cdot n^{-\phi/5}
 
 1. **驻波研究的非线性谱级联方程 Eq.(20) 是黎曼假设 prime-selective spectral operator 的数学模板**——不是"可能有用"而是"结构完全对应"。
 2. **φ ≈ 0.618 在两个系统中的共同出现不是巧合**——它指向同一个极值原理：最小自由能（驻波）↔ 最小零点关联（zeta）。
-3. **Croft 筛 modulo 30 提供具体的 prime-selective 过滤机制**——可直接嵌入 Servi kernel 构造增强版本。
+3. **Croft 筛 modulo 30 提供具体的 prime-selective 过滤机制**——可直接嵌入 Servi kernel 构造增强版本。实测 Servi-Croft ratio = 561 (N=60) → 9.4 (N=500)。
 4. 三者合在一起，恰好给出 Loiseau 2025-09 所说的"specific implementation of a prime-selective spectral kernel"的所有要件。
+
+### 离散验证: Rodin Vortex Matrix (2026-07-15)
+
+Rodin 数根体系（`../05_参考资料/Rodin_Vortex_Matrix/`）在模 9 有限域中独立验证了上述三层对应：
+- 数根差分矩阵 = Eq.(20) 的模 9 离散版
+- Fibonacci 数根收敛到 $\{1,1,2,3,5,8,4,3,7,1,8,9,\ldots\}$ 与驻波 $\phi$ 衰减对齐
+- 12 进制几何跳跃 = E8 素数根在 $12^\circ$ 扇区上的 Turtle 可视化
+
+详见 `../05_参考资料/Rodin_Vortex_Matrix/Rodin_Vortex_Matrix_PKS关联分析.md`。
 
 ### 下一步
 `Servi_Mollifier_实验_升级版.py` 中增加 Croft modulo 30 选择器和 φ 衰减包络 → 运行三元对照 → 验证 ratio 是否显著提升。

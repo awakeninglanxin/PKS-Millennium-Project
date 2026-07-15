@@ -1,6 +1,7 @@
 # Navier-Stokes 方程光滑性 — PKS 几何 + PINN + AI 联合证明框架（含 2025-09 最新突破整合）
 
 > 2026-07-14 初版 | **2026-07-14 修订**（整合 DeepMind 2509.14185 + 窦华书 202509.1747 两大进展）
+> **2026-07-15 更新**（NS V8 3D 审视 + PKS 锥物理探讨 + Rodin Vortex Matrix 归档）
 > 整合 DeepMind 2025-09 PINN 不稳定奇点发现 + 窦华书 Sobolev 空间证否 + PKS 双曲锥几何
 
 ---
@@ -307,3 +308,9 @@ DeepMind 的发现"当解越来越不稳定时，关键属性接近线性分布"
 ### Loiseau (Zenodo:17010863, 2025)
 - **关键结论**: 所有 phase-blind 方法无法达 100% 黎曼零点临界线分布
 - **对我们的启示**: 验证任何"零点比例"路线前，先确认该路线不退化到 phase-blind 类
+
+### Rodin Vortex Matrix (torusturtle归档, 2026-07-15)
+- **Schauberger螺旋**: `turtle螺旋 - schauberger.py` — 等角螺旋在同心圆边界的跳跃 = PKS 双曲锥 $z=1/r$ 的离散 Tkinter 可视化
+- **12进制数根**: `base_12/base_12.py` — 数字根在 12 个顶点上的跳跃模式 = 涡旋拉伸的离散几何
+- **等角螺旋+对数螺旋**: 两种螺旋的叠加 = PKS 锥的截面曲线族
+- 详见 `../05_参考资料/Rodin_Vortex_Matrix/Rodin_Vortex_Matrix_PKS关联分析.md`

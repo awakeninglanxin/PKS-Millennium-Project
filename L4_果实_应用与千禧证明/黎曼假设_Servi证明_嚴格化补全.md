@@ -345,3 +345,21 @@ $$\boxed{\mathcal{K}_{30,\phi}(s; t) = \sum_{n \in T_{30}} \cos(-t \log n) \cdot
 - 黎曼假设需要 phase-sensitive spectral operator
 - Servi 几何 = prime-selective kernel 的候选实现
 - 需要新的实验：验证 Servi kernel 的 prime-detection 能力
+
+---
+
+## 附录 B: Rodin Vortex Matrix — 离散数论验证 (2026-07-15 归档)
+
+### Rodin 12进制数根体系
+
+Rodin 涡旋数学（`05_参考资料/Rodin_Vortex_Matrix/`）基于数字根在模 9 下的循环结构，揭示了以下与 PKS 黎曼路线的深层对应：
+
+| Rodin | PKS 黎曼 | 桥梁 |
+|:---|:---|:---|
+| 12进制数字根循环 | E8 Coxeter数30, 12° 扇区 | 同为素数分布的几何语言 |
+| Schauberger 等角螺旋 | PKS 双曲锥 $z=1/r$ | 同一非线性涡旋方程 |
+| 数根差分/比矩阵 | 驻波 Eq.(20) 非线性谱级联 | 模9下的离散同构 |
+| 环面数根交互 | ANU 1680匝 Möbius 螺旋 | 环面拓扑投影 |
+| Fibonacci 数根 | 驻波 $\phi=0.618$ 黄金比衰减 | 数根收敛到 $\phi$ |
+
+Rodin 体系可视为 PKS 黎曼路线的**离散可计算验证**——在模 9 的有限域中，所有结构都有闭式解。详见 `05_参考资料/Rodin_Vortex_Matrix/Rodin_Vortex_Matrix_PKS关联分析.md`。
