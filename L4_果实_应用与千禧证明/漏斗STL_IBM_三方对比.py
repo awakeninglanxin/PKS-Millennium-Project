@@ -9,6 +9,9 @@ import numpy as np
 from scipy.fft import fftn, ifftn, fftfreq
 import struct, os, sys
 from matplotlib import pyplot as plt
+# 铁律: CJK字体必须紧接plt导入后设置
+plt.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'DejaVu Sans']
+plt.rcParams['axes.unicode_minus'] = False
 
 # ============================================================
 # 1. STL → r(z) 截面曲线提取
