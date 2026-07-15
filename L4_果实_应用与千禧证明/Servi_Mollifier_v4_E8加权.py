@@ -47,7 +47,9 @@ def e8_weight(n):
     return np.abs(np.sum(np.cos(phases))) / len(exponents)
 
 def e8_weight_fast(n):
-    """Vectorized E8 weight for arrays"""
+    """Vectorized E8 weight (handles scalar and array)"""
+    if np.isscalar(n):
+        n = np.array([n])
     exponents = np.array([1,7,11,13,17,19,23,29])
     h = 30
     dr = n % 9
@@ -55,35 +57,39 @@ def e8_weight_fast(n):
     w = np.zeros_like(n, dtype=float)
     for e in exponents:
         w += np.cos(2*np.pi * e * dr / h)
-    return np.abs(w) / len(exponents)
+    w = np.abs(w) / len(exponents)
+    return w[0] if len(w) == 1 else w
 
 # ============================================================
-# 3. Prime-detection ratio calculation
+# 3. Prime-detection ratio (vectorized)
 # ============================================================
-def compute_ratio(t_values, N_max, kernel_builder, label):
-    """Compute Var_t[K, prime] / Var_t[K, nonprime]"""
+def compute_ratio(t_values, N_max, weight_func, label):
+    """Vectorized: compute Var_t[K, prime] / Var_t[K, nonprime]"""
     is_p = sieve_primes(N_max)
-    n_all = np.arange(1, N_max+1)
+    n_arr = np.arange(1, N_max+1)
     
-    K_prime = np.zeros((len(t_values), is_p[1:].sum()))
-    K_nonprime = np.zeros((len(t_values), (~is_p[1:]).sum()))
+    # Vectorized kernel
+    # K[t,n] = cos(-t * log n) * n^{-1/2} * w(n)
+    log_n = np.log(n_arr)
+    n_half = n_arr**(-0.5)
+    w = weight_func(n_arr)
     
-    pi, npi = 0, 0
-    for n in range(1, N_max+1):
-        k_t = kernel_builder(t_values, n, N_max)
-        if is_p[n]:
-            K_prime[:, pi] = k_t
-            pi += 1
-        else:
-            K_nonprime[:, npi] = k_t
-            npi += 1
+    # K[t,n] matrix: (n_t, N)
+    K = np.outer(np.cos(np.outer(t_values, log_n)), np.ones(1)).reshape(len(t_values), -1)
+    # Actually: K[t,n] = cos(t * log n) * n^{-1/2} * w(n)
+    # cos(t*log_n) = [n_t x N]
+    cos_term = np.cos(np.outer(t_values, -log_n))
+    K = cos_term * n_half[np.newaxis, :] * w[np.newaxis, :]
     
-    # Projection mean over t
-    proj_prime = np.mean(K_prime, axis=1)
-    proj_nonp = np.mean(K_nonprime, axis=1)
+    # Projection: mean over n
+    K_prime = K[:, is_p[1:]]
+    K_nonp = K[:, ~is_p[1:]]
     
-    var_p = np.var(proj_prime)
-    var_np = np.var(proj_nonp)
+    proj_p = np.mean(K_prime, axis=1)
+    proj_np = np.mean(K_nonp, axis=1)
+    
+    var_p = np.var(proj_p)
+    var_np = np.var(proj_np)
     
     return var_p / max(var_np, 1e-15), var_p, var_np
 
@@ -98,21 +104,18 @@ def test_all(N_list, n_t=200):
         print(f'  N={N:4d}...', end=' ', flush=True)
         t0 = time.time()
         
-        # Vanilla
-        r_v, vp, vnp = compute_ratio(t_set, N, servi_kernel, 'vanilla')
+        # Vanilla (weight=1)
+        def w_vanilla(n): return np.ones_like(n, dtype=float)
+        r_v, vp, vnp = compute_ratio(t_set, N, w_vanilla, 'vanilla')
         results['Vanilla_Servi'].append((N, r_v))
         
         # T_30 binary
-        def k_t30(t, n, M):
-            w = totative_30(n) if np.isscalar(n) else np.array([totative_30(x) for x in n])
-            return servi_kernel(t, n, M) * w
-        r_t, _, _ = compute_ratio(t_set, N, k_t30, 'T30')
+        def w_t30(n): return np.array([totative_30(int(x)) for x in n])
+        r_t, _, _ = compute_ratio(t_set, N, w_t30, 'T30')
         results['T_30_binary'].append((N, r_t))
         
         # E8 weighted
-        def k_e8(t, n, M):
-            return servi_kernel(t, n, M) * e8_weight_fast(n)
-        r_e, _, _ = compute_ratio(t_set, N, k_e8, 'E8')
+        r_e, _, _ = compute_ratio(t_set, N, e8_weight_fast, 'E8')
         results['E8_weighted'].append((N, r_e))
         
         print(f'r_v={r_v:.2f} r_t={r_t:.1f} r_e={r_e:.1f} ({time.time()-t0:.1f}s)')
