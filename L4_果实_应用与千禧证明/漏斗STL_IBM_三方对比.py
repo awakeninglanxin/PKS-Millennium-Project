@@ -184,7 +184,7 @@ def solve_ns_ibm(sdf, nx, ny, nz, dt, steps, nu, label=""):
 # 3. 主程序
 # ============================================================
 def main():
-    base = r'D:\AAA我的文件\PKS_千禧难题_GitHub版\05_参考资料\几种漏斗stl文件'
+    base = r'D:\AAA我的文件\PKS_千禧难题_GitHub版\L4_果实_应用与千禧证明\漏斗STL_黄金比螺旋'
     configs = [
         ('光滑墙壁', os.path.join(base, '黄金比螺旋漏斗光滑墙壁.stl'), None),
         ('8bands',   os.path.join(base, '黄金比螺旋漏斗8bands.stl'), 8),
