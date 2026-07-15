@@ -1,18 +1,43 @@
 # Rodin Vortex Matrix × PKS — 完整关联分析与归档
 
-**来源目录**: `D:\AAA我的文件\torusturtle\`（排除 docx/游戏/标准 turtle demo）
+**来源说明**: 
+- **Python 代码** (`turtle螺旋*.py`, `base_12.py`, `torus interact.py` 等) — 蓝馨老师**原创实现**，基于 Rodin 数论体系 + Schauberger 涡旋几何，用 Turtle 可视化
+- **参考 PDF** — Marko Rodin 原始数学 (`Rodin.pdf` 68页商业提案 + `The Rodin Number Map and Rodin Coil.pdf` NPA 2010 学术论文)
+- **数据文件** (`record_difference.txt`, `record_ratio.txt` 等) — 原创代码的实验输出
+
 **归档目录**: `05_参考资料/Rodin_Vortex_Matrix/`
 **归档日期**: 2026-07-15
+**首次创作**: 约 2012-2013 (Python 2.7 时代，见 `readme.txt` 中的 python-2.7.3 链接)
 
 ---
 
-## 一、Rodin Vortex Matrix 概述
+## 一、Rodin 数学体系概述 (基于 NPA 2010 论文)
 
-Marko Rodin 的涡旋数学（Vortex-Based Mathematics）基于数根（digital root）的循环性质，揭示了数字在模 9 下的深层对称结构。核心发现：
+### 1.1 Rodin Number Map 核心 (Rodin & Volk, NPA 2010)
 
-- **数根循环**: 所有数字的数根在 1-9 之间形成封闭环
-- **12 进制编码**: 素数分布的最佳进制语言
-- **涡旋几何**: 数字序列在正多边形顶点上跳跃形成自相似涡旋图案
+Rodin 体系基于模 9 算术，核心发现：
+
+1. **三种独立计数模式**: 模 9 下非退化计数只有 {1, 2, 4}（{3,6} 退化，{8,7,5} 镜像），对应 3D 空间三维。
+
+2. **三种拓扑独立地图**: 1×2("27"图) / 1×4("18"图) / 2×4("45"图)，行和列分别按不同步长计数。
+
+3. **加倍/减半电路**: ++方向模式 `124875`(2的幂 mod9) 和 `157842`(5的幂=除以2)。间隙 `396693` 每第三条对角线出现。
+
+4. **环面拓扑**: 2D 地图唯一映射到环面 — 12圈绕截面 × 5圈绕周长。5/12 = 纯律完全四度。
+
+5. **Enneagram 九点图**: 正九边形上 1-2-4-8-7-5 加倍回路，3,6,9 为结构三角。
+
+### 1.2 蓝馨老师原创实现
+
+Python 代码（`turtle螺旋*.py`、`base_12.py`、`torus interact.py` 等）是在 Rodin 数论体系上的**原创可视化实现**，融入 Schauberger 涡旋几何：
+
+| 原创组件 | 创新点 |
+|:---|:---|
+| Schauberger 等角螺旋 + 同心圆边界跳跃 | 将 Rodin 数根驱动与双曲锥几何融合 |
+| 12 进制扩展 (base_12.py) | Rodin 模9→模12，12顶点正多边形跳跃 |
+| 环面交互 (torus interact.py) | Turtle 画笔在环面上的数根映射 |
+| 数根差/比矩阵 (prove the law) | 全谱数根分析，差分模式提取 |
+| 杨辉三角数根 (yanghui triangle) | 二项式系数数根的涡旋映射 |
 
 ### 与 PKS 千禧难题体系的关系
 
@@ -28,28 +53,40 @@ Rodin 体系是 PKS 五个核心构件的**可视化再验证**：
 | Fibonacci 数根 | 驻波 $\phi=0.618$ 黄金比衰减 | ⭐⭐⭐⭐⭐ |
 | 幻方/神圣几何 | E8×E8 Magic Mirror Matrix 24×24 | ⭐⭐⭐⭐ |
 
+### 1.3 Rodin 论文关键数据 → PKS 直接对应
+
+从 Rodin & Volk (NPA 2010) 提取的数学事实及其 PKS 翻译：
+
+| Rodin 论文中的事实 | PKS 直接对应 |
+|:---|:---|
+| 模 9 非退化计数 = {1,2,4} ↔ 3D 空间 | PKS 双曲锥 $ab=1$ 的三维分解：{1}径向 {2}轴向 {4}切向 |
+| 环面 12 圈截面 × 5 圈周长 | ANU 1680 = 7×240 = (7×12×5)×4 |
+| `396693` 间隙模式 | 与 E8 素数根互补对 (1+29=30…) 同构 |
+| ++方向加倍/减半 = 2 的幂模 9 | Servi kernel $\cos(-t\log n)$ 中对数型相位 = 连续版加倍 |
+| 环面 = 2D 无限重复图案的唯一有限闭包 | Riemann $\zeta$ 零点在临界线上的"回流"封闭拓扑 |
+
 ---
 
 ## 二、归档文件清单
 
-### 2.1 Rodin_Vortex_Matrix/ （核心 — 17 文件）
+### 2.1 Rodin_Vortex_Matrix/ — 蓝馨老师原创代码 (12 文件)
 
-| 文件 | 类型 | PKS 关联 |
-|:---|:---|:---|
-| `turtle螺旋 - schauberger.py` | 可视化 | PKS 双曲锥的螺旋几何原形 |
-| `turtle螺旋 - 等角螺旋+对数螺旋.py` | 可视化 | $\zeta$ 零点的对数螺旋叠加 |
-| `turtle螺旋.py` | 可视化 | 通用涡旋生成器(数根驱动) |
-| `base_12/base_12.py` | 算法 | 12 进制数根→12顶点跳跃 = E8 素数根在 $360/30=12^\circ$ 扇区上的可视化 |
-| `base_12/out.txt` | 数据 | 12 进制数根输出 |
-| `base_12/out number.txt` | 数据 | 12 进制数值输出 |
-| `record_difference.txt` | 数据 | 数根差分模式(pattern data for digital root difference) |
-| `record_ratio.txt` | 数据 | 数根比率模式 |
-| `fib.py` | 算法 | Fibonacci 数根 — `驻波研究` 中 $\phi=0.618$ 的数论基础 |
-| `polygon.py` | 可视化 | 正多边形几何 — Servi 悬链多边形的离散版 |
-| `yanghui triangle.py` | 算法 | 杨辉三角(二项式系数) — $\zeta$ 的 binomial moment |
-| `prove the law of universe.py` | 算法 | 数根矩阵(差/比) — 数字根的全谱分析 |
-| `幻方和神圣几何的联系.png` | 图像 | E8 Magic Mirror Matrix 的几何解释 |
-| `tdemo_yinyang.py` | 可视化 | PKS 双极 $ab=1$ 的阴阳几何 |
+| 文件 | 类型 | 来源 | PKS 关联 |
+|:---|:---|:---|:---|
+| `turtle螺旋 - schauberger.py` | 可视化 | 🧠 原创 | PKS 双曲锥的螺旋几何原形 |
+| `turtle螺旋 - 等角螺旋+对数螺旋.py` | 可视化 | 🧠 原创 | ζ 零点的对数螺旋叠加 |
+| `turtle螺旋.py` | 可视化 | 🧠 原创 | 通用涡旋生成器(数根驱动) |
+| `base_12/base_12.py` | 算法 | 🧠 原创 | 12进制数根→12顶点 = E8 12°扇区 |
+| `base_12/out.txt`, `out number.txt` | 数据 | 🧠 原创 | 12进制数根输出 |
+| `record_difference.txt`, `record_ratio.txt` | 数据 | 🧠 原创 | 数根差分/比率模式 |
+| `fib.py` | 算法 | 🧠 原创 | Fibonacci数根 — φ=0.618的数论基础 |
+| `polygon.py` | 可视化 | 🧠 原创 | 正多边形几何 — Servi 悬链多边形离散版 |
+| `yanghui triangle.py` | 算法 | 🧠 原创 | 杨辉三角数根 |
+| `prove the law of universe.py` | 算法 | 🧠 原创 | 数根矩阵(差/比)全谱分析 |
+| `幻方和神圣几何的联系.png` | 图像 | 🧠 原创 | E8 Magic Mirror Matrix 几何解释 |
+| `tdemo_yinyang.py` | 可视化 | 改编 | PKS双极 $ab=1$ 阴阳几何 |
+| `fractal dragon.py` | 可视化 | 改编 | 龙曲线分形 |
+| `mandelbrot set.py` | 可视化 | 改编 | $z^3+c$ Mandelbrot |
 
 ### 2.2 Torus_Interact/ （3 文件）
 
@@ -66,11 +103,18 @@ Rodin 体系是 PKS 五个核心构件的**可视化再验证**：
 | `fractal dragon.py` | 可视化 | 龙曲线分形 — $\zeta$ 自相似性的几何类比 |
 | `mandelbrot set.py` | 可视化 | Mandelbrot $z^3+c$ — Riemann 球面的非线性迭代 |
 
+### 2.4 参考 PDF (2 文件)
+
+| 文件 | 作者 | 内容 |
+|:---|:---|:---|
+| `Rodin.pdf` (68页) | Marko Rodin | Rodin Aerodynamics 商业/研究提案，含 torus 拓扑、线圈设计、能量应用 |
+| `The Rodin Number Map and Rodin Coil.pdf` (7页) | Rodin & Volk, NPA 2010 | **核心数学论文**，模9算术、三种拓扑独立地图、加倍电路、Enneagram、环面映射 |
+
 ---
 
-## 三、关键数学桥接
+## 三、关键数学桥接 (原二重新编号)
 
-### 3.1 12 进制 → E8 素数根
+### 3.1 模 9 计数 {1,2,4} → PKS 三维分解
 
 Rodin 的 12 顶点正多边形上数根跳跃图案：
 ```
