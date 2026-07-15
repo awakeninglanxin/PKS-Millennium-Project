@@ -247,14 +247,14 @@ def main():
     # Row 1: 时间序列
     for ci, metric in enumerate(['vort', 'enstrophy', 'H3']):
         ax = axes[0, ci]
-        titles = {'vort': 'Max Vorticity', 'enstrophy': 'Enstrophy ½⟨|ω|²⟩', 
-                   'H3': 'H³ Sobolev Norm'}
+        titles = {'vort': '最大涡量 Max|ω|', 'enstrophy': '拟涡能 ½⟨|ω|²⟩', 
+                   'H3': 'H³ Sobolev范数'}
         ax.set_title(titles[metric])
         for label, res in results.items():
             data = res[metric]
             ax.plot(times[:len(data)], data, color=colors[label], 
                     label=label, linewidth=2)
-        ax.set_xlabel('Time')
+        ax.set_xlabel('时间')
         ax.legend(fontsize=8)
         ax.grid(True, alpha=0.3)
     
@@ -272,7 +272,7 @@ def main():
         
         im = ax.imshow(omega_slice.T, origin='lower', cmap='hot',
                        extent=[-L/2, L/2, -L/2, L/2])
-        ax.set_title(f'{label}\n|ω| @ Z=0 slice (final)')
+        ax.set_title(f'{label}\n终态截面 |ω| @ Z=0')
         plt.colorbar(im, ax=ax, shrink=0.8)
         
         # 叠加壁面轮廓
@@ -281,7 +281,7 @@ def main():
         ax.plot(r_wall_mid*np.cos(theta), r_wall_mid*np.sin(theta), 
                 'w--', linewidth=1, alpha=0.5)
     
-    fig.suptitle('PKS GOLDEN RATIO FUNNEL — STL→IBM CFD\n'
+    fig.suptitle('PKS黄金比螺旋漏斗 — STL→IBM CFD 三方对比\n'
                  '光滑墙壁 vs 8螺旋带 vs 16螺旋带 (归一化同尺寸)',
                  fontsize=14, fontweight='bold')
     plt.tight_layout()
