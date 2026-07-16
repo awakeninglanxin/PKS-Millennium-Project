@@ -1,0 +1,2 @@
+﻿N_max,ratio,var_Kp,var_Kn,n_totatives,n_primes,n_composites,t_sieve,t_build,t_kernel,t_total
+10000000,0.094580,2.549319e+01,2.695414e+02,2666665,664576,2002089,0.0,7.8,11.4,19.3
