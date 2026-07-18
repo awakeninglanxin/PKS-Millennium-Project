@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEG 磁齿轮三环动态演示</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a14;color:#e0e0e0;font-family:'Segoe UI',system-ui,sans-serif;
+  display:flex;flex-direction:column;align-items:center;min-height:100vh;overflow-x:hidden}
+h1{font-size:1.4em;font-weight:500;margin:16px 0 4px;color:#b8c8ff}
+.subtitle{font-size:0.8em;color:#8899bb;margin-bottom:12px}
+canvas{display:block;border:1px solid #1a2a44;border-radius:12px}
+.controls{display:flex;gap:12px;margin:12px 0;flex-wrap:wrap;justify-content:center}
+button{padding:8px 16px;border:none;border-radius:8px;cursor:pointer;
+  font-size:13px;font-weight:500;transition:all .2s}
+.btn-active{background:#378add;color:#fff}
+.btn-fib{background:#1d9e75;color:#fff}
+.btn-ori{background:#5f5e5a;color:#fff}
+.btn-best{background:#ba7517;color:#fff}
+button:hover{filter:brightness(1.2)}
+.info-panel{display:flex;gap:20px;margin:8px 0;flex-wrap:wrap;justify-content:center;
+  font-size:0.78em;color:#8899bb}
+.info-item{background:#11112a;padding:6px 14px;border-radius:8px}
+.value{color:#b8c8ff;font-weight:500}
+.gcd-good{color:#1d9e75}
+.gcd-bad{color:#e24b4a}
+.legend{display:flex;gap:16px;margin:4px 0;font-size:0.75em}
+.legend span{display:flex;align-items:center;gap:4px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+</style>
+</head>
+<body>
+<h1>🔧 SEG 三环磁齿轮 — 动态演示</h1>
+<div class="subtitle">定子（外环固定磁极）↔ 外环滚筒 ↔ 中环滚筒 ↔ 内环滚筒</div>
+
+<div class="controls">
+<button id="btnFib" class="btn-fib btn-active" onclick="setConfig('fib')">
+  ★ Fibonacci 34/21/13 (gcd=1)</button>
+<button id="btnOri" class="btn-ori" onclick="setConfig('ori')">
+  原版 Searl 32/22/12 (gcd=2)</button>
+<button id="btnBest" class="btn-best" onclick="setConfig('best')">
+  ★ 最优 38/25/16 (gcd=1)</button>
+<button id="btnBad" class="btn-ori" onclick="setConfig('bad')">
+  整除 30/20/10 (gcd=10)</button>
+<button id="btnPause" onclick="togglePause()">⏯ 暂停</button>
+</div>
+
+<div class="info-panel">
+<div class="info-item">定子极数: <span class="value" id="infoStator">4410</span></div>
+<div class="info-item">外环gcd: <span class="value gcd-good" id="infoGcd">1</span></div>
+<div class="info-item">每滚筒磁极: <span class="value">34</span></div>
+<div class="info-item">外/中/内: <span class="value" id="infoRatio">34/21/13</span></div>
+<div class="info-item">转速: <span class="value" id="infoSpeed">1×</span></div>
+</div>
+
+<div class="legend">
+<span><span class="dot" style="background:#ff6060"></span> N极</span>
+<span><span class="dot" style="background:#6080ff"></span> S极</span>
+<span style="color:#1d9e75">━ 外环轨道</span>
+<span style="color:#378add">━ 中环轨道</span>
+<span style="color:#ba7517">━ 内环轨道</span>
+</div>
+
+<canvas id="canvas" width="680" height="680"></canvas>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const W = 680, H = 680;
+const CX = W/2, CY = H/2;
+
+// 配置
+const configs = {
+  fib: { name:'Fibonacci', no:34, nm:21, ni:13, color:'#1d9e75', 
+         statorP:4410, rollerP:34 },
+  ori: { name:'原版Searl', no:32, nm:22, ni:12, color:'#888780',
+         statorP:4410, rollerP:34 },
+  best: { name:'最优', no:38, nm:25, ni:16, color:'#ba7517',
+         statorP:3622, rollerP:34 },
+  bad: { name:'整除', no:30, nm:20, ni:10, color:'#e24b4a',
+         statorP:3000, rollerP:34 },
+};
+
+let cfg = configs.fib;
+let angle = 0;
+let paused = false;
+let speed = 1;
+
+function setConfig(key) {
+  cfg = configs[key];
+  angle = 0;
+  document.querySelectorAll('button').forEach(b=>b.classList.remove('btn-active'));
+  document.getElementById('btn'+key.charAt(0).toUpperCase()+key.slice(1))?.classList.add('btn-active');
+  updateInfo();
+}
+
+function updateInfo() {
+  const sp = cfg.statorP;
+  const gcdO = gcd(sp/2, cfg.rollerP/2);
+  document.getElementById('infoStator').textContent = sp;
+  document.getElementById('infoGcd').textContent = gcdO;
+  document.getElementById('infoGcd').className = 'value '+(gcdO===1?'gcd-good':'gcd-bad');
+  document.getElementById('infoRatio').textContent = `${cfg.no}/${cfg.nm}/${cfg.ni}`;
+  document.getElementById('infoSpeed').textContent = speed+'×';
+}
+
+function gcd(a,b) { return b===0?Math.abs(a):gcd(b,a%b); }
+
+function togglePause() { paused=!paused; }
+
+canvas.addEventListener('wheel', e=>{
+  e.preventDefault();
+  speed = Math.max(0.1, Math.min(5, speed + (e.deltaY>0?-0.2:0.2)));
+  updateInfo();
+});
+
+function drawStatorPoles(r, nPoles, alpha) {
+  for (let i=0; i<nPoles; i++) {
+    const a = (2*Math.PI*i/nPoles) + alpha*0.02;
+    const x = CX + r*Math.cos(a);
+    const y = CY + r*Math.sin(a);
+    const isN = i%2===0;
+    ctx.beginPath();
+    ctx.arc(x, y, 4, 0, 2*Math.PI);
+    ctx.fillStyle = isN?'rgba(255,96,96,0.8)':'rgba(96,128,255,0.8)';
+    ctx.fill();
+    ctx.strokeStyle = isN?'rgba(255,96,96,0.4)':'rgba(96,128,255,0.4)';
+    ctx.stroke();
+  }
+}
+
+function drawRing(rOrbit, nRollers, pPerRoller, orbitAngle, ratio, color) {
+  for (let j=0; j<nRollers; j++) {
+    const oa = orbitAngle + 2*Math.PI*j/nRollers;
+    const cx = CX + rOrbit*Math.cos(oa);
+    const cy = CY + rOrbit*Math.sin(oa);
+    
+    // 滚筒轨道圆
+    ctx.beginPath();
+    ctx.arc(cx, cy, t, 0, 2*Math.PI);
+    ctx.strokeStyle = color.replace('1)', '0.25)');
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+    
+    // 滚筒上的磁极
+    const displayPoles = Math.min(pPerRoller, 12); // 简化：显示12个极
+    const spin = oa * ratio;
+    for (let k=0; k<displayPoles; k++) {
+      const pa = spin + 2*Math.PI*k/displayPoles;
+      const px = cx + (tr-2)*Math.cos(pa);
+      const py = cy + (tr-2)*Math.sin(pa);
+      const isN = k%2===0;
+      ctx.beginPath();
+      ctx.arc(px, py, 2.2, 0, 2*Math.PI);
+      ctx.fillStyle = isN?'#ff6060':'#6080ff';
+      ctx.fill();
+    }
+    
+    // 滚筒中心点
+    ctx.beginPath();
+    ctx.arc(cx, cy, tr, 0, 2*Math.PI);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+  }
+  
+  // 轨道虚线
+  ctx.beginPath();
+  ctx.arc(CX, CY, rOrbit, 0, 2*Math.PI);
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 0.8;
+  ctx.setLineDash([6, 4]);
+  ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+const tr = 14; // 滚筒半径
+const ro = 280; // 外环轨道半径
+const rm = 210; // 中环轨道半径
+const ri = 140; // 内环轨道半径
+const rs = 310; // 定子环半径
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  
+  // 背景
+  ctx.fillStyle = '#0a0a14';
+  ctx.fillRect(0, 0, W, H);
+  
+  // 标题
+  ctx.fillStyle = '#b8c8ff';
+  ctx.font = '11px system-ui';
+  ctx.textAlign = 'center';
+  
+  // 定子环（固定）
+  drawStatorPoles(rs, Math.min(cfg.statorP, 200), 0);
+  ctx.beginPath();
+  ctx.arc(CX, CY, rs, 0, 2*Math.PI);
+  ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+  
+  // 外环滚筒
+  const ao = angle * 1.0;
+  drawRing(ro, cfg.no, cfg.rollerP, ao, 1.5, cfg.color);
+  
+  // 中环滚筒（稍快 - 模拟齿轮减速）
+  const am = angle * 1.6;
+  drawRing(rm, cfg.nm, cfg.rollerP, am, 2.0, '#378add');
+  
+  // 内环滚筒（最快）
+  const ai = angle * 2.5;
+  drawRing(ri, cfg.ni, cfg.rollerP, ai, 3.0, '#ba7517');
+  
+  // 中央标签
+  ctx.fillStyle = '#b8c8ff';
+  ctx.font = '12px system-ui';
+  ctx.fillText(cfg.name, CX, CY+4);
+  
+  // gcd 指示器
+  const g = gcd(cfg.statorP/2, cfg.rollerP/2);
+  ctx.fillStyle = g===1?'#1d9e75':'#e24b4a';
+  ctx.font = 'bold 14px system-ui';
+  const gcdText = g===1?'gcd=1 ● 磁静音':'gcd='+g+' ● 磁振动';
+  ctx.fillText(gcdText, CX, CY+24);
+  
+  requestAnimationFrame(draw);
+}
+
+function animate() {
+  if (!paused) {
+    angle += 0.008 * speed;
+  }
+}
+
+setInterval(animate, 16);
+updateInfo();
+draw();
+</script>
+</body>
+</html>
