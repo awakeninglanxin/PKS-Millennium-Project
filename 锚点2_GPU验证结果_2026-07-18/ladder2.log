@@ -1,0 +1,16 @@
+=== ladder2 start Sat Jul 18 19:03:34 CST 2026 ===
+--- k=12 X=1e8 (predict 0 miss, X*~5e8) ---
+{"k": 12, "X": 100000000, "D": 100000000000, "S_X": 152482, "S_D": 1699071, "primes": 5761455, "covered": 5761455, "miss": 0, "cov_pct": 100.0, "first_miss": null, "last_miss": null, "pairs_sum": 19683053378, "pairs_diff": 22727203112, "t_gen": 1.5, "t_total": 15.1}
+--- k=12 X=1e9 (predict first miss ~5e8-1e9) ---
+{"k": 12, "X": 1000000000, "D": 100000000000, "S_X": 361173, "S_D": 1699071, "primes": 50847534, "covered": 50847418, "miss": 116, "cov_pct": 99.999772, "first_miss": 601796621, "last_miss": 997156597, "pairs_sum": 112706166116, "pairs_diff": 110345724396, "t_gen": 1.5, "t_total": 88.7}
+--- k=13 X=1e9 (predict 0 miss, X*~3e10 >> 1e9) ---
+{"k": 13, "X": 1000000000, "D": 50000000000, "S_X": 467495, "S_D": 1867063, "primes": 50847534, "covered": 50847534, "miss": 0, "cov_pct": 100.0, "first_miss": null, "last_miss": null, "pairs_sum": 186980374331, "pairs_diff": 189774633041, "t_gen": 1.9, "t_total": 150.3}
+--- deep_check k9 X1e8 (first 40 + last 10) ---
+deep_check k9_X1e08: total_miss=156822 sampled=50
+  base=[2, 3, 5, 7, 11, 13, 17, 19, 23] |smooth|=1550012 D=1e+13 gen=0.0s
+Terminated
+--- deep_check k10 X1e8 (first 40 + last 10) ---
+deep_check k10_X1e08: total_miss=1005 sampled=50
+  base=[2, 3, 5, 7, 11, 13, 17, 19, 23, 29] |smooth|=2654015 D=1e+13 gen=0.0s
+Terminated
+=== LADDER2_DONE Sat Jul 18 19:10:26 CST 2026 ===
