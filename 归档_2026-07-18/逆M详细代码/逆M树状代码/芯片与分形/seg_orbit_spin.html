@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>SEG — 空间电荷云粒子模拟 · 全配置</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a14;color:#e0e0e0;font-family:system-ui;
+  display:flex;flex-direction:column;align-items:center;min-height:100vh}
+h1{font-size:1em;margin:4px 0;color:#b8c8ff}
+.topbar{display:flex;gap:8px;align-items:center;margin:3px 0;flex-wrap:wrap;justify-content:center}
+.topbar select{padding:5px 8px;border-radius:6px;border:1px solid #445;background:#11112a;color:#b8c8ff;font-size:11px;max-width:380px}
+.topbar button{padding:4px 10px;border:none;border-radius:6px;cursor:pointer;font-size:10px;color:#fff}
+.smoothbar{display:flex;align-items:center;gap:6px;margin:2px 0}
+.smoothbar .bar{width:320px;height:12px;background:#222;border-radius:6px;overflow:hidden}
+.smoothbar .bar .fill{height:100%;border-radius:6px;transition:width .3s,background .3s}
+.smoothbar span{font-size:0.65em;color:#8899bb;min-width:40px}
+.info{font-size:0.63em;color:#8899bb;margin:2px 0;max-width:720px;text-align:center;line-height:1.4}
+canvas{border:1px solid #1a2a44;border-radius:10px}
+.good{color:#1d9e75}.bad{color:#e24b4a}.warn{color:#ba7517}
+</style>
+</head>
+<body>
+<h1>SEG 空间电荷云 — 场致发射粒子模拟 · 21组配置</h1>
+<div class="topbar">
+<select id="cfgSelect" onchange="loadCfg(this.value)"></select>
+<button id="pauseBtn" onclick="paused=!paused">⏯</button>
+<button id="speedBtn" onclick="speed=speed>=3?0.5:speed+0.5;updSpeed()">⏩</button>
+<span id="spd" style="font-size:0.65em;color:#8899bb">1x</span>
+</div>
+<div class="smoothbar">
+<span>综合性价比得分</span>
+<div class="bar"><div class="fill" id="smoothFill"></div></div>
+<span id="smoothVal"></span>
+</div>
+<div class="info" id="statusBar"></div>
+<canvas id="c" width="740" height="740"></canvas>
+
+<script>
+const cv=document.getElementById('c'),x=cv.getContext('2d');
+const CX=370,CY=370;
+
+const RR_OUTER=300,RS_OUTER=255,RR_MID=202,RS_MID=158,RR_INNER=108,RS_INNER=55;
+const TR=10,TP=2.5;
+
+const ALL_CFGS=[
+  // ══════ 性价比榜 ══════
+  {id:'ce_fib',name:'💰91分 Fibonacci 34/21/13 97pt定子P22/26/38', sp:[7594,12286,19882], rp:[22,26,38], rolls:[34,21,13], st:'good'},
+  {id:'ce_mix',name:'💰91分 混合32/21/13 97pt定子P34/26/38', sp:[7594,12286,19882], rp:[34,26,38], rolls:[32,21,13], st:'good'},
+  {id:'ce_orig',name:'💰91分 原版Searl 32/22/12 97pt定子P34/34/34', sp:[7594,12286,19882], rp:[34,34,34], rolls:[32,22,12], st:'good'},
+  {id:'ce_mini',name:'💰90分 极简 20/14/8 97pt定子P22/26/38', sp:[7594,12286,19882], rp:[22,26,38], rolls:[20,14,8], st:'good'},
+  // ══════ 统一34极（批量制造）══════
+  {id:'u34_fib',name:'🏭统一34极 Fib 34/21/13 93分', sp:[7594,12286,19882], rp:[34,34,34], rolls:[34,21,13], st:'good'},
+  {id:'u34_mix',name:'🏭统一34极 混合32/21/13 93分★最优', sp:[7594,12286,19882], rp:[34,34,34], rolls:[32,21,13], st:'good'},
+  {id:'u34_ori',name:'🏭统一34极 原版32/22/12 93分', sp:[7594,12286,19882], rp:[34,34,34], rolls:[32,22,12], st:'good'},
+  // ══════ 性能榜 ══════
+  // ★★★★ 98分（大素数+高LCM, 比例≈1.55）★★★★
+  {id:'best98',name:'⚡92分 12458/19322/29966 P22/26/38', sp:[12458,19322,29966], rp:[22,26,38], rolls:[34,21,13], st:'good'},
+  {id:'best98b',name:'⚡92分 12442/19322/29966 P22/26/38', sp:[12442,19322,29966], rp:[22,26,38], rolls:[34,21,13], st:'good'},
+  // ★★★ 97分（交叉gcd=1 + 双φ）★★★
+  {id:'best87',name:'⚡91分 7594/12286/19882 P22/26/38', sp:[7594,12286,19882], rp:[22,26,38], rolls:[34,21,13], st:'good'},
+  {id:'best87b',name:'⚡91分 7606/12302/19898 P22/26/38', sp:[7606,12302,19898], rp:[22,26,38], rolls:[34,21,13], st:'good'},
+  {id:'best87c',name:'⚡91分 7586/12266/19846 P22/26/38', sp:[7586,12266,19846], rp:[22,26,38], rolls:[34,21,13], st:'good'},
+  // ★★ 94分（交叉gcd=2 + 双φ）★★
+  {id:'best84',name:'⚡91分 5042/8158/13198 P22/26/38', sp:[5042,8158,13198], rp:[22,26,38], rolls:[34,21,13], st:'good'},
+  {id:'best84b',name:'⚡91分 4874/7886/12758 P22/26/38', sp:[4874,7886,12758], rp:[22,26,38], rolls:[34,21,13], st:'good'},
+  {id:'best84c',name:'⚡91分 6362/10294/16658 P22/26/38', sp:[6362,10294,16658], rp:[22,26,38], rolls:[34,21,13], st:'good'},
+  // ★ 新φ 84分 ★
+  {id:'phi50', name:'⚡89分 φ base=50 3400/5500/8900 P22/26/34', sp:[3400,5500,8900], rp:[22,26,34], rolls:[34,21,13], st:'good'},
+  {id:'phi102',name:'⚡89分 φ base=102 6936/11220/18156 P22/26/38', sp:[6936,11220,18156], rp:[22,26,38], rolls:[34,21,13], st:'good'},
+  {id:'phi130',name:'⚡89分 φ base=130 8840/14300/23140 P22/34/38', sp:[8840,14300,23140], rp:[22,34,38], rolls:[34,21,13], st:'good'},
+  {id:'phi210',name:'⚡89分 φ base=210 14280/23100/37380 P22/26/34', sp:[14280,23100,37380], rp:[22,26,34], rolls:[34,21,13], st:'good'},
+  {id:'phi50b',name:'⚡89分 φ base=50 alt P26/34/38', sp:[3400,5500,8900], rp:[26,34,38], rolls:[34,21,13], st:'good'},
+  // ══════ 参照 ══════
+  {id:'new',  name:'📋88分 1680/2730/4410 P34', sp:[1680,2730,4410], rp:[34,34,34], rolls:[34,21,13], st:'good'},
+  {id:'orig', name:'📋79分 原版4410/11466/18522', sp:[4410,11466,18522], rp:[34,34,34], rolls:[34,21,13], st:'good'},
+  {id:'c01',  name:'📋1 4410/4830/5250 P34', sp:[4410,4830,5250], rp:[34,34,34], rolls:[34,21,13], st:'good'},
+  {id:'c03',  name:'📋3 4410/5130/5850 P34', sp:[4410,5130,5850], rp:[34,34,34], rolls:[34,21,13], st:'good'},
+  {id:'c04',  name:'📋4 3990/5130/6270 P34', sp:[3990,5130,6270], rp:[34,34,34], rolls:[34,21,13], st:'good'},
+  {id:'c05',  name:'📋5 4410/5250/6090 P34', sp:[4410,5250,6090], rp:[34,34,34], rolls:[34,21,13], st:'good'},
+  {id:'c06',  name:'📋6 4290/5250/6210 P34', sp:[4290,5250,6210], rp:[34,34,34], rolls:[34,21,13], st:'good'},
+  {id:'c07',  name:'📋7 3990/5250/6510 P34', sp:[3990,5250,6510], rp:[34,34,34], rolls:[34,21,13], st:'good'},
+  {id:'c10',  name:'📋10 4290/5850/7410 P34', sp:[4290,5850,7410], rp:[34,34,34], rolls:[34,21,13], st:'good'},
+  {id:'c11',  name:'📋11 4830/6090/7350 P34', sp:[4830,6090,7350], rp:[34,34,34], rolls:[34,21,13], st:'good'},
+  {id:'c13',  name:'📋13 4410/6090/7770 P34', sp:[4410,6090,7770], rp:[34,34,34], rolls:[34,21,13], st:'good'},
+  {id:'c02',  name:'✗57分 #2 4290/4950/5610', sp:[4290,4950,5610], rp:[34,34,34], rolls:[34,21,13], st:'fail'},
+  {id:'c08',  name:'✗57分 #8 4950/5610/6270', sp:[4950,5610,6270], rp:[34,34,34], rolls:[34,21,13], st:'fail'},
+  {id:'c09',  name:'✗57分 #9 4590/5610/6630', sp:[4590,5610,6630], rp:[34,34,34], rolls:[34,21,13], st:'fail'},
+  {id:'c12',  name:'✗57分 #12 4590/6090/7590', sp:[4590,6090,7590], rp:[34,34,34], rolls:[34,21,13], st:'fail'},
+];
+
+let cfg=ALL_CFGS[5],angle=0,speed=1,paused=false; // 默认🏭统一34极混合
+let particles=[];
+let curRollers=[34,21,13];
+
+// 滚轮调速 0.1× ~ 4×
+cv.addEventListener('wheel',e=>{e.preventDefault();speed=Math.max(0.1,Math.min(4,speed+(e.deltaY>0?-0.2:0.2)));updSpeed();});
+// 点击暂停
+cv.addEventListener('click',()=>{paused=!paused;});
+const ROLLERS=[34,21,13];
+
+function gcd(a,b){return b===0?Math.abs(a):gcd(b,a%b);}
+function lcm(a,b){return a*b/gcd(a,b);}
+
+function smoothScore(){
+  const sp=cfg.sp,rp=cfg.rp;
+  // 极对数
+  const pi=sp[0]/2, pm=sp[1]/2, po=sp[2]/2;
+  let s=0;
+  // 单环互质（满分66）
+  for(let i=0;i<3;i++){if(gcd(sp[i]/2,rp[i]/2)===1)s+=22;}
+  // 交叉gcd（满分9）——越低越好
+  const cg12=gcd(pi,pm), cg23=gcd(pm,po);
+  s+=18*(1/(cg12+1)+1/(cg23+1))/2;
+  // 滚筒差异化+制造统一性（满分14）
+  const diff=(rp[0]!==rp[1])+(rp[1]!==rp[2])+(rp[0]!==rp[2]);
+  s+=diff*2;  // 差异化降权（3个全不同=6分）
+  if(rp[0]===rp[1] && rp[1]===rp[2]) s+=8;  // 统一极数→1套充磁电路→省成本+8分
+  // ★ LCM奖励（越大→对齐周期越长→退磁越均匀→寿命越长）★
+  const totalLCM=lcm(lcm(pi,pm),po);
+  s+=Math.log10(totalLCM+1)*0.9;  // 素数LCM≈2e11→log≈11.3→加分≈10
+  return Math.min(100,Math.round(s));
+}
+
+function initParticles(){
+  particles=[];
+  const N=300;
+  // 从三个滚筒环表面的发射点初始化
+  const rings=[
+    {rMin:RR_INNER-TR,rMax:RR_INNER+TR, nRollers:curRollers[2], speed:1, rOrbit:RR_INNER},
+    {rMin:RR_MID-TR,rMax:RR_MID+TR, nRollers:curRollers[1], speed:2.5, rOrbit:RR_MID},
+    {rMin:RR_OUTER-TR,rMax:RR_OUTER+TR, nRollers:curRollers[0], speed:6.25, rOrbit:RR_OUTER},
+  ];
+  for(let i=0;i<N;i++){
+    const ri=Math.floor(Math.random()*3);
+    const ring=rings[ri];
+    const r=ring.rMin+Math.random()*(ring.rMax-ring.rMin);
+    const a=Math.random()*2*Math.PI;
+    // 径向速度（场致发射：向外加速）
+    const vr=0.02+Math.random()*0.08;
+    // 切向速度（被旋转磁场拖曳）
+    const vt=ring.speed*0.01*(0.5+Math.random());
+    particles.push({
+      r,a,vr,vt,
+      ring:ri,life:1,alpha:0.3+Math.random()*0.5,
+      emitA:a,emitR:r,
+    });
+  }
+}
+
+function updateParticles(){
+  const sc=smoothScore();
+  // 磁场粗糙度：gcd越差→B场空间变化越大→粒子被"凸起"聚集
+  const roughness=Math.max(0.005,(100-sc)/100*0.25);
+  // 径向扩散：gcd好→电场均匀→粒子均匀扩散；gcd差→电场局部增强→粒子局部加速
+  const radialUniformity=sc/100; // 1=均匀扩散, 0=△中等
+  
+  particles.forEach(p=>{
+    p.life-=0.001;
+    if(p.life<=0){
+      // 重生：从发射点重新初始化
+      const rings=[
+        {rMin:RR_INNER-TR,rMax:RR_INNER+TR},
+        {rMin:RR_MID-TR,rMax:RR_MID+TR},
+        {rMin:RR_OUTER-TR,rMax:RR_OUTER+TR},
+      ];
+      const ri=Math.floor(Math.random()*3);
+      p.ring=ri;
+      p.r=rings[ri].rMin+Math.random()*(rings[ri].rMax-rings[ri].rMin);
+      p.a=Math.random()*2*Math.PI;
+      p.vr=0.02+Math.random()*0.08;
+      p.vt=[1,2.5,6.25][ri]*0.01*(0.5+Math.random());
+      p.life=1;
+      p.alpha=0.3+Math.random()*0.5;
+      p.emitA=p.a; p.emitR=p.r;
+      return;
+    }
+    
+    // ★ 物理驱动的运动 ★
+    // 1. E场径向加速（场致发射→向外）
+    const rFrac=p.r/320;
+    const eForce=0.0008*(1+rFrac); // 外环电场更强
+    p.vr+=eForce*radialUniformity;
+    
+    // 2. B场切向偏转（磁极→洛伦兹力）
+    //    gcd好→B场空间平滑→偏转均匀；gcd差→B场有"齿"→周期性聚团
+    const bAngle=p.a*(p.ring+1)*3; // 每个环的磁极空间频率不同
+    const bForce=roughness*Math.sin(bAngle);
+    p.vt+=bForce*0.001;
+    
+    // 3. 摩擦力（空间电荷碰撞→扩散）
+    p.vr*=0.998;
+    p.vt*=0.998;
+    
+    // 更新位置
+    p.r+=p.vr;
+    p.a+=p.vt/p.r;
+    
+    // 边界：超出外环后重生
+    if(p.r>330){p.life=0;}
+    if(p.r<20){p.r=20;p.vr*=-0.5;}
+  });
+}
+
+function drawParticles(){
+  updateParticles();
+  
+  // 计算空间电荷密度分布（用于着色）
+  // 简单的径向binning
+  const bins=40;
+  const density=new Array(bins).fill(0);
+  particles.forEach(p=>{
+    const bi=Math.min(bins-1,Math.floor(p.r/330*bins));
+    if(bi>=0&&bi<bins)density[bi]++;
+  });
+  const maxD=max(density,1);
+  
+  particles.forEach(p=>{
+    if(p.life<=0)return;
+    const px=CX+p.r*Math.cos(p.a);
+    const py=CY+p.r*Math.sin(p.a);
+    const bi=Math.min(bins-1,Math.floor(p.r/330*bins));
+    const dNorm=density[bi]/maxD;
+    
+    // 颜色：密度低→暗黄，密度高→亮白
+    const r=Math.floor(200+55*dNorm);
+    const g=Math.floor(180+75*dNorm);
+    const bb=Math.floor(40+40*dNorm);
+    const alpha=p.alpha*(0.3+0.7*dNorm);
+    
+    x.beginPath();x.arc(px,py,1.8,0,2*Math.PI);
+    x.fillStyle=`rgba(${r},${g},${bb},${alpha})`;
+    x.fill();
+  });
+}
+
+function max(arr,d){let m=d;for(let v of arr){if(v>m)m=v;}return m;}
+
+// ★ 定子：红蓝弧段显示真实磁极密度 ★
+function drawStator(r,nP,label,color){
+  // 底环
+  x.beginPath();x.arc(CX,CY,r,0,2*Math.PI);
+  x.strokeStyle='rgba(255,255,255,0.1)';x.lineWidth=4;x.stroke();
+  
+  // 磁极弧段：每极画一小段彩色弧
+  const da=2*Math.PI/nP;
+  const visiblePoles=Math.min(nP,360); // 最多360段（每1°一段），保持视觉密度
+  const step=nP/visiblePoles;
+  for(let i=0;i<visiblePoles;i++){
+    const a=2*Math.PI*i/visiblePoles;
+    const isN=Math.floor(i*step)%2===0;
+    x.beginPath();
+    x.arc(CX,CY,r,a,a+da*step*0.85); // 85%占空比留缝
+    x.strokeStyle=isN?'rgba(255,80,80,0.7)':'rgba(80,130,255,0.7)';
+    x.lineWidth=4;x.stroke();
+  }
+  
+  // 标签
+  x.fillStyle=color;x.font='bold 7px system-ui';x.textAlign='center';
+  x.fillText(label+' '+nP.toLocaleString()+'极',CX,CY-r-8);
+}
+
+// ★ 滚筒：显示实际磁极数（22/26/34/38个标记）★
+function drawRollers(rOrbit,nR,orbitA,pPerRoller,color,label){
+  // 轨道线
+  x.beginPath();x.arc(CX,CY,rOrbit,0,2*Math.PI);
+  x.setLineDash([3,5]);x.strokeStyle=color+'60';x.lineWidth=1;x.stroke();x.setLineDash([]);
+  
+  for(let j=0;j<nR;j++){
+    const th=orbitA+2*Math.PI*j/nR;
+    const rcx=CX+rOrbit*Math.cos(th),rcy=CY+rOrbit*Math.sin(th);
+    
+    // 滚筒底
+    x.beginPath();x.arc(rcx,rcy,TR,0,2*Math.PI);
+    x.fillStyle=color+'18';x.fill();
+    x.beginPath();x.arc(rcx,rcy,TR,0,2*Math.PI);
+    x.strokeStyle=color;x.lineWidth=2;x.stroke();
+    
+    // ★ 真实磁极数：红蓝方点交替 ★
+    const spA=th*(rOrbit/TR); // 自转角度
+    for(let k=0;k<pPerRoller;k++){
+      const pa=spA+2*Math.PI*k/pPerRoller;
+      const px=rcx+(TR-3)*Math.cos(pa), py=rcy+(TR-3)*Math.sin(pa);
+      const sz=pPerRoller>30?1.5:2.5;
+      x.fillStyle=k%2===0?'#ff5050':'#5080ff';
+      x.fillRect(px-sz/2,py-sz/2,sz,sz);
+    }
+    
+    // 自转白点（一个即可，太多会乱）
+    const mx=rcx+(TR-1)*Math.cos(spA),my=rcy+(TR-1)*Math.sin(spA);
+    x.beginPath();x.arc(mx,my,2.5,0,2*Math.PI);
+    x.fillStyle='#fff';x.fill();
+  }
+}
+
+function buildDropdown(){
+  const sel=document.getElementById('cfgSelect');
+  ALL_CFGS.forEach((c,i)=>{
+    const o=document.createElement('option');o.value=i;o.textContent=c.name;
+    if(c.st==='fail')o.style.color='#e24b4a';
+    else if(c.id.startsWith('phi'))o.style.color='#1d9e75';
+    sel.appendChild(o);
+  });
+  sel.value=1;
+}
+
+function loadCfg(idx){cfg=ALL_CFGS[idx];curRollers=cfg.rolls||[34,21,13];initParticles();updateStatus();}
+function updSpeed(){document.getElementById('spd').textContent=speed+'x';}
+
+function updateStatus(){
+  const sp=cfg.sp,rp=cfg.rp,sc=smoothScore();
+  const g1=gcd(sp[0]/2,rp[0]/2),g2=gcd(sp[1]/2,rp[1]/2),g3=gcd(sp[2]/2,rp[2]/2);
+  const all1=g1===1&&g2===1&&g3===1;
+  document.getElementById('statusBar').innerHTML=
+    `<span class="${all1?'good':'bad'}">${all1?'✓ 全互质':'✗ 公约数'}</span> | `+
+    `内${sp[0]}/${rp[0]}极 中${sp[1]}/${rp[1]}极 外${sp[2]}/${rp[2]}极 | `+
+    `外/中=${(sp[2]/sp[1]).toFixed(3)} 中/内=${(sp[1]/sp[0]).toFixed(3)} | `+
+    `外6.25× 中2.5× 内1×`;
+  const fill=document.getElementById('smoothFill');
+  fill.style.width=sc+'%';
+  fill.style.background=sc>=80?'#1d9e75':sc>=50?'#ba7517':'#e24b4a';
+  document.getElementById('smoothVal').textContent=sc+'分';
+}
+
+function draw(){
+  x.clearRect(0,0,740,740);
+  x.fillStyle='#0a0a14';x.fillRect(0,0,740,740);
+  
+  const rp=cfg.rp,sp=cfg.sp;
+  const ai=angle,am=angle*2.5,ao=angle*6.25;
+  
+  // 粒子云（最底层，暗色）
+  drawParticles();
+  
+  // 结构环
+  drawRollers(RR_OUTER,curRollers[0],ao,rp[2],'#1d9e75','外');
+  drawStator(RS_OUTER,sp[2],'外定子','#c90');
+  drawRollers(RR_MID,curRollers[1],am,rp[1],'#378add','中');
+  drawStator(RS_MID,sp[1],'中定子','#7c3');
+  drawRollers(RR_INNER,curRollers[2],ai,rp[0],'#ba7517','内');
+  drawStator(RS_INNER,sp[0],'内定子','#39c');
+  
+  const sc=smoothScore();
+  x.fillStyle='#b8c8ff';x.font='bold 9px system-ui';x.textAlign='center';
+  x.fillText((cfg.name.split('★ ')[1]||cfg.name).substring(0,50),CX,CY-18);
+  x.fillStyle=sc>=80?'#1d9e75':sc>=50?'#ba7517':'#e24b4a';
+  x.fillText(`综合性价比得分 ${sc}分 ${sc>=80?'✦⚡高分':sc>=50?'△△中等':'✗✗低分'}`,CX,CY-2);
+  x.fillStyle='#556';x.font='7px system-ui';
+  x.fillText('粒子=场致发射电子云 | 红蓝弧段=真实磁极密度 | 滚筒方点=精确极数 | 外6.25×中2.5×内1×',CX,CY+16);
+  
+  requestAnimationFrame(draw);
+}
+
+setInterval(()=>{if(!paused)angle+=0.005*speed;},16);
+buildDropdown();initParticles();updateStatus();updSpeed();draw();
+</script>
+</body>
+</html>
