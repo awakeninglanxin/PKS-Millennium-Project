@@ -1,0 +1,92 @@
+[
+  {
+    "rank": 1,
+    "method": "G1_bulb_center",
+    "hit_rate": 100.0
+  },
+  {
+    "rank": 2,
+    "method": "G2_inverse_bulb",
+    "hit_rate": 99.4
+  },
+  {
+    "rank": 3,
+    "method": "E2_delta",
+    "hit_rate": 7.6
+  },
+  {
+    "rank": 4,
+    "method": "A1_reciprocal",
+    "hit_rate": 0.0
+  },
+  {
+    "rank": 5,
+    "method": "A2_inv_log",
+    "hit_rate": 0.0
+  },
+  {
+    "rank": 6,
+    "method": "A3_log",
+    "hit_rate": 0.0
+  },
+  {
+    "rank": 7,
+    "method": "A4_ln",
+    "hit_rate": 0.0
+  },
+  {
+    "rank": 8,
+    "method": "B1_phase",
+    "hit_rate": 0.0
+  },
+  {
+    "rank": 9,
+    "method": "B2_log_spiral",
+    "hit_rate": 0.0
+  },
+  {
+    "rank": 10,
+    "method": "B3_decay_spiral",
+    "hit_rate": 0.0
+  },
+  {
+    "rank": 11,
+    "method": "C1_golden_decay",
+    "hit_rate": 0.0
+  },
+  {
+    "rank": 12,
+    "method": "C2_golden_spiral",
+    "hit_rate": 0.0
+  },
+  {
+    "rank": 13,
+    "method": "D1_direct",
+    "hit_rate": 0.0
+  },
+  {
+    "rank": 14,
+    "method": "D2_normalized",
+    "hit_rate": 0.0
+  },
+  {
+    "rank": 15,
+    "method": "D3_scaled",
+    "hit_rate": 0.0
+  },
+  {
+    "rank": 16,
+    "method": "E1_ratio",
+    "hit_rate": 0.0
+  },
+  {
+    "rank": 17,
+    "method": "F1_wavelet",
+    "hit_rate": 0.0
+  },
+  {
+    "rank": 18,
+    "method": "F2_box_count",
+    "hit_rate": 0.0
+  }
+]
