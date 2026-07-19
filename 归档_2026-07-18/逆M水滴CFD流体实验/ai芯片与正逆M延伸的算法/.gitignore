@@ -1,0 +1,6 @@
+*.png
+*.jpg
+*.gif
+Farey_版图数据集/
+__pycache__/
+*.pyc
