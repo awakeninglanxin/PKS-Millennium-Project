@@ -1,0 +1,502 @@
+[
+  {
+    "id": 0,
+    "n_anchors": 9,
+    "file": "farey_chiplet_0000.png"
+  },
+  {
+    "id": 1,
+    "n_anchors": 9,
+    "file": "farey_chiplet_0001.png"
+  },
+  {
+    "id": 2,
+    "n_anchors": 11,
+    "file": "farey_chiplet_0002.png"
+  },
+  {
+    "id": 3,
+    "n_anchors": 8,
+    "file": "farey_chiplet_0003.png"
+  },
+  {
+    "id": 4,
+    "n_anchors": 8,
+    "file": "farey_chiplet_0004.png"
+  },
+  {
+    "id": 5,
+    "n_anchors": 6,
+    "file": "farey_chiplet_0005.png"
+  },
+  {
+    "id": 6,
+    "n_anchors": 5,
+    "file": "farey_chiplet_0006.png"
+  },
+  {
+    "id": 7,
+    "n_anchors": 8,
+    "file": "farey_chiplet_0007.png"
+  },
+  {
+    "id": 8,
+    "n_anchors": 4,
+    "file": "farey_chiplet_0008.png"
+  },
+  {
+    "id": 9,
+    "n_anchors": 6,
+    "file": "farey_chiplet_0009.png"
+  },
+  {
+    "id": 10,
+    "n_anchors": 8,
+    "file": "farey_chiplet_0010.png"
+  },
+  {
+    "id": 11,
+    "n_anchors": 13,
+    "file": "farey_chiplet_0011.png"
+  },
+  {
+    "id": 12,
+    "n_anchors": 3,
+    "file": "farey_chiplet_0012.png"
+  },
+  {
+    "id": 13,
+    "n_anchors": 5,
+    "file": "farey_chiplet_0013.png"
+  },
+  {
+    "id": 14,
+    "n_anchors": 9,
+    "file": "farey_chiplet_0014.png"
+  },
+  {
+    "id": 15,
+    "n_anchors": 13,
+    "file": "farey_chiplet_0015.png"
+  },
+  {
+    "id": 16,
+    "n_anchors": 3,
+    "file": "farey_chiplet_0016.png"
+  },
+  {
+    "id": 17,
+    "n_anchors": 10,
+    "file": "farey_chiplet_0017.png"
+  },
+  {
+    "id": 18,
+    "n_anchors": 6,
+    "file": "farey_chiplet_0018.png"
+  },
+  {
+    "id": 19,
+    "n_anchors": 4,
+    "file": "farey_chiplet_0019.png"
+  },
+  {
+    "id": 20,
+    "n_anchors": 5,
+    "file": "farey_chiplet_0020.png"
+  },
+  {
+    "id": 21,
+    "n_anchors": 3,
+    "file": "farey_chiplet_0021.png"
+  },
+  {
+    "id": 22,
+    "n_anchors": 9,
+    "file": "farey_chiplet_0022.png"
+  },
+  {
+    "id": 23,
+    "n_anchors": 12,
+    "file": "farey_chiplet_0023.png"
+  },
+  {
+    "id": 24,
+    "n_anchors": 9,
+    "file": "farey_chiplet_0024.png"
+  },
+  {
+    "id": 25,
+    "n_anchors": 3,
+    "file": "farey_chiplet_0025.png"
+  },
+  {
+    "id": 26,
+    "n_anchors": 9,
+    "file": "farey_chiplet_0026.png"
+  },
+  {
+    "id": 27,
+    "n_anchors": 9,
+    "file": "farey_chiplet_0027.png"
+  },
+  {
+    "id": 28,
+    "n_anchors": 3,
+    "file": "farey_chiplet_0028.png"
+  },
+  {
+    "id": 29,
+    "n_anchors": 9,
+    "file": "farey_chiplet_0029.png"
+  },
+  {
+    "id": 30,
+    "n_anchors": 11,
+    "file": "farey_chiplet_0030.png"
+  },
+  {
+    "id": 31,
+    "n_anchors": 9,
+    "file": "farey_chiplet_0031.png"
+  },
+  {
+    "id": 32,
+    "n_anchors": 10,
+    "file": "farey_chiplet_0032.png"
+  },
+  {
+    "id": 33,
+    "n_anchors": 8,
+    "file": "farey_chiplet_0033.png"
+  },
+  {
+    "id": 34,
+    "n_anchors": 13,
+    "file": "farey_chiplet_0034.png"
+  },
+  {
+    "id": 35,
+    "n_anchors": 6,
+    "file": "farey_chiplet_0035.png"
+  },
+  {
+    "id": 36,
+    "n_anchors": 12,
+    "file": "farey_chiplet_0036.png"
+  },
+  {
+    "id": 37,
+    "n_anchors": 5,
+    "file": "farey_chiplet_0037.png"
+  },
+  {
+    "id": 38,
+    "n_anchors": 9,
+    "file": "farey_chiplet_0038.png"
+  },
+  {
+    "id": 39,
+    "n_anchors": 5,
+    "file": "farey_chiplet_0039.png"
+  },
+  {
+    "id": 40,
+    "n_anchors": 11,
+    "file": "farey_chiplet_0040.png"
+  },
+  {
+    "id": 41,
+    "n_anchors": 12,
+    "file": "farey_chiplet_0041.png"
+  },
+  {
+    "id": 42,
+    "n_anchors": 5,
+    "file": "farey_chiplet_0042.png"
+  },
+  {
+    "id": 43,
+    "n_anchors": 10,
+    "file": "farey_chiplet_0043.png"
+  },
+  {
+    "id": 44,
+    "n_anchors": 5,
+    "file": "farey_chiplet_0044.png"
+  },
+  {
+    "id": 45,
+    "n_anchors": 7,
+    "file": "farey_chiplet_0045.png"
+  },
+  {
+    "id": 46,
+    "n_anchors": 8,
+    "file": "farey_chiplet_0046.png"
+  },
+  {
+    "id": 47,
+    "n_anchors": 7,
+    "file": "farey_chiplet_0047.png"
+  },
+  {
+    "id": 48,
+    "n_anchors": 9,
+    "file": "farey_chiplet_0048.png"
+  },
+  {
+    "id": 49,
+    "n_anchors": 3,
+    "file": "farey_chiplet_0049.png"
+  },
+  {
+    "id": 50,
+    "n_anchors": 4,
+    "file": "farey_chiplet_0050.png"
+  },
+  {
+    "id": 51,
+    "n_anchors": 7,
+    "file": "farey_chiplet_0051.png"
+  },
+  {
+    "id": 52,
+    "n_anchors": 9,
+    "file": "farey_chiplet_0052.png"
+  },
+  {
+    "id": 53,
+    "n_anchors": 11,
+    "file": "farey_chiplet_0053.png"
+  },
+  {
+    "id": 54,
+    "n_anchors": 10,
+    "file": "farey_chiplet_0054.png"
+  },
+  {
+    "id": 55,
+    "n_anchors": 10,
+    "file": "farey_chiplet_0055.png"
+  },
+  {
+    "id": 56,
+    "n_anchors": 13,
+    "file": "farey_chiplet_0056.png"
+  },
+  {
+    "id": 57,
+    "n_anchors": 4,
+    "file": "farey_chiplet_0057.png"
+  },
+  {
+    "id": 58,
+    "n_anchors": 9,
+    "file": "farey_chiplet_0058.png"
+  },
+  {
+    "id": 59,
+    "n_anchors": 12,
+    "file": "farey_chiplet_0059.png"
+  },
+  {
+    "id": 60,
+    "n_anchors": 5,
+    "file": "farey_chiplet_0060.png"
+  },
+  {
+    "id": 61,
+    "n_anchors": 14,
+    "file": "farey_chiplet_0061.png"
+  },
+  {
+    "id": 62,
+    "n_anchors": 8,
+    "file": "farey_chiplet_0062.png"
+  },
+  {
+    "id": 63,
+    "n_anchors": 14,
+    "file": "farey_chiplet_0063.png"
+  },
+  {
+    "id": 64,
+    "n_anchors": 8,
+    "file": "farey_chiplet_0064.png"
+  },
+  {
+    "id": 65,
+    "n_anchors": 4,
+    "file": "farey_chiplet_0065.png"
+  },
+  {
+    "id": 66,
+    "n_anchors": 14,
+    "file": "farey_chiplet_0066.png"
+  },
+  {
+    "id": 67,
+    "n_anchors": 12,
+    "file": "farey_chiplet_0067.png"
+  },
+  {
+    "id": 68,
+    "n_anchors": 9,
+    "file": "farey_chiplet_0068.png"
+  },
+  {
+    "id": 69,
+    "n_anchors": 7,
+    "file": "farey_chiplet_0069.png"
+  },
+  {
+    "id": 70,
+    "n_anchors": 3,
+    "file": "farey_chiplet_0070.png"
+  },
+  {
+    "id": 71,
+    "n_anchors": 13,
+    "file": "farey_chiplet_0071.png"
+  },
+  {
+    "id": 72,
+    "n_anchors": 6,
+    "file": "farey_chiplet_0072.png"
+  },
+  {
+    "id": 73,
+    "n_anchors": 5,
+    "file": "farey_chiplet_0073.png"
+  },
+  {
+    "id": 74,
+    "n_anchors": 14,
+    "file": "farey_chiplet_0074.png"
+  },
+  {
+    "id": 75,
+    "n_anchors": 6,
+    "file": "farey_chiplet_0075.png"
+  },
+  {
+    "id": 76,
+    "n_anchors": 11,
+    "file": "farey_chiplet_0076.png"
+  },
+  {
+    "id": 77,
+    "n_anchors": 10,
+    "file": "farey_chiplet_0077.png"
+  },
+  {
+    "id": 78,
+    "n_anchors": 9,
+    "file": "farey_chiplet_0078.png"
+  },
+  {
+    "id": 79,
+    "n_anchors": 4,
+    "file": "farey_chiplet_0079.png"
+  },
+  {
+    "id": 80,
+    "n_anchors": 7,
+    "file": "farey_chiplet_0080.png"
+  },
+  {
+    "id": 81,
+    "n_anchors": 3,
+    "file": "farey_chiplet_0081.png"
+  },
+  {
+    "id": 82,
+    "n_anchors": 5,
+    "file": "farey_chiplet_0082.png"
+  },
+  {
+    "id": 83,
+    "n_anchors": 10,
+    "file": "farey_chiplet_0083.png"
+  },
+  {
+    "id": 84,
+    "n_anchors": 9,
+    "file": "farey_chiplet_0084.png"
+  },
+  {
+    "id": 85,
+    "n_anchors": 14,
+    "file": "farey_chiplet_0085.png"
+  },
+  {
+    "id": 86,
+    "n_anchors": 5,
+    "file": "farey_chiplet_0086.png"
+  },
+  {
+    "id": 87,
+    "n_anchors": 4,
+    "file": "farey_chiplet_0087.png"
+  },
+  {
+    "id": 88,
+    "n_anchors": 8,
+    "file": "farey_chiplet_0088.png"
+  },
+  {
+    "id": 89,
+    "n_anchors": 9,
+    "file": "farey_chiplet_0089.png"
+  },
+  {
+    "id": 90,
+    "n_anchors": 12,
+    "file": "farey_chiplet_0090.png"
+  },
+  {
+    "id": 91,
+    "n_anchors": 13,
+    "file": "farey_chiplet_0091.png"
+  },
+  {
+    "id": 92,
+    "n_anchors": 7,
+    "file": "farey_chiplet_0092.png"
+  },
+  {
+    "id": 93,
+    "n_anchors": 8,
+    "file": "farey_chiplet_0093.png"
+  },
+  {
+    "id": 94,
+    "n_anchors": 6,
+    "file": "farey_chiplet_0094.png"
+  },
+  {
+    "id": 95,
+    "n_anchors": 6,
+    "file": "farey_chiplet_0095.png"
+  },
+  {
+    "id": 96,
+    "n_anchors": 5,
+    "file": "farey_chiplet_0096.png"
+  },
+  {
+    "id": 97,
+    "n_anchors": 5,
+    "file": "farey_chiplet_0097.png"
+  },
+  {
+    "id": 98,
+    "n_anchors": 6,
+    "file": "farey_chiplet_0098.png"
+  },
+  {
+    "id": 99,
+    "n_anchors": 3,
+    "file": "farey_chiplet_0099.png"
+  }
+]
