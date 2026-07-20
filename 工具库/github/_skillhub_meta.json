@@ -1,0 +1,11 @@
+{
+  "name": "github",
+  "installedAt": 1776517142130,
+  "source": "marketplace",
+  "iconSource": "https://openplatform-cdn.codebuddy.cn/public/skills/icons/github.svg",
+  "version": "1.0.0",
+  "skillId": "skill_2053082027691548672",
+  "iconLocalPath": "C:\\Users\\ThinkPad\\.workbuddy\\skills\\github\\_icon.svg",
+  "iconDownloadedFrom": "https://openplatform-cdn.codebuddy.cn/public/skills/icons/github.svg",
+  "skillName": "github"
+}

@@ -1,0 +1,26 @@
+{
+  "name": "js-file-splitter",
+  "version": "1.0.0",
+  "description": "智能JavaScript/TypeScript文件拆分器",
+  "main": "scripts/smart_split.js",
+  "scripts": {
+    "split": "node scripts/smart_split.js"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "splitter",
+    "modularization"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "optionalDependencies": {
+    "@babel/parser": "^7.x",
+    "@babel/traverse": "^7.x",
+    "@babel/generator": "^7.x"
+  },
+  "description_optional": "Babel依赖是可选的，用于更精确的AST解析。不安装时使用正则表达式解析。"
+}
