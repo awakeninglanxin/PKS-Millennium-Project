@@ -1,0 +1,149 @@
+============================================================
+SUPER K-SHAPE: Multi-dataset Ablation Study
+============================================================
+
+============================================================
+DATASET: sine_phases
+============================================================
+  [init] KMeans random init
+  [iter   0] intra=105.1146 anti=0.0000 total=105.1146
+  Converged at iteration 5
+  Total time: 2.4s (300 series, 3 clusters)
+        k-Shape baseline: ARI=1.0000 NMI=1.0000
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(94), np.int32(1): np.int64(73), np.int32(2): np.int64(133)}
+  [iter   0] intra=23.0187 anti=0.0000 total=23.0187
+  Converged at iteration 1
+  Total time: 0.6s (300 series, 3 clusters)
+       + Sharkovsky init: ARI=1.0000 NMI=1.0000
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(94), np.int32(1): np.int64(73), np.int32(2): np.int64(133)}
+  [iter   0] intra=52.5679 anti=0.0000 total=52.5679
+  Converged at iteration 1
+  Total time: 65.6s (300 series, 3 clusters)
+        + Farey distance: ARI=1.0000 NMI=1.0000
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(94), np.int32(1): np.int64(73), np.int32(2): np.int64(133)}
+  [iter   0] intra=23.0187 anti=-0.0000 total=23.0187
+  Converged at iteration 1
+  Total time: 0.6s (300 series, 3 clusters)
+            + Anti-magic: ARI=1.0000 NMI=1.0000
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(94), np.int32(1): np.int64(73), np.int32(2): np.int64(133)}
+  [init] + Magic factorization fused: {np.int64(0): np.int64(200), np.int64(1): np.int64(76), np.int64(2): np.int64(24)}
+  [iter   0] intra=23.0187 anti=0.0000 total=23.0187
+  Converged at iteration 1
+  Total time: 0.7s (300 series, 3 clusters)
+          + Magic decomp: ARI=1.0000 NMI=1.0000
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(94), np.int32(1): np.int64(73), np.int32(2): np.int64(133)}
+  [init] + Magic factorization fused: {np.int64(0): np.int64(200), np.int64(1): np.int64(76), np.int64(2): np.int64(24)}
+  [iter   0] intra=52.5679 anti=-0.0000 total=52.5679
+  Converged at iteration 1
+  Total time: 47.4s (300 series, 3 clusters)
+       Super k-Shape ALL: ARI=1.0000 NMI=1.0000
+
+============================================================
+DATASET: trend_mix
+============================================================
+  [init] KMeans random init
+  [iter   0] intra=62.3547 anti=0.0000 total=62.3547
+  Converged at iteration 1
+  Total time: 0.6s (300 series, 3 clusters)
+        k-Shape baseline: ARI=0.5698 NMI=0.7337
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(100), np.int32(1): np.int64(100), np.int32(2): np.int64(100)}
+  [iter   0] intra=62.3547 anti=0.0000 total=62.3547
+  Converged at iteration 1
+  Total time: 0.6s (300 series, 3 clusters)
+       + Sharkovsky init: ARI=0.5698 NMI=0.7337
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(100), np.int32(1): np.int64(100), np.int32(2): np.int64(100)}
+  [iter   0] intra=123.7684 anti=0.0000 total=123.7684
+  [iter  10] intra=123.7098 anti=0.0000 total=123.7098
+  [iter  20] intra=124.1337 anti=0.0000 total=124.1337
+  [iter  30] intra=123.7684 anti=0.0000 total=123.7684
+  [iter  40] intra=123.7098 anti=0.0000 total=123.7098
+  [iter  49] intra=123.7098 anti=0.0000 total=123.7098
+  Total time: 118.0s (300 series, 3 clusters)
+        + Farey distance: ARI=0.5576 NMI=0.7104
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(100), np.int32(1): np.int64(100), np.int32(2): np.int64(100)}
+  [iter   0] intra=62.3483 anti=-0.0000 total=62.3483
+  [iter  10] intra=62.3584 anti=-0.0000 total=62.3584
+  [iter  20] intra=62.3571 anti=-0.0000 total=62.3571
+  [iter  30] intra=62.2717 anti=-0.0000 total=62.2717
+  [iter  40] intra=59.2715 anti=-0.0265 total=59.2689
+  [iter  49] intra=59.2716 anti=-0.0265 total=59.2689
+  Total time: 15.0s (300 series, 3 clusters)
+            + Anti-magic: ARI=0.0014 NMI=0.0374
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(100), np.int32(1): np.int64(100), np.int32(2): np.int64(100)}
+  [init] + Magic factorization fused: {np.int64(0): np.int64(292), np.int64(2): np.int64(8)}
+  [iter   0] intra=61.3959 anti=0.0000 total=61.3959
+  [iter  10] intra=62.3547 anti=0.0000 total=62.3547
+  [iter  20] intra=59.2722 anti=0.0000 total=59.2722
+  [iter  30] intra=62.3547 anti=0.0000 total=62.3547
+  [iter  40] intra=59.2722 anti=0.0000 total=59.2722
+  [iter  49] intra=61.8927 anti=0.0000 total=61.8927
+  Total time: 16.5s (300 series, 3 clusters)
+          + Magic decomp: ARI=0.9900 NMI=0.9830
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(100), np.int32(1): np.int64(100), np.int32(2): np.int64(100)}
+  [init] + Magic factorization fused: {np.int64(0): np.int64(292), np.int64(2): np.int64(8)}
+  [iter   0] intra=123.7669 anti=-0.0000 total=123.7669
+  [iter  10] intra=124.1333 anti=-0.0265 total=124.1306
+  [iter  20] intra=123.7688 anti=-0.0000 total=123.7688
+  [iter  30] intra=123.7104 anti=-0.0000 total=123.7104
+  [iter  40] intra=124.1334 anti=-0.0265 total=124.1307
+  [iter  49] intra=124.1334 anti=-0.0265 total=124.1308
+  Total time: 157.0s (300 series, 3 clusters)
+       Super k-Shape ALL: ARI=0.0014 NMI=0.0374
+
+============================================================
+DATASET: step_noise
+============================================================
+  [init] KMeans random init
+  [iter   0] intra=34.7633 anti=0.0000 total=34.7633
+  Converged at iteration 1
+  Total time: 0.5s (300 series, 3 clusters)
+        k-Shape baseline: ARI=1.0000 NMI=1.0000
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(97), np.int32(1): np.int64(90), np.int32(2): np.int64(113)}
+  [iter   0] intra=34.7633 anti=0.0000 total=34.7633
+  Converged at iteration 1
+  Total time: 0.5s (300 series, 3 clusters)
+       + Sharkovsky init: ARI=1.0000 NMI=1.0000
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(97), np.int32(1): np.int64(90), np.int32(2): np.int64(113)}
+  [iter   0] intra=52.5893 anti=0.0000 total=52.5893
+  Converged at iteration 3
+  Total time: 88.0s (300 series, 3 clusters)
+        + Farey distance: ARI=1.0000 NMI=1.0000
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(97), np.int32(1): np.int64(90), np.int32(2): np.int64(113)}
+  [iter   0] intra=34.8205 anti=-0.0023 total=34.8203
+  Converged at iteration 1
+  Total time: 0.5s (300 series, 3 clusters)
+            + Anti-magic: ARI=1.0000 NMI=1.0000
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(97), np.int32(1): np.int64(90), np.int32(2): np.int64(113)}
+  [init] + Magic factorization fused: {np.int64(0): np.int64(188), np.int64(1): np.int64(93), np.int64(2): np.int64(19)}
+  [iter   0] intra=57.5503 anti=0.0000 total=57.5503
+  [iter  10] intra=58.0008 anti=0.0000 total=58.0008
+  [iter  20] intra=58.0008 anti=0.0000 total=58.0008
+  [iter  30] intra=58.0008 anti=0.0000 total=58.0008
+  [iter  40] intra=58.0008 anti=0.0000 total=58.0008
+  [iter  49] intra=81.5790 anti=0.0000 total=81.5790
+  Total time: 15.5s (300 series, 3 clusters)
+          + Magic decomp: ARI=0.5698 NMI=0.7337
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(97), np.int32(1): np.int64(90), np.int32(2): np.int64(113)}
+  [init] + Magic factorization fused: {np.int64(0): np.int64(188), np.int64(1): np.int64(93), np.int64(2): np.int64(19)}
+  [iter   0] intra=87.2358 anti=-0.0061 total=87.2352
+  Converged at iteration 3
+  Total time: 95.3s (300 series, 3 clusters)
+       Super k-Shape ALL: ARI=1.0000 NMI=1.0000
+
+============================================================
+DATASET: basic
+============================================================
+  [init] KMeans random init
+  [iter   0] intra=59.6319 anti=0.0000 total=59.6319
+  Converged at iteration 4
+  Total time: 1.2s (300 series, 3 clusters)
+        k-Shape baseline: ARI=0.5698 NMI=0.7337
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(105), np.int32(1): np.int64(101), np.int32(2): np.int64(94)}
+  [iter   0] intra=142.6959 anti=0.0000 total=142.6959
+  Converged at iteration 4
+  Total time: 1.3s (300 series, 3 clusters)
+       + Sharkovsky init: ARI=0.5698 NMI=0.7337
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(105), np.int32(1): np.int64(101), np.int32(2): np.int64(94)}
+  [iter   0] intra=184.3375 anti=0.0000 total=184.3375
+  [iter  10] intra=109.6784 anti=0.0000 total=109.6784
+  [iter  20] intra=108.5591 anti=0.0000 total=108.5591

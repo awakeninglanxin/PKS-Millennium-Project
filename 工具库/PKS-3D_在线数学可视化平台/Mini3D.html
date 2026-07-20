@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mini3D — Three.js 数学可视化 (CalcPlot3D 兼容渲染)</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#f5f5f5;font-family:system-ui;overflow:hidden}
+  canvas{display:block}
+  #ui{position:fixed;top:12px;left:12px;z-index:10;
+      background:rgba(255,255,255,.94);color:#333;padding:12px 16px;
+      border-radius:10px;font-size:13px;max-width:320px;border:1px solid #ddd;box-shadow:0 2px 12px rgba(0,0,0,.1)}
+  #ui h3{margin:0 0 8px;font-size:15px;color:#222}
+  #ui label{display:block;margin:4px 0;cursor:pointer}
+  #ui input[type=range]{width:100%}
+  #ui select,#ui button{width:100%;margin:4px 0;padding:4px 8px;
+      background:#fff;color:#333;border:1px solid #ccc;border-radius:4px;cursor:pointer}
+  #ui button{background:#e8f5e9;color:#2e7d32}
+  #info{position:fixed;bottom:12px;left:12px;z-index:10;
+      color:#999;font-size:11px}
+</style>
+</head>
+<body>
+
+<div id="ui">
+  <h3>Mini3D 数学查看器</h3>
+  <label>曲面: z = </label>
+  <input id="eqFn" value="sin(x)*cos(y)" style="width:100%;padding:4px;background:#fff;color:#333;border:1px solid#ccc">
+  
+  <label>着色模式: <select id="format">
+    <option value="normal">normal (高度渐变)</option>
+    <option value="constant">constant (纯色)</option>
+    <option value="reversed">reversed (反向)</option>
+  </select></label>
+
+  <label>空间曲线着色: <select id="ccol">
+    <option value="false">🌈 彩虹 (constcol=false)</option>
+    <option value="true">纯色 (constcol=true)</option>
+  </select></label>
+
+  <label>网格密度: <span id="gridVal">40</span></label>
+  <input type="range" id="grid" min="10" max="100" value="40">
+
+  <label>透明度: <span id="alphaVal">1.0</span></label>
+  <input type="range" id="alpha" min="10" max="100" value="100">
+
+  <button onclick="updateScene()">🔄 重新渲染</button>
+  <button onclick="toggleCurve()" style="background:#4a2a6b">📐 切换曲线</button>
+</div>
+<div id="info">🖱 左键旋转 | 右键平移 | 滚轮缩放 | 🔗 URL compat with CalcPlot3D</div>
+
+<script type="importmap">
+{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js",
+"addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'addons/controls/OrbitControls.js';
+
+// ================ 场景初始化 ================
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xfafafa);
+scene.fog = new THREE.Fog(0xfafafa, 8, 30);
+
+const camera = new THREE.PerspectiveCamera(50, innerWidth/innerHeight, 0.2, 100);
+camera.position.set(4, 3.5, 5);
+camera.lookAt(0, 0, 0);
+
+const renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.shadowMap.enabled = true;
+document.body.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.target.set(0, 0, 0);
+controls.minDistance = 1.5;
+controls.maxDistance = 20;
+
+// 光照
+scene.add(new THREE.AmbientLight(0x334466, 2));
+const dl = new THREE.DirectionalLight(0xffeedd, 4);
+dl.position.set(5, 10, 7);
+scene.add(dl);
+const dl2 = new THREE.DirectionalLight(0x8899cc, 2);
+dl2.position.set(-5, -2, -3);
+scene.add(dl2);
+
+// 网格地面参考
+const grid = new THREE.GridHelper(8, 20, 0xcccccc, 0xe0e0e0);
+grid.position.y = -3;
+scene.add(grid);
+
+// 坐标轴
+const axLen = 3.5;
+const ax = (dir, col, len) => {
+  const a = new THREE.ArrowHelper(dir, new THREE.Vector3(0,0,0), len||axLen, col, 0.15, 0.08);
+  scene.add(a);
+};
+ax(new THREE.Vector3(1,0,0), 0xff4444);
+ax(new THREE.Vector3(0,1,0), 0x44ff44);
+ax(new THREE.Vector3(0,0,1), 0x4488ff);
+
+// ================ 曲面 + 曲线容器 ================
+let surfaceMesh = null;
+let curveMesh = null;
+let showCurve = true;
+
+// ================ 着色函数 ================
+// 高度→彩虹色映射 (仿 CalcPlot3D normal 模式)
+function heightColor(z, zmin, zmax) {
+  const t = (z - zmin) / (zmax - zmin + 1e-12);
+  const h = 0.66 - t * 0.66; // 蓝(0.66)→红(0.0)
+  return new THREE.Color().setHSL(Math.max(0, Math.min(0.66, h)), 0.85, 0.5 + t * 0.25);
+}
+
+// 参数 t→彩虹色 (用于空间曲线 constcol=false)
+function rainbowColor(t) {
+  return new THREE.Color().setHSL((t * 3) % 1, 0.9, 0.55);
+}
+
+// ================ 函数曲面生成 ================
+function makeFunctionSurface(expr, gridN, format, alpha) {
+  const fn = new Function('x', 'y', `return ${expr};`);
+  const geom = new THREE.BufferGeometry();
+  const w = 6, h = 6;
+  const vertices = [], colors = [], indices = [];
+  let zmin = Infinity, zmax = -Infinity;
+  const zs = [];
+
+  // 第一遍：采样求 z 范围
+  for (let i = 0; i <= gridN; i++) {
+    const y = -h/2 + (h * i) / gridN;
+    for (let j = 0; j <= gridN; j++) {
+      const x = -w/2 + (w * j) / gridN;
+      const z = fn(x, y);
+      zs.push({x, y, z, i, j});
+      if (isFinite(z)) { zmin = Math.min(zmin, z); zmax = Math.max(zmax, z); }
+    }
+  }
+  if (!isFinite(zmin)) { zmin = -2; zmax = 2; }
+
+  // 第二遍：填顶点
+  for (const p of zs) {
+    let z = p.z;
+    if (!isFinite(z)) z = (zmin + zmax) / 2;
+    vertices.push(p.x, z, -p.y);
+    let col;
+    if (format === 'constant') {
+      col = new THREE.Color(0.8, 0.3, 0.3);
+    } else if (format === 'reversed') {
+      col = heightColor(z, zmax, zmin); // 反向映射
+    } else {
+      col = heightColor(z, zmin, zmax);
+    }
+    colors.push(col.r, col.g, col.b);
+  }
+
+  // 索引
+  for (let i = 0; i < gridN; i++) {
+    for (let j = 0; j < gridN; j++) {
+      const a = i * (gridN+1) + j;
+      const b = a + 1;
+      const c = a + (gridN+1);
+      const d = c + 1;
+      indices.push(a, b, d);
+      indices.push(a, d, c);
+    }
+  }
+
+  geom.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+  geom.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+  geom.setIndex(indices);
+  geom.computeVertexNormals();
+
+  const mat = new THREE.MeshPhongMaterial({
+    vertexColors: true,
+    side: THREE.DoubleSide,
+    transparent: alpha < 1,
+    opacity: alpha,
+    shininess: 25,
+    specular: new THREE.Color(0x222222),
+    flatShading: false,
+  });
+
+  return new THREE.Mesh(geom, mat);
+}
+
+// ================ 空间曲线生成 ================
+function makeSpaceCurve(constcol) {
+  const pts = [];
+  const n = 300;
+  for (let i = 0; i <= n; i++) {
+    const t = (i / n) * Math.PI * 4;
+    pts.push(new THREE.Vector3(Math.cos(2.5*t)*2, Math.sin(1.8*t)*1.5, t - Math.PI*2));
+  }
+  const curve = new THREE.CatmullRomCurve3(pts);
+
+  // 管几何体 + 顶点颜色
+  const tubularSegments = 200;
+  const radius = 0.05;
+  const radialSegments = 12;
+  const frames = curve.computeFrenetFrames(tubularSegments, false);
+
+  const tubeGeom = new THREE.BufferGeometry();
+  const tVertices = [], tColors = [], tIndices = [];
+
+  for (let i = 0; i <= tubularSegments; i++) {
+    const t = i / tubularSegments;
+    const P = curve.getPointAt(t);
+    const N = frames.normals[i];
+    const B = frames.binormals[i];
+    for (let j = 0; j <= radialSegments; j++) {
+      const v = (j / radialSegments) * Math.PI * 2;
+      const sin = Math.sin(v) * radius;
+      const cos = Math.cos(v) * radius;
+      const normal = new THREE.Vector3().copy(N).multiplyScalar(cos);
+      const binormal = new THREE.Vector3().copy(B).multiplyScalar(sin);
+      const pos = new THREE.Vector3().copy(P).add(normal).add(binormal);
+      tVertices.push(pos.x, pos.y, pos.z);
+      const col = constcol ? new THREE.Color(0.3, 0.8, 1.0) : rainbowColor(t);
+      tColors.push(col.r, col.g, col.b);
+    }
+  }
+
+  for (let i = 0; i < tubularSegments; i++) {
+    for (let j = 0; j < radialSegments; j++) {
+      const a = i * (radialSegments+1) + j;
+      const b = a + radialSegments + 1;
+      const c = a + 1;
+      const d = b + 1;
+      tIndices.push(a, b, c);
+      tIndices.push(c, b, d);
+    }
+  }
+
+  tubeGeom.setAttribute('position', new THREE.Float32BufferAttribute(tVertices, 3));
+  tubeGeom.setAttribute('color', new THREE.Float32BufferAttribute(tColors, 3));
+  tubeGeom.setIndex(tIndices);
+  tubeGeom.computeVertexNormals();
+
+  const tubeMat = new THREE.MeshPhongMaterial({
+    vertexColors: true,
+    shininess: 40,
+    specular: new THREE.Color(0x333333),
+  });
+
+  return new THREE.Mesh(tubeGeom, tubeMat);
+}
+
+// ================ 场景更新 ================
+window.updateScene = function() {
+  const expr = document.getElementById('eqFn').value;
+  const format = document.getElementById('format').value;
+  const gridN = parseInt(document.getElementById('grid').value);
+  const alpha = parseInt(document.getElementById('alpha').value) / 100;
+  const constcol = document.getElementById('ccol').value === 'true';
+
+  document.getElementById('gridVal').textContent = gridN;
+  document.getElementById('alphaVal').textContent = alpha.toFixed(1);
+
+  // 移旧
+  if (surfaceMesh) scene.remove(surfaceMesh);
+  if (curveMesh) scene.remove(curveMesh);
+
+  surfaceMesh = makeFunctionSurface(expr, gridN, format, alpha);
+  scene.add(surfaceMesh);
+  if (showCurve) {
+    curveMesh = makeSpaceCurve(constcol);
+    scene.add(curveMesh);
+  }
+};
+
+window.toggleCurve = function() {
+  showCurve = !showCurve;
+  updateScene();
+};
+
+// ================ 初始渲染 ================
+updateScene();
+
+// ================ 动画循环 ================
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+
+// 响应窗口大小
+window.addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>

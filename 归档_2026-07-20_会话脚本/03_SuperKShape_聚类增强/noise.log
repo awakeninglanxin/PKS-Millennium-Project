@@ -1,0 +1,65 @@
+============================================================
+NOISE ROBUSTNESS: Sharkovsky-DP & Farey vs Baseline
+============================================================
+
+============================================================
+DATASET: sine_phases
+============================================================
+  [init] KMeans random init
+  [iter   0] intra=71.2478 anti=0.0000 total=71.2478
+  Converged at iteration 5
+  Total time: 1.5s (198 series, 3 clusters)
+            clean     k-Shape baseline: ARI=1.0000 NMI=1.0000 1.6s
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(62), np.int32(1): np.int64(81), np.int32(2): np.int64(55)}
+  [iter   0] intra=15.3783 anti=0.0000 total=15.3783
+  Converged at iteration 1
+  Total time: 0.5s (198 series, 3 clusters)
+            clean     +Sharkovsky init: ARI=1.0000 NMI=1.0000 0.5s vs baseline ARI=1.000
+  [init] KMeans random init
+  [iter   0] intra=71.2944 anti=0.0000 total=71.2944
+  Converged at iteration 4
+  Total time: 80.5s (198 series, 3 clusters)
+            clean      +Farey distance: ARI=1.0000 NMI=1.0000 80.5s vs baseline ARI=1.000
+  [init] KMeans random init
+  [iter   0] intra=42.7289 anti=0.0000 total=42.7289
+  Converged at iteration 1
+  Total time: 0.4s (198 series, 3 clusters)
+        noise_0.5     k-Shape baseline: ARI=1.0000 NMI=1.0000 0.4s
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(63), np.int32(1): np.int64(40), np.int32(2): np.int64(95)}
+  [iter   0] intra=42.7289 anti=0.0000 total=42.7289
+  Converged at iteration 1
+  Total time: 0.5s (198 series, 3 clusters)
+        noise_0.5     +Sharkovsky init: ARI=1.0000 NMI=1.0000 0.5s vs baseline ARI=1.000
+  [init] KMeans random init
+  [iter   0] intra=46.8912 anti=0.0000 total=46.8912
+  Converged at iteration 1
+  Total time: 32.6s (198 series, 3 clusters)
+        noise_0.5      +Farey distance: ARI=1.0000 NMI=1.0000 32.6s vs baseline ARI=1.000
+  [init] KMeans random init
+  [iter   0] intra=78.9197 anti=0.0000 total=78.9197
+  Converged at iteration 1
+  Total time: 0.4s (198 series, 3 clusters)
+        noise_1.0     k-Shape baseline: ARI=1.0000 NMI=1.0000 0.4s
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(29), np.int32(1): np.int64(89), np.int32(2): np.int64(80)}
+  [iter   0] intra=81.1519 anti=0.0000 total=81.1519
+  Converged at iteration 2
+  Total time: 0.9s (198 series, 3 clusters)
+        noise_1.0     +Sharkovsky init: ARI=1.0000 NMI=1.0000 0.9s vs baseline ARI=1.000
+  [init] KMeans random init
+  [iter   0] intra=70.9153 anti=0.0000 total=70.9153
+  Converged at iteration 1
+  Total time: 33.7s (198 series, 3 clusters)
+        noise_1.0      +Farey distance: ARI=1.0000 NMI=1.0000 33.7s vs baseline ARI=1.000
+  [init] KMeans random init
+  [iter   0] intra=120.8509 anti=0.0000 total=120.8509
+  Converged at iteration 3
+  Total time: 0.8s (198 series, 3 clusters)
+        noise_2.0     k-Shape baseline: ARI=0.9848 NMI=0.9761 0.8s
+  [init] Sharkovsky-DP structural init: {np.int32(0): np.int64(32), np.int32(1): np.int64(71), np.int32(2): np.int64(95)}
+  [iter   0] intra=137.6990 anti=0.0000 total=137.6990
+  Converged at iteration 8
+  Total time: 1.9s (198 series, 3 clusters)
+        noise_2.0     +Sharkovsky init: ARI=0.9848 NMI=0.9761 1.9s vs baseline ARI=0.985
+  [init] KMeans random init
+  [iter   0] intra=99.2810 anti=0.0000 total=99.2810
+  [iter  10] intra=98.1536 anti=0.0000 total=98.1536

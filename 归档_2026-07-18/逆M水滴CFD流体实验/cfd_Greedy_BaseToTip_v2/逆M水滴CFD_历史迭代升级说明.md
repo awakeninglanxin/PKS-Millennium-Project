@@ -8,13 +8,21 @@
 
 ## 一、版本演进总览
 
-| 版本 | 文件名 | 尺寸 | 核心算法 | 来流方式 | 效果 | 结果 |
-|:---:|:---|:---:|:---|:---|:---|:---|
-| v4 | `droplet_BaseToTip_vorticity_v4` | — | BGK LBM | 双向冲水(钝→尖 + 尖→钝) | 涡街不对称 | 🔴 23MB大文件，未收敛 |
-| v5 | `v5_fixed` | — | BGK LBM | 双向冲水修正 | 边界反弹修正 | 🟡 收敛但仍大 |
-| v6 | `v6` | — | MRT初步 | 单向? | 不稳定 | 🔴 144KB崩了 |
-| v8 | `droplet_MRT_v8_*` | 350×175 | BGK LBM | **单向恒定入流** | 涡街清晰但太直 | 🟢 合格但有缺陷 |
-| **v9** | `droplet_MRT_v9_sway_*` | 350×175 | BGK LBM | **摆动入流** ✦ | 涡街交叉卷曲 | 🟢 **当前最优** |
+| 版本 | 文件标识 | 网格 | 算法 | 来流方式 | sway | fps | 结果 |
+|:---:|:---|:---:|:---|:---|:---:|:---:|:---|
+| v4 | `BaseToTip_v4` | — | BGK | 双向对冲 | — | — | 🔴 乱流 |
+| v5 | `v5_fixed` | — | BGK | 双向修正 | — | — | 🟡 修正 |
+| v6 | `v6` | — | MRT | — | — | — | 🔴 崩了 |
+| v8 | `MRT_v8` | 350×175 | BGK | 单向恒定 | 0 | — | 🟢 太直 |
+| v9 | `v9_sway` | 350×175 | BGK | 摆动入流 | 0.012 | — | 🟢 初版 |
+| v9b | `v9b_sway` | 400×200 | BGK | 1.5×入流 | 0.018 | 12 | 🟢 |
+| v9c | `v9c_sway` | 400×200 | BGK | 快频慢放 | 0.018 | 3 | 🟢 |
+| v12 | `v12_coarse` | 300×180 | CuPy fp32 | 粗网格 | 0.12 | 24 | 🟢 |
+| v12b | `v12b_*` | 300×180 | CuPy fp32 | 半幅摆 | 0.06 | 12 | 🟢 |
+| **v12c** | `v12c_*` | 300×180 | CuPy fp32 | **1/8原版幅+半频** | **0.03** | **12** | 🟢 **当前最优** |
+| v10 | `v10_cupy` | 420×240 | CuPy fp64 | — | 0.12 | — | 🔴 16% util→0KB |
+| v11 | `v11_fused` | 420×240 | CuPy fp32 | bug: 碰撞不回写 | — | — | 🔴 无碰撞 |
+| v13 | `v13_*` | 300×180 | RawKernel | 编译失败 | — | — | 🔴 NVRTC error |
 
 ---
 
@@ -151,11 +159,114 @@ f[1,jy,8] = f6 + 0.5*(f2-f4) + 1/2*rho*uy_sway + 1/6*rho*u0  ← 新增uy项
 
 | 优先级 | 方向 | 说明 |
 |:---:|:---|:---|
-| P0 | v9 验证 | 确认摆动入流是否产生预期交叉涡卷 |
-| P1 | GPU加速 | 用 CuPy 重写 LBM 碰撞/流步骤，10×加速 |
-| P2 | 多振幅对比 | A=0.008/0.012/0.020 三档对比涡街差异 |
-| P3 | 真实水滴尺寸 | NX=600, Re=5000+ 的精密涡街 |
-| P4 | 3D LBM D3Q19 | 真正三维水滴绕流 |
+| P0 | v9 验证 | 确认摆动入流是否产生预期交叉涡卷 | ✅ 已完成 |
+| P1 | GPU加速 | 用 CuPy 重写 LBM 碰撞/流步骤，10×加速 | ✅ v12 CuPy |
+| P2 | 多振幅对比 | A=0.008/0.012/0.020 三档对比涡街差异 | ✅ v12b/v12c |
+| P3 | 真实水滴尺寸 | NX=600, Re=5000+ 的精密涡街 | 待做 |
+| P4 | 3D LBM D3Q19 | 真正三维水滴绕流 | 待做 |
+
+---
+
+## 五、v9→v12 完整迭代日志（2026-07-20）
+
+### v9 → v9b (加速入流)
+- 日期：2026-07-20 08:55
+- u0: 0.04→0.06 (1.5×), STEPS: 4000→8000 (2×)
+- 网格: 350×175→400×200, 摆动周期T=400→600
+- GIF: `droplet_MRT_v9b_sway_vortex/vorticity.gif`
+
+### v9 → v9c (快频+慢放)
+- 日期：2026-07-20 09:29
+- 摆动频率×2 (T=600→300), 截图间隔 25→100 步
+- 播放 3fps 慢放 4×, 文件名 `droplet_MRT_v9c_*`
+- **铁律80b启用: GPU出图标题全英文**
+
+### v10 CuPy GPU (失败)
+- 日期：2026-07-20 09:51
+- np→cp CuPy, collision vectorized, fp64
+- 问题: 18次独立 cp.roll kernel 发射 → GPU util ~16%
+- 最终被 pkill 杀死 → 0KB 文件
+
+### v11 fused (bug)
+- 日期：2026-07-20 09:54
+- fp32 + 全向量化碰撞
+- **Bug**: f.transpose(2,0,1).copy() 碰撞结果写回临时副本 fT, 从未写入原 f → 无碰撞
+- 同翻重 bounce-back 代码, 更慢了
+
+### v12 CuPy 粗网格 (首版成功)
+- 日期：2026-07-20 10:00
+- 网格: 420×240→300×180, fp32, in-place (1,1,9) broadcast 碰撞
+- sway=0.12, 24fps, vmax=0.12-0.15 vivid color
+- 389s for 40000 steps (~9.7ms/step)
+- GIF: `droplet_v12_coarse_vortex/vorticity.gif` 16MB each
+
+### v12b (半幅摆)
+- 日期：2026-07-20 13:40
+- sway: 0.12→0.06 (half), fps: 24→12
+- vmax: 0.08-0.10 更浓尾流
+- GIF: `droplet_v12b_vortex/vorticity.gif` 20-21MB
+
+### v12c (再半幅+半频)
+- 日期：2026-07-20 14:02
+- sway: 0.06→0.03 (1/8原版), T: 300→600 (half freq)
+- fps=12, vmax=0.08-0.10
+- GIF: `droplet_v12c_vortex/vorticity.gif` 23-24MB
+- **铁律80启用: 文件名含唯一版本号后缀**
+
+### v13 RawKernel (编译失败)
+- 日期：2026-07-20 13:39
+- 尝试单 kernel 碰撞+流合并 → 100% GPU
+- NVRTC_ERROR_COMPILATION: bounce_back kernel 缺 cx/cy 参数
+- 修复后仍失败 → 放弃 RawKernel, 回退 v12 稳定架构
+
+---
+
+## 六、技术教训汇总
+
+### 教训1: 文件名唯一化 (铁律80)
+- 复用旧名 → SFTP 覆盖 → 0KB → 批次报废
+- **每次迭代必须换新名**（如 v12b_*, v12c_*）
+
+### 教训2: GPU 标题全英文 (铁律80b)
+- GPU 无中文字体 → matplotlib 缺字 → 方框
+- 本地可中文, GPU 必须全英文
+
+### 教训3: RawKernel 编译脆弱性
+- CuPy RawKernel 参数传递复杂, 缺一个参数整个报错
+- 稳定方案: CuPy 高级 API (broadcast + cp.roll), 虽然 GPU util 低但 100% 出图
+
+### 教训4: collison 必须原位写回
+- transpose+copy 创建临时副本, 忘记写回 → 无碰撞
+- 用 (1,1,9) broadcast 直接原位修改 f
+
+### 教训5: 0KB 文件立即清理
+- 多次 0KB 文件残留导致后续检查混乱
+- 完成立即 rm, 不保留僵尸文件
+
+---
+
+## 七、文件清单
+
+```
+cfd_Greedy_BaseToTip_v2/
+├── cfd_mrt_droplet_v9.py                     v9 源码
+├── cfd_mrt_droplet_v12.py / v12b.py / v12c.py v12系列源码
+├── droplet_BaseToTip_vorticity_v4.gif         (23MB) v4
+├── droplet_BaseToTip_vorticity_v5_fixed.gif   (12MB) v5
+├── droplet_MRT_v8_vortex.gif                  (7.3MB) v8 ✅唯一定性
+├── droplet_MRT_v9_sway_vortex.gif             (7.8MB) v9
+├── droplet_MRT_v9b_sway_vortex.gif            (15MB) v9b 1.5×入流
+├── droplet_MRT_v9c_sway_vortex.gif            (3.9MB) v9c 快频慢放
+├── droplet_v12b_vortex.gif                    (21MB) v12b 半幅摆
+├── droplet_v12b_vorticity.gif                 (20MB) v12b 涡量版
+├── droplet_v12c_vortex.gif                    (24MB) v12c 最终版
+├── droplet_v12c_vorticity.gif                 (23MB) v12c 涡量版
+└── 逆M水滴CFD_历史迭代升级说明.md            (本文档)
+```
+
+---
+
+*最后更新: 2026-07-20 17:50 | 覆盖 v4→v12c 全版本*
 
 ---
 
