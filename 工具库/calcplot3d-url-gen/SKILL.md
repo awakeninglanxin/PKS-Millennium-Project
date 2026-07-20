@@ -1,45 +1,38 @@
-# CalcPlot3D URL Generator v2
+# CalcPlot3D URL Generator v2.1
 
 > 🔗 **GitHub 公开仓库**: `awakeninglanxin/PKS-Millennium-Project/工具库/calcplot3d-url-gen/`
-> **版本**: v2.0 | **日期**: 2026-07-20
+> **版本**: v2.1 | **日期**: 2026-07-20
 
 ---
 
 ## 一句话简介
 
-给定任意 3D 数学方程，自动生成可直接打开的正确 CalcPlot3D 可视化链接。**支持全部 6 种 3D 对象类型**。
+给定任意 3D 数学方程，**自动识别类型**，生成可直接打开的正确 CalcPlot3D 可视化链接。支持全部 6 种 3D 对象类型。
 
-## 支持的 6 种类型
+## 自动识别规则
 
-| # | 类型 | CLI 关键词 | 示例 |
-|---|------|:---|------|
-| 1 | 隐式曲面 | `implicit` | `x^2+y^2+z^2=1-z^3` |
-| 2 | 函数曲面 | `function` | `z = sin(x)*cos(y)` |
-| 3 | 空间曲线 | `spacecurve` | `x=cos(3t);y=sin(2t);z=0` |
-| 4 | 参数曲面 | `parametric` | `x=cos(u)sinh(v);y=sin(u)cosh(v);z=v` |
-| 5 | 向量场 | `vectorfield` | `m=x-4y;n=5x+y;p=0` |
-| 6 | 旋转体 | `revolution` | `f(x)=x^2; a=0; b=2` |
+| 输入模式 | 识别为 | 触发条件 |
+|:---|:--:|:---|
+| `z = f(x,y)` | function | 以 `z=` 开头，右侧无 `=` |
+| `x=...; y=...; z=...` (含 u,v) | parametric | 含 `u` 或 `v` 变量 |
+| `x=...; y=...; z=...` (含 t) | spacecurve | 含 `t` 变量（无 u,v） |
+| `m=...; n=...; p=...` | vectorfield | 含 `m=` 和 `n=` |
+| `f(x)=... ; a=... ; b=...` | revolution | 含 `f(x)=` 且无 `z=` |
+| 其他含 `=` 的方程 | implicit | 默认兜底 |
 
-## 快速上手
+## 快速上手（无需指定类型！）
 
 ```bash
-# 1. 隐式曲面 — 代数方程 F(x,y,z)=0
-python generate.py implicit "x^2+y^2+z^2=1-z^3" --color "rgb(255,80,80)" --open
+# 直接扔任何公式，自动识别
+python generate.py "z=sin(x)*cos(y)" --open
+python generate.py "x^2+y^2+z^2=1-z^3" --open
+python generate.py "x=cos(3t);y=sin(2t);z=0" --open
+python generate.py "f(x)=x^2; a=0; b=2" --open
+python generate.py "m=x-4y;n=5x+y;p=0" --open
+python generate.py "x=cos(u)sinh(v);y=sin(u)cosh(v);z=v" --open
 
-# 2. 函数曲面 — z = f(x,y)
-python generate.py function "z=sin(x)*cos(y)" --umin -3 --umax 3 --vmin -3 --vmax 3 --open
-
-# 3. 空间曲线 — 参数方程 x(t),y(t),z(t)
-python generate.py spacecurve "x=cos(3t);y=sin(2t);z=0" --tmin 0 --tmax 6.283 --open
-
-# 4. 参数曲面 — x(u,v),y(u,v),z(u,v)
-python generate.py parametric "x=cos(u)sinh(v);y=sin(u)cosh(v);z=v" --open
-
-# 5. 向量场 — F = (m,n,p)
-python generate.py vectorfield "m=x-4y;n=5x+y;p=0" --open
-
-# 6. 旋转体 — 绕轴旋转母线
-python generate.py revolution "f(x)=x^2; a=0; b=2; axis=y" --open
+# 或手动指定类型 (覆盖自动识别)
+python generate.py --type implicit "x^2+y^2+z^2=1"
 ```
 
 ## 踩坑记录（为什么需要这个工具）

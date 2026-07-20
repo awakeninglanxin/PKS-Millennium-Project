@@ -46,6 +46,59 @@ WINDOW_TEMPLATE = (
     "lastaddedsurfaceactive=false;disabletrace=false;activefun=-1;"
 )
 
+# ============================================================
+# -1. 自动类型识别
+# ============================================================
+def detect_type(equation):
+    """
+    根据方程字符串特征自动判断 CalcPlot3D 对象类型。
+    返回: (type_str, 提取的域参数 or None)
+    """
+    s = equation.strip()
+
+    # --- 向量场: 含 m=...; n=...; p=... 模式 ---
+    if re.search(r'\bm\s*=', s) and re.search(r'\bn\s*=', s):
+        return 'vectorfield', None
+
+    # --- 旋转体: 含 f(x)= 或 f(y)= 模式, 且没有 z= ---
+    if (re.search(r'\bf\(x\)\s*=', s) or re.search(r'\bf\(y\)\s*=', s)) and not re.search(r'\bz\s*=', s):
+        # 提取 a= 和 b= 作为域边界
+        dom = {}
+        m = re.search(r'\ba\s*=\s*([-\d.]+)', s)
+        if m: dom['a'] = float(m.group(1))
+        m = re.search(r'\bb\s*=\s*([-\d.]+)', s)
+        if m: dom['b'] = float(m.group(1))
+        return 'revolution', dom or None
+
+    # --- 参数曲面: 含 u 和 v 变量 + 多个 x= y= z= ---
+    if_uv = bool(re.search(r'\b[uv]\b', s))
+    has_xyz_params = (re.search(r'\bx\s*=', s) and re.search(r'\by\s*=', s))
+    if if_uv and has_xyz_params and not re.search(r'\bt\b', s):
+        return 'parametric', None
+
+    # --- 空间曲线: 含 t 变量 + x= y= z= 模式, 且 t 不是函数名 / 没有 u,v ---
+    has_t = bool(re.search(r'(?<![a-z])t(?![a-z])', s))  # t 独立出现(允许 3t, sin(t) 等)
+    if has_t and has_xyz_params and not if_uv:
+        # 排除 f(t)= 这种函数定义 / 排除含 u,v 的参数曲面
+        if not re.search(r'\bf\(t\)', s) and 'sinh' not in s:
+            return 'spacecurve', None
+
+    # --- 函数曲面: 以 z= 开头, 右侧只有 x,y (无 z= 等式) ---
+    if re.match(r'^z\s*=', s):
+        # 确认右侧没有另一个 = 号
+        rhs = re.sub(r'^z\s*=\s*', '', s).strip()
+        # 排除含 z^2= 或 z= 这种隐式方程误判
+        if '=' not in rhs:
+            return 'function', None
+
+    # --- 隐式曲面: 含一个 = (且不是 z= 开头) ---
+    if '=' in s or '~' in s:
+        return 'implicit', None
+
+    # fallback
+    return 'implicit', None
+
+
 def make_window(xmin, xmax, ymin, ymax, zmin, zmax, zoom=0.98, scale=1):
     return (
         WINDOW_TEMPLATE +
@@ -363,12 +416,13 @@ if __name__ == "__main__":
     import argparse
 
     ap = argparse.ArgumentParser(
-        description="CalcPlot3D URL Generator v2 — 6种3D对象全支持",
-        epilog="示例: python generate.py implicit 'x^2+y^2+z^2=1-z^3' --open")
-    ap.add_argument("type", choices=["implicit","function","spacecurve",
+        description="CalcPlot3D URL Generator v2 — 6种3D对象全支持 + 自动识别",
+        epilog="示例: python generate.py 'x^2+y^2+z^2=1-z^3' --open  (类型自动识别)")
+    ap.add_argument("equation", help="方程")
+    ap.add_argument("--type", default="auto",
+                    choices=["auto","implicit","function","spacecurve",
                     "parametric","vectorfield","revolution"],
-                    help="对象类型")
-    ap.add_argument("equation", help="方程 (见上方示例)")
+                    help="对象类型 (默认 auto=自动识别)")
     ap.add_argument("--color", default="rgb(255,0,0)", help="颜色")
     ap.add_argument("--open", action="store_true", help="自动打开浏览器")
     ap.add_argument("--umin", type=float, default=None)
@@ -395,29 +449,45 @@ if __name__ == "__main__":
     extra = dict(sliders=sliders or None, open_browser=args.open,
                  color=args.color)
 
-    if args.type == "implicit":
+    # 自动识别类型
+    obj_type = args.type
+    auto_dom = None
+    if obj_type == "auto":
+        obj_type, auto_dom = detect_type(args.equation)
+        print(f"[auto] 识别为: {obj_type}", file=sys.stderr)
+
+    # 应用自动域
+    if auto_dom and obj_type == "revolution":
+        if args.umin is None and 'a' in auto_dom:
+            args.umin = auto_dom['a']
+        if args.umax is None and 'b' in auto_dom:
+            args.umax = auto_dom['b']
+
+    if obj_type == "implicit":
         extra["cubes"] = args.cubes
         url = implicit_url(args.equation, **extra)
-    elif args.type == "function":
+    elif obj_type == "function":
         if args.umin is not None: extra["umin"] = args.umin
         if args.umax is not None: extra["umax"] = args.umax
         if args.vmin is not None: extra["vmin"] = args.vmin
         if args.vmax is not None: extra["vmax"] = args.vmax
         extra["grid"] = args.grid
         url = function_url(args.equation, **extra)
-    elif args.type == "spacecurve":
+    elif obj_type == "spacecurve":
         if args.tmin is not None: extra["tmin"] = args.tmin
         if args.tmax is not None: extra["tmax"] = args.tmax
         url = spacecurve_url(args.equation, **extra)
-    elif args.type == "parametric":
+    elif obj_type == "parametric":
         if args.umin is not None: extra["umin"] = args.umin
         if args.umax is not None: extra["umax"] = str(args.umax)
         if args.vmin is not None: extra["vmin"] = args.vmin
         if args.vmax is not None: extra["vmax"] = args.vmax
         url = parametric_url(args.equation, **extra)
-    elif args.type == "vectorfield":
+    elif obj_type == "vectorfield":
         url = vectorfield_url(args.equation, "y", "0", **extra)
-    elif args.type == "revolution":
+    elif obj_type == "revolution":
+        if args.umin is not None: extra["umin"] = args.umin
+        if args.umax is not None: extra["umax"] = args.umax
         url = revolution_url(args.equation, **extra)
 
     print(url)
