@@ -56,6 +56,14 @@ def detect_type(equation):
     """
     s = equation.strip()
 
+    # --- 3D 点: (x,y,z) 括号形式 ---
+    if re.match(r'^\([\d\s,.+\-]+\)$', s):
+        return 'point', None
+
+    # --- 3D 向量: <x,y,z> 尖括号形式 ---
+    if re.match(r'^<[\d\s,.+\-]+>$', s):
+        return 'vector', None
+
     # --- 向量场: 含 m=...; n=...; p=... 模式 ---
     if re.search(r'\bm\s*=', s) and re.search(r'\bn\s*=', s):
         return 'vectorfield', None
@@ -410,7 +418,86 @@ def revolution_url(top2d, bot2d="0",
 
 
 # ============================================================
-# 7. CLI — 统一入口
+# 7. 点 (type=point)
+# ============================================================
+def point_url(pos, color="rgb(0,0,0)", size=4,
+              xmin=-2, xmax=2, ymin=-2, ymax=2,
+              zmin=-2, zmax=2, zoom=0.98,
+              sliders=None, open_browser=False):
+    """pos: 坐标元组 (x,y,z) 或 "(1,2,3)" 字符串"""
+    if isinstance(pos, str):
+        pos = pos.strip("()").split(",")
+        pos = tuple(float(p.strip()) for p in pos)
+    parts = [
+        f"type=point;point=({pos[0]},{pos[1]},{pos[2]});visible=true;"
+        f"color={color};size={size}"
+    ]
+    if sliders:
+        for n, (v, lo, hi) in sliders.items():
+            parts.append(make_slider(n, v, lo, hi))
+    parts.append(make_window(xmin, xmax, ymin, ymax, zmin, zmax, zoom))
+    url = "https://c3d.libretexts.org/CalcPlot3D/index.html?" + "&".join(parts)
+    if open_browser:
+        webbrowser.open(url)
+    return url
+
+
+# ============================================================
+# 8. 向量 (type=vector)
+# ============================================================
+def vector_url(direction, initialpt="(0,0,0)", color="rgb(255,0,0)", size=2,
+               xmin=-2, xmax=2, ymin=-2, ymax=2,
+               zmin=-2, zmax=2, zoom=0.98,
+               sliders=None, open_browser=False):
+    """direction: "<1,2,1.5>" 或 "(1,2,1.5)", initialpt: 起点坐标"""
+    parts = [
+        f"type=vector;vector={encode(str(direction))};visible=true;"
+        f"color={color};size={size};initialpt={encode(str(initialpt))}"
+    ]
+    if sliders:
+        for n, (v, lo, hi) in sliders.items():
+            parts.append(make_slider(n, v, lo, hi))
+    parts.append(make_window(xmin, xmax, ymin, ymax, zmin, zmax, zoom))
+    url = "https://c3d.libretexts.org/CalcPlot3D/index.html?" + "&".join(parts)
+    if open_browser:
+        webbrowser.open(url)
+    return url
+
+
+# ============================================================
+# 9. 文字标注 (type=text)
+# ============================================================
+def text_url(text, position="(0,0,0)", color="rgb(0,0,0)",
+             font="Times New Roman", fontsize="14pt",
+             bold=False, italic=False, mathmode=True, align="Center",
+             xmin=-2, xmax=2, ymin=-2, ymax=2,
+             zmin=-2, zmax=2, zoom=0.98,
+             sliders=None, open_browser=False):
+    """text: 标注文字(支持MathJax LaTeX), position: 位置坐标"""
+    t_enc = encode(text)
+    t_enc = t_enc.replace('=', '~')  # text 中 = 也要用 ~ 替代
+    f_enc = encode(font)
+    parts = [
+        f"type=text;text={t_enc};visible=true;"
+        f"point={encode(str(position))};color={color};"
+        f"font={f_enc};fontsize={fontsize};"
+        f"bold={'true' if bold else 'false'};"
+        f"italic={'true' if italic else 'false'};"
+        f"fontmath={'true' if mathmode else 'false'};"
+        f"align={encode(align)}"
+    ]
+    if sliders:
+        for n, (v, lo, hi) in sliders.items():
+            parts.append(make_slider(n, v, lo, hi))
+    parts.append(make_window(xmin, xmax, ymin, ymax, zmin, zmax, zoom))
+    url = "https://c3d.libretexts.org/CalcPlot3D/index.html?" + "&".join(parts)
+    if open_browser:
+        webbrowser.open(url)
+    return url
+
+
+# ============================================================
+# 10. CLI — 统一入口
 # ============================================================
 if __name__ == "__main__":
     import argparse
@@ -421,7 +508,7 @@ if __name__ == "__main__":
     ap.add_argument("equation", help="方程")
     ap.add_argument("--type", default="auto",
                     choices=["auto","implicit","function","spacecurve",
-                    "parametric","vectorfield","revolution"],
+                    "parametric","vectorfield","revolution","point","vector","text"],
                     help="对象类型 (默认 auto=自动识别)")
     ap.add_argument("--color", default="rgb(255,0,0)", help="颜色")
     ap.add_argument("--open", action="store_true", help="自动打开浏览器")
@@ -489,5 +576,11 @@ if __name__ == "__main__":
         if args.umin is not None: extra["umin"] = args.umin
         if args.umax is not None: extra["umax"] = args.umax
         url = revolution_url(args.equation, **extra)
+    elif obj_type == "point":
+        url = point_url(args.equation, **extra)
+    elif obj_type == "vector":
+        url = vector_url(args.equation, **extra)
+    elif obj_type == "text":
+        url = text_url(args.equation, **extra)
 
     print(url)
