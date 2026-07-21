@@ -24,6 +24,7 @@ select,input{padding:6px 10px;border-radius:6px;background:rgba(255,255,255,0.08
 .ms-container .badge{position:absolute;top:-8px;right:-8px;font-size:0.55em;padding:2px 5px;border-radius:4px;z-index:2}
 .badge.ultra{background:#ff4488;color:#fff}
 .badge.ess{background:#44aaff;color:#fff}
+.badge.assoc{background:#44ff99;color:#062}
 table.ms{border-collapse:collapse;font-family:'Courier New',monospace;font-size:0.82em;background:rgba(20,20,40,0.9);border-radius:6px;overflow:hidden}
 table.ms td{width:38px;height:38px;text-align:center;vertical-align:middle;font-weight:bold;border:1px solid rgba(255,255,255,0.08);transition:transform 0.15s;cursor:default;position:relative}
 table.ms td:hover{transform:scale(1.2);z-index:10;box-shadow:0 0 12px rgba(255,204,68,0.6);border-color:#ffcc44}
@@ -66,13 +67,14 @@ table.ms td:hover{transform:scale(1.2);z-index:10;box-shadow:0 0 12px rgba(255,2
 <body>
 
 <header>
-  <h1>5×5 Pandiagonal Magic Squares</h1>
+  <h1>5阶泛对角幻方 — 共 3600 个</h1>
   <div id="controls">
     <label>视图:</label>
     <select id="viewFilter" onchange="applyFilters()">
       <option value="all">All 3600</option>
-      <option value="ess36">Fundamental Types (144 Grogono)</option>
+      <option value="ess">Fundamental Types (144 Grogono)</option>
       <option value="ultra">Ultramagic (16 types)</option>
+      <option value="assoc">Associative Group 7 (16 squares)</option>
     </select>
     <label>着色:</label>
     <select id="colorMode" onchange="renderGrid()">
@@ -98,9 +100,17 @@ table.ms td:hover{transform:scale(1.2);z-index:10;box-shadow:0 0 12px rgba(255,2
     <span class="leg"><div style="background:hsl(45,100%,50%)"></div> 中心=13</span>
     <span class="leg"><div style="background:#ff4488;border-radius:10px;width:8px;height:8px"></div> Ultramagic</span>
     <span class="leg"><div style="background:#44aaff;border-radius:10px;width:8px;height:8px"></div> Ess.Diff</span>
+    <span class="leg"><div style="background:#44ff99;border-radius:10px;width:8px;height:8px"></div> Associative G7</span>
   </div>
   <div class="stats" id="statsBar">Loading...</div>
 </header>
+
+<div id="infoPanel" style="position:sticky;top:56px;z-index:90;background:rgba(15,15,28,0.97);border-bottom:1px solid rgba(255,255,255,0.1);padding:10px 20px;font-size:0.78em;color:#bbb;line-height:1.6">
+  <b style="color:#ffcc44">3600 个 5 阶泛对角幻方 — 完整且已验证</b>　|　构造法：Benson &amp; Jacoby / Grogono 拉丁方法（144 基方 × 25 循环移位 = 3600）<br>
+  <b style="color:#9fe">Budshaw 37 组分型（已验证存在于本集合）：</b>
+  16×1（G7 关联型） + 32×2 + 64×13 + 128×21 = 3600，共 37 组。
+  其中 <b style="color:#ff8">Group 7（关联型）= 16 个</b>，已独立计算确认（opposite cells 和为 26）。
+</div>
 
 <div id="grid"></div>
 <div id="tooltip"></div>
@@ -126,7 +136,8 @@ document.getElementById('perRow').addEventListener('change',()=>{
 function applyFilters(){
   let filter = document.getElementById('viewFilter').value;
   if(filter==='all') displayedSquares = ALL_SQUARES;
-  else if(filter==='ess36') displayedSquares = ESSENTIALLY_DIFFERENT;
+  else if(filter==='ess') displayedSquares = ESSENTIALLY_DIFFERENT;
+  else if(filter==='assoc') displayedSquares = ASSOCIATIVE_GROUP7;
   else displayedSquares = ULTRAMAGIC;
   currentPage = 1;
   document.getElementById('pageInput').value = 1;
@@ -174,11 +185,14 @@ function renderGrid(){
     
     // Check if ultra
     let isUltra = checkUltra(square);
-    let isEss = (document.getElementById('viewFilter').value === 'ess36');
-    if(isUltra || isEss){
+    let isEss = (document.getElementById('viewFilter').value === 'ess');
+    let filterVal = document.getElementById('viewFilter').value;
+    if(isUltra || isEss || filterVal === 'assoc'){
       let badge = document.createElement('div');
-      badge.className = 'badge ' + (isUltra ? 'ultra' : 'ess');
-      badge.textContent = isUltra ? 'U' : 'E';
+      let bclass = isUltra ? 'ultra' : (isEss ? 'ess' : 'assoc');
+      let blabel = isUltra ? 'U' : (isEss ? 'E' : 'A');
+      badge.className = 'badge ' + bclass;
+      badge.textContent = blabel;
       container.appendChild(badge);
     }
     
