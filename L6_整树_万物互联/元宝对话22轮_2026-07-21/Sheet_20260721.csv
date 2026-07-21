@@ -1,0 +1,8 @@
+﻿文件,作用
+financial_fractal_clustering_v2.py,主流程：合成面板 → 锚点 → 4 签名 → 三粒度 Ward → ARI 校验 → 跨粒度分裂表
+mindset_ablation.py,5 档消融：A→E 逐条加思维，量化每条贡献
+MINDSET_TRANSFER_GUIDE.md,迁移说明书：5 条映射表 + 消融结论 + 真实数据接入路径 + DA-MFDFA/MMAR 延伸
+finance_output_v2/ablation.png,灵魂图：5 档 NMI/ARI 柱状对比
+finance_output_v2/cluster_industry.png,簇×行业交叉热力图（纯度可视化）
+finance_output_v2/pca_signature.png,签名空间 PCA 投影（看簇分离度）
+finance_output_v2/split_chart.png,"跨粒度分裂图（找""假同质簇""）"

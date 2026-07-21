@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5阶泛对角幻方 3600种 — 全览浏览器</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#0a0a14;color:#ccc;overflow-x:hidden}
+header{position:sticky;top:0;z-index:100;background:rgba(10,10,20,0.95);backdrop-filter:blur(10px);padding:12px 20px;border-bottom:1px solid rgba(255,255,255,0.1);display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+h1{font-size:1.2em;color:#ffcc44;white-space:nowrap}
+.stats{font-size:0.85em;color:#999;margin-left:auto}
+#controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+button{padding:6px 14px;border-radius:6px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05);color:#ccc;cursor:pointer;font-size:0.85em;transition:0.2s}
+button:hover{background:rgba(255,255,255,0.15)}
+button.active{background:#ffcc44;color:#0a0a14;border-color:#ffcc44;font-weight:bold}
+select,input{padding:6px 10px;border-radius:6px;background:rgba(255,255,255,0.08);color:#ccc;border:1px solid rgba(255,255,255,0.2);font-size:0.85em}
+#legend{display:flex;gap:12px;font-size:0.75em;align-items:center;flex-wrap:wrap}
+.leg{display:flex;align-items:center;gap:4px}
+.leg div{width:16px;height:16px;border-radius:3px}
+#grid{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;padding:16px}
+.ms-container{position:relative}
+.ms-container .idx{position:absolute;top:-8px;left:-8px;background:#ffcc44;color:#0a0a14;font-size:0.65em;padding:2px 6px;border-radius:4px;font-weight:bold;z-index:2}
+.ms-container .badge{position:absolute;top:-8px;right:-8px;font-size:0.55em;padding:2px 5px;border-radius:4px;z-index:2}
+.badge.ultra{background:#ff4488;color:#fff}
+.badge.ess{background:#44aaff;color:#fff}
+table.ms{border-collapse:collapse;font-family:'Courier New',monospace;font-size:0.82em;background:rgba(20,20,40,0.9);border-radius:6px;overflow:hidden}
+table.ms td{width:38px;height:38px;text-align:center;vertical-align:middle;font-weight:bold;border:1px solid rgba(255,255,255,0.08);transition:transform 0.15s;cursor:default;position:relative}
+table.ms td:hover{transform:scale(1.2);z-index:10;box-shadow:0 0 12px rgba(255,204,68,0.6);border-color:#ffcc44}
+.sum-row{font-size:0.6em;color:#666;display:block;line-height:1}
+/* Color modes */
+.mode-value .v1{background:hsl(210,80%,15%)}
+.mode-value .v2{background:hsl(210,80%,20%)}
+.mode-value .v3{background:hsl(210,75%,25%)}
+.mode-value .v4{background:hsl(210,70%,30%)}
+.mode-value .v5{background:hsl(210,65%,35%)}
+.mode-value .v8{background:hsl(200,60%,35%)}
+.mode-value .v12{background:hsl(180,60%,38%);color:#fff}
+.mode-value .v13{background:hsl(45,100%,50%);color:#000;font-size:1.1em;box-shadow:inset 0 0 8px rgba(255,200,0,0.5)}
+.mode-value .v16{background:hsl(160,60%,38%)}
+.mode-value .v20{background:hsl(30,65%,40%);color:#fff}
+.mode-value .v24{background:hsl(0,60%,35%);color:#fff}
+.mode-value .v25{background:hsl(0,75%,28%)}
+.mode-rainbow .c0{background:hsl(0,70%,25%);color:#fff}
+.mode-rainbow .c1{background:hsl(60,70%,22%);color:#fff}
+.mode-rainbow .c2{background:hsl(120,60%,22%);color:#fff}
+.mode-rainbow .c3{background:hsl(180,60%,25%);color:#fff}
+.mode-rainbow .c4{background:hsl(260,60%,25%);color:#fff}
+.mode-rainbow .center{background:hsl(45,100%,55%);color:#000;font-weight:900}
+.mode-heat .hot{background:#ff4444;color:#fff}
+.mode-heat .warm{background:#ff8844;color:#fff}
+.mode-heat .mid{background:#ffcc44;color:#000}
+.mode-heat .cool{background:#4488ff;color:#fff}
+.mode-heat .cold{background:#2222aa;color:#fff}
+.mode-heat .center13{background:#fff;color:#000;box-shadow:0 0 10px gold}
+.mode-farey .f1{background:hsl(30,60%,25%)}
+.mode-farey .f2{background:hsl(30,60%,30%)}
+.mode-farey .f3{background:hsl(30,60%,35%)}
+.mode-farey .f4{background:hsl(30,60%,40%)}
+.mode-farey .f5{background:hsl(30,60%,45%)}
+#tooltip{position:fixed;background:rgba(0,0,0,0.9);color:#ffcc44;padding:8px 14px;border-radius:8px;font-size:0.8em;pointer-events:none;z-index:999;display:none;border:1px solid rgba(255,200,0,0.3)}
+.pagination{text-align:center;padding:10px}
+.pagination button{margin:0 3px}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>5×5 Pandiagonal Magic Squares</h1>
+  <div id="controls">
+    <label>视图:</label>
+    <select id="viewFilter" onchange="applyFilters()">
+      <option value="all">All 3600</option>
+      <option value="ess36">Fundamental Types (144 Grogono)</option>
+      <option value="ultra">Ultramagic (16 types)</option>
+    </select>
+    <label>着色:</label>
+    <select id="colorMode" onchange="renderGrid()">
+      <option value="value">Value Gradient</option>
+      <option value="heat">Thermal (Center=13)</option>
+      <option value="rainbow">Rainbow Row/Col</option>
+      <option value="farey">Farey Ratio (pos/center)</option>
+    </select>
+    <label>每行:</label>
+    <select id="perRow" onchange="renderGrid()">
+      <option value="6">6</option>
+      <option value="8">8</option>
+      <option value="10" selected>10</option>
+      <option value="12">12</option>
+    </select>
+    <label>页:</label>
+    <input type="number" id="pageInput" value="1" min="1" style="width:60px" onchange="goToPage()">
+    <span id="pageInfo"></span>
+    <button onclick="prevPage()">←</button>
+    <button onclick="nextPage()">→</button>
+  </div>
+  <div id="legend">
+    <span class="leg"><div style="background:hsl(45,100%,50%)"></div> 中心=13</span>
+    <span class="leg"><div style="background:#ff4488;border-radius:10px;width:8px;height:8px"></div> Ultramagic</span>
+    <span class="leg"><div style="background:#44aaff;border-radius:10px;width:8px;height:8px"></div> Ess.Diff</span>
+  </div>
+  <div class="stats" id="statsBar">Loading...</div>
+</header>
+
+<div id="grid"></div>
+<div id="tooltip"></div>
+<div class="pagination" id="pager"></div>
+
+<script src="pan5_data.js"></script>
+<script>
+let currentPage = 1;
+let squaresPerPage = 100;
+let displayedSquares = ALL_SQUARES;
+let gridColorMode = 'value';
+
+// === Init ===
+function init(){
+  squaresPerPage = parseInt(document.getElementById('perRow').value) * 10;
+  applyFilters();
+}
+document.getElementById('perRow').addEventListener('change',()=>{
+  squaresPerPage = parseInt(document.getElementById('perRow').value) * 10;
+  renderGrid();
+});
+
+function applyFilters(){
+  let filter = document.getElementById('viewFilter').value;
+  if(filter==='all') displayedSquares = ALL_SQUARES;
+  else if(filter==='ess36') displayedSquares = ESSENTIALLY_DIFFERENT;
+  else displayedSquares = ULTRAMAGIC;
+  currentPage = 1;
+  document.getElementById('pageInput').value = 1;
+  renderGrid();
+}
+
+function goToPage(){
+  currentPage = parseInt(document.getElementById('pageInput').value) || 1;
+  renderGrid();
+}
+function prevPage(){ if(currentPage>1){currentPage--;document.getElementById('pageInput').value=currentPage;renderGrid();} }
+function nextPage(){
+  let maxPage = Math.ceil(displayedSquares.length / squaresPerPage);
+  if(currentPage < maxPage){currentPage++;document.getElementById('pageInput').value=currentPage;renderGrid();}
+}
+
+function renderGrid(){
+  gridColorMode = document.getElementById('colorMode').value;
+  let perRow = parseInt(document.getElementById('perRow').value);
+  squaresPerPage = perRow * 10;
+  let start = (currentPage-1) * squaresPerPage;
+  let end = Math.min(start + squaresPerPage, displayedSquares.length);
+  let slice = displayedSquares.slice(start, end);
+  let maxPage = Math.ceil(displayedSquares.length / squaresPerPage);
+  
+  document.getElementById('pageInfo').textContent = `/ ${maxPage} 页`;
+  document.getElementById('statsBar').innerHTML = `
+    显示 ${start+1}-${end} / ${displayedSquares.length} 个幻方
+    | 行和=列和=对角和=折断对角和=65 ✅
+  `;
+  
+  let gridDiv = document.getElementById('grid');
+  gridDiv.innerHTML = '';
+  
+  slice.forEach((square, i) => {
+    let globalIdx = start + i + 1;
+    let container = document.createElement('div');
+    container.className = 'ms-container';
+    
+    // Index label
+    let idxLabel = document.createElement('div');
+    idxLabel.className = 'idx';
+    idxLabel.textContent = '#' + globalIdx;
+    container.appendChild(idxLabel);
+    
+    // Check if ultra
+    let isUltra = checkUltra(square);
+    let isEss = (document.getElementById('viewFilter').value === 'ess36');
+    if(isUltra || isEss){
+      let badge = document.createElement('div');
+      badge.className = 'badge ' + (isUltra ? 'ultra' : 'ess');
+      badge.textContent = isUltra ? 'U' : 'E';
+      container.appendChild(badge);
+    }
+    
+    let table = document.createElement('table');
+    table.className = 'ms ' + 'mode-'+gridColorMode;
+    
+    for(let r=0; r<5; r++){
+      let tr = document.createElement('tr');
+      for(let c=0; c<5; c++){
+        let td = document.createElement('td');
+        let val = square[r][c];
+        td.textContent = val;
+        td.className = getCellClass(val, r, c, gridColorMode);
+        
+        // Hover tooltip
+        td.addEventListener('mouseenter', (e) => {
+          showTooltip(e, val, r, c, square);
+        });
+        td.addEventListener('mouseleave', () => {
+          document.getElementById('tooltip').style.display = 'none';
+        });
+        
+        tr.appendChild(td);
+      }
+      table.appendChild(tr);
+    }
+    container.appendChild(table);
+    gridDiv.appendChild(container);
+  });
+}
+
+function getCellClass(val, r, c, mode){
+  if(mode === 'value'){
+    if(val===13) return 'v13';
+    if(val<=4) return 'v'+val;
+    if(val<=7) return 'v5';
+    if(val<=11) return 'v8';
+    if(val<=15 && val!==13) return 'v12';
+    if(val<=19) return 'v16';
+    if(val<=23) return 'v20';
+    if(val<=24) return 'v24';
+    return 'v25';
+  }
+  if(mode === 'rainbow'){
+    return 'c'+(c%5) + (val===13?' center':'');
+  }
+  if(mode === 'heat'){
+    if(val===13) return 'center13';
+    if(val<=5) return 'cold';
+    if(val<=10) return 'cool';
+    if(val<=15) return 'mid';
+    if(val<=20) return 'warm';
+    return 'hot';
+  }
+  if(mode === 'farey'){
+    // Distance from center: ratio = (val-1)/(13-1) mapped to Farey band
+    let d = Math.abs(val-13);
+    if(d<=1) return 'f5';
+    if(d<=3) return 'f4';
+    if(d<=6) return 'f3';
+    if(d<=9) return 'f2';
+    return 'f1';
+  }
+  return '';
+}
+
+function checkUltra(square){
+  // Ultramagic = pandiagonal AND associative (opposite cells sum to 26)
+  for(let r=0; r<5; r++)
+    for(let c=0; c<5; c++)
+      if(square[r][c] + square[4-r][4-c] !== 26) return false;
+  return true;
+}
+
+function showTooltip(e, val, r, c, square){
+  let tt = document.getElementById('tooltip');
+  let rowSum = square[r].reduce((a,b)=>a+b,0);
+  let colSum = square.reduce((s,row)=>s+row[c],0);
+  let diagSum1 = 0, diagSum2 = 0;
+  for(let i=0; i<5; i++){
+    diagSum1 += square[i][(c-r+i+5)%5]; // broken diag 1
+    diagSum2 += square[i][(c+r-i+5)%5]; // broken diag 2
+  }
+  tt.innerHTML = `
+    [${r+1},${c+1}] = <b>${val}</b><br>
+    行和=${rowSum} 列和=${colSum}<br>
+    折对⻆¹=${diagSum1} 折对角²=${diagSum2}<br>
+    ${val===13?'★中心=13★':''}
+  `;
+  tt.style.display = 'block';
+  tt.style.left = Math.min(e.clientX+15, window.innerWidth-200) + 'px';
+  tt.style.top = Math.min(e.clientY+15, window.innerHeight-80) + 'px';
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', (e) => {
+  if(e.key==='ArrowLeft') prevPage();
+  if(e.key==='ArrowRight') nextPage();
+});
+
+init();
+</script>
+</body>
+</html>
