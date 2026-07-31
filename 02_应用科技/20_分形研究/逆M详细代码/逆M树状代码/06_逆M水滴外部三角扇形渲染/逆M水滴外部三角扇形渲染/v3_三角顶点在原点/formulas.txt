@@ -1,0 +1,31 @@
+
+┌────────────────────────────────────────────────────────────────────────┐
+│ 公式 → 图 对照                                                          │
+├────────────────────────────────────────────────────────────────────────┤
+│                                                                        │
+│  ① C(n,k) = C(n-1,k) + C(n-1,k-1) mod P                              │
+│     Yang Hui recurrence → A_pascal.png                                 │
+│                                                                        │
+│  ② iter_count = 正M逃逸时间(z=z²+c', c'=1/c)                          │
+│     Defines droplet shape → B_iter_shape.png                           │
+│                                                                        │
+│  ③ D(p) = ln[p(p+1)/2] / ln(p) = 1.585                             │
+│     Reiter Theorem 2 → used in mapping                                 │
+│                                                                        │
+│  ④ n(r) = (r_norm)^D · (N−1)                                          │
+│     Maps distance from origin → Pascal row → C_iter_to_n.png           │
+│     原点(0,0)=三角顶点 → 边缘=三角底部                                   │
+│                                                                        │
+│  ⑤ ★ 360° 全方向映射, 原点 (0,0) ★                                    │
+│     k = (θ+π)/(2π) · n   (无张角限制)                                  │
+│     → D_droplet_gray.png (shape preserved, origin=0,0)                 │
+│                                                                        │
+│  ⑥ brightness = pascal[ n(r) ][ k(θ) ]                                │
+│     Lookup only, no multiplication                                    │
+│     → D_droplet_gray.png (triangle vertex at origin (0,0))              │
+│     → E_droplet_blue.png (layered outward from origin)                  │
+│                                                                        │
+│  ⑦ Color = n mod colormap → F_color_ripples.png                       │
+│     Each color band = one Pascal row = one ripple                     │
+│                                                                        │
+└────────────────────────────────────────────────────────────────────────┘

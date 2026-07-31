@@ -1,0 +1,31 @@
+body{
+  background-color: #131626;
+}
+
+.valueDisplay{
+  color: #f7bd8f;
+  margin-left: 20px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight:100;
+}
+
+.Slider{
+  -webkit-appearance: none;
+  background: #131626;
+  height:16px;
+  width:250px;
+  border-radius: 8px;
+  border: 1px solid #f7bd8f;
+  margin-top: 5px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.Slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width:12px;
+  height:12px;
+  border-radius: 6px;
+  background: #f7bd8f;
+  outline: none;
+}

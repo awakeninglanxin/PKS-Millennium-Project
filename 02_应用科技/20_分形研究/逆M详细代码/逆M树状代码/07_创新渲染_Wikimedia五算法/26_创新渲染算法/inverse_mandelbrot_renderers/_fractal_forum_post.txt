@@ -1,0 +1,113 @@
+============================================================
+  Fractal Forums / Math Stack Exchange — Post Template
+============================================================
+
+Below is the English post template.  Copy from "---START---" to
+"---END---" and paste into your forum thread.
+
+---START---
+
+Thread Title:
+Inverse Mandelbrot density-style render — upright teardrop, radial
+triangular fans, non-sticky edges: confirming the exact plotting algorithm
+
+Post Body:
+
+Hello everyone,
+
+I'm trying to nail down the exact rendering pipeline behind a specific
+image commonly referred to as the "Inverse Mandelbrot" or "Inverted
+Mandelbrot."  I am not asking about color palettes — only about the
+geometry-producing plot algorithm that gives this structure its
+"ideal non-sticky teardrop" and the radial triangular fan texture
+escaping outward from the boundary.
+
+Image: *(attach your render here)*
+
+1. Core dynamics (confirmed on my side)
+
+Iteration is the standard reciprocal-parameter quadratic:
+
+    z_0 = 0
+    z_{n+1} = z_n^2 + 1/c
+
+with c = x + iy, avoiding c = 0.  This matches the community
+definition of Inverse Mandelbrot (z² + 1/c), i.e. the ordinary
+Mandelbrot map conjugated by the reciprocal c → 1/c.
+
+Viewport:
+    Re(c) ∈ [−3, 7]
+    Im(c) ∈ [−4, 4]
+
+To make the teardrop tip point UPWARD, the imaginary axis is negated
+in the pixel→complex mapping (vertical flip), so the positive real
+axis points up in the final picture.
+
+2. What I cannot yet explain from plain escape-time
+
+A naive escape-time plot (bailout |z|>2 or 4, color by iteration
+count, smooth coloring mu = n + 1 − log(log|z|)/log 2) gives the
+teardrop outline, but NOT the crisp, non-sticky, radially fanned
+interior/exterior texture I see in the reference image.  The
+reference looks more like a trajectory density accumulation than a
+per-pixel escape-time map.
+
+My concrete questions:
+
+(a) Plot mode.  Is the reference produced by:
+    - pure smooth escape-time with very high max-iter (10k–50k) and
+      log-mapped iteration count,
+    - a Buddhabrot-style orbit-density histogram for the ESCAPING
+      points under z ← z² + 1/c (accumulate every z_n of escaping
+      orbits into a 2D histogram, then log-scale), or
+    - a hybrid: escape-time to select the pixel, plus orbit-trap /
+      external-ray angle coloring?
+
+(b) "Non-sticky" edges.  Is the glassy, noiseless, non-sticky
+    appearance mainly from (i) high iteration ceiling, (ii) log
+    density tone-mapping log(1+H), and (iii) external rays of the
+    1/c-conjugated map projecting as straight radial fans?  Or is
+    there a Möbius pre/post-transform on the z-plane (not just on c)
+    that orthogonally straightens the fans?
+
+(c) Triangular sectors.  The outward "triangular fan" wedges between
+    major filaments — are those the conjugated external rays /
+    equipotentials of the standard Mandelbrot, now opening outward
+    because the cardioid was inverted to a teardrop?  If so, what
+    bailout radius (R=2, 4, 50?) and iteration range best resolve
+    them without aliasing?
+
+(d) Coordinate orientation.  For the upright teardrop, is negating
+    Im(c) after the standard c = (x_width) + i(y_height) mapping the
+    only transform needed, or do people also rotate/scale the
+    z-trajectory field before histogramming?
+
+3. My current minimal pseudocode (escape-time, not yet matching texture)
+
+    for px, py in pixels:
+        x = -3 + (px/W)*10      # Re(c) in [-3,7]
+        y = -( -4 + (py/H)*8 )  # Im(c) in [-4,4], negated -> upright
+        c = x + 1j*y
+        if abs(c) < 1e-12: continue
+        z = 0
+        for n in range(MAXITER):
+            z = z*z + 1/c
+            if abs(z) > 4:
+                mu = n + 1 - log(log(abs(z)))/log(2)
+                plot(px,py, mu)
+                break
+
+This yields the teardrop but not the fan density.  So I suspect the
+target image is NOT this mode.
+
+If anyone has Ultra Fractal / Fragmentarium / raw-C code that
+reproduces the "upright Inverse Mandelbrot with radial non-sticky
+fans" as a density plot, I'd love to see the plotting pass
+(histogram accumulation vs per-pixel escape) and the exact c→1/c +
+axis-flip ordering.
+
+Thanks — trying to separate what is dynamics (1/c inversion), what
+is sampling (orbit density), and what is tone-mapping (log scaling)
+in this specific visual.
+
+---END---

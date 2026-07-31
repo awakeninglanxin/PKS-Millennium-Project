@@ -1,0 +1,90 @@
+{
+ "n_groups": 2,
+ "size_histogram": {
+  "16": 1,
+  "3584": 1
+ },
+ "expected_match": false,
+ "groups": [
+  {
+   "group_id": 0,
+   "size": 3584,
+   "stabilizer_order": 1,
+   "member_count": 3584,
+   "sample_square": [
+    1,
+    7,
+    13,
+    19,
+    25,
+    14,
+    20,
+    21,
+    2,
+    8,
+    22,
+    3,
+    9,
+    15,
+    16,
+    10,
+    11,
+    17,
+    23,
+    4,
+    18,
+    24,
+    5,
+    6,
+    12
+   ],
+   "example_indices": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "group_id": 1,
+   "size": 16,
+   "stabilizer_order": 2,
+   "member_count": 16,
+   "sample_square": [
+    10,
+    11,
+    17,
+    23,
+    4,
+    18,
+    24,
+    5,
+    6,
+    12,
+    1,
+    7,
+    13,
+    19,
+    25,
+    14,
+    20,
+    21,
+    2,
+    8,
+    22,
+    3,
+    9,
+    15,
+    16
+   ],
+   "example_indices": [
+    15,
+    76,
+    456,
+    542,
+    1522
+   ]
+  }
+ ]
+}

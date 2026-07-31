@@ -1,0 +1,29 @@
+task,param,value
+vShape_best,a=1.5 b=0.05,2562053.0
+vShape_scan,a=0.5 b=0.05,533887.7
+vShape_scan,a=0.5 b=0.1,505851.1
+vShape_scan,a=0.5 b=0.15,478780.2
+vShape_scan,a=0.5 b=0.2,452681.7
+vShape_scan,a=0.5 b=0.3,403413.1
+vShape_scan,a=0.8 b=0.05,1296260.8
+vShape_scan,a=0.8 b=0.1,1249615.2
+vShape_scan,a=0.8 b=0.15,1203593.8
+vShape_scan,a=0.8 b=0.2,1158247.5
+vShape_scan,a=0.8 b=0.3,1069773.4
+vShape_scan,a=1.0 b=0.05,1720104.5
+vShape_scan,a=1.0 b=0.1,1666171.4
+vShape_scan,a=1.0 b=0.15,1612506.3
+vShape_scan,a=1.0 b=0.2,1559180.2
+vShape_scan,a=1.0 b=0.3,1453826.0
+vShape_scan,a=1.2 b=0.05,2093074.0
+vShape_scan,a=1.2 b=0.1,2035151.6
+vShape_scan,a=1.2 b=0.15,1977079.4
+vShape_scan,a=1.2 b=0.2,1918934.8
+vShape_scan,a=1.2 b=0.3,1802749.8
+vShape_scan,a=1.5 b=0.05,2562053.0
+vShape_scan,a=1.5 b=0.1,2502966.4
+vShape_scan,a=1.5 b=0.15,2443181.2
+vShape_scan,a=1.5 b=0.2,2382760.9
+vShape_scan,a=1.5 b=0.3,2260293.5
+SPF_1e10,primes_est,434294482
+SPF_50M,primes_actual,3001134

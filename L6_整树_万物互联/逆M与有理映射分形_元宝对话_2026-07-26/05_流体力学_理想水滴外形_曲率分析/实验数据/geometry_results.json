@@ -1,0 +1,119 @@
+{
+  "hausdorff_matrix": {
+    "Inverse M": {
+      "Inverse M": 0.0,
+      "von Karman": 0.2500442175842891,
+      "Joukowski": 0.20339151404098813,
+      "Natural": 0.39635810906692853,
+      "Tuna": 0.8352909415564294
+    },
+    "von Karman": {
+      "Inverse M": 0.2500442175842891,
+      "von Karman": 0.0,
+      "Joukowski": 0.18633736082683172,
+      "Natural": 0.4491150932522063,
+      "Tuna": 0.7761631779658675
+    },
+    "Joukowski": {
+      "Inverse M": 0.20339151404098813,
+      "von Karman": 0.18633736082683172,
+      "Joukowski": 0.0,
+      "Natural": 0.49957723932245457,
+      "Tuna": 0.7393680269674507
+    },
+    "Natural": {
+      "Inverse M": 0.39635810906692853,
+      "von Karman": 0.4491150932522063,
+      "Joukowski": 0.49957723932245457,
+      "Natural": 0.0,
+      "Tuna": 0.8549799594554209
+    },
+    "Tuna": {
+      "Inverse M": 0.8352909415564294,
+      "von Karman": 0.7761631779658675,
+      "Joukowski": 0.7393680269674507,
+      "Natural": 0.8549799594554209,
+      "Tuna": 0.0
+    }
+  },
+  "metrics": {
+    "Inverse M": {
+      "aspect_ratio": 0.5,
+      "front_curvature": 0.32462725213165167,
+      "max_thickness_x": 0.3371201698358302,
+      "max_thickness": 1.0,
+      "perimeter": 4.709155064085623,
+      "area": 1.289436254067834
+    },
+    "von Karman": {
+      "aspect_ratio": 0.5,
+      "front_curvature": 0.7072791430078257,
+      "max_thickness_x": 0.5718642185407118,
+      "max_thickness": 1.0000000000233875,
+      "perimeter": 5.038701388227537,
+      "area": 1.5224653810769768
+    },
+    "Joukowski": {
+      "aspect_ratio": 0.5,
+      "front_curvature": 0.5000292461088203,
+      "max_thickness_x": 0.500216843910512,
+      "max_thickness": 1.0006284440851267,
+      "perimeter": 4.8442240510137005,
+      "area": 1.5707960869170436
+    },
+    "Natural": {
+      "aspect_ratio": 0.5,
+      "front_curvature": 0.0,
+      "max_thickness_x": 0.30006001200240046,
+      "max_thickness": 1.0,
+      "perimeter": 8.21966294945488,
+      "area": 0.9098559363245173
+    },
+    "Tuna": {
+      "aspect_ratio": 0.5,
+      "front_curvature": 5.1469995823780526,
+      "max_thickness_x": 0.9973421883850834,
+      "max_thickness": 1.5838705351837714,
+      "perimeter": 5.3239138049389725,
+      "area": 0.6161743916602993
+    }
+  },
+  "similarity_ranking": [
+    {
+      "shape": "Joukowski",
+      "hausdorff": 0.20339151404098813
+    },
+    {
+      "shape": "von Karman",
+      "hausdorff": 0.2500442175842891
+    },
+    {
+      "shape": "Natural",
+      "hausdorff": 0.39635810906692853
+    },
+    {
+      "shape": "Tuna",
+      "hausdorff": 0.8352909415564294
+    }
+  ],
+  "parametric_fit": {
+    "formula": "x=a*cos(t)+d, y=b*sin(t)*(1+c*cos(t))+e",
+    "a": -0.46851162676421565,
+    "b": 1.0533362190229163,
+    "c": 0.2919704448423991,
+    "d": 0.4375529602491837,
+    "e": -0.10191839441526658,
+    "rms_error": 0.0534510833580204,
+    "max_error": 1.0359841365497053
+  },
+  "verdict": {
+    "closest_shape": "Joukowski",
+    "closest_hausdorff": 0.20339151404098813,
+    "farthest_shape": "Tuna",
+    "farthest_hausdorff": 0.8352909415564294,
+    "geometric_close": false,
+    "moderate_similarity": false,
+    "new_shape_class": true,
+    "fit_engineering_ready": false
+  }
+}

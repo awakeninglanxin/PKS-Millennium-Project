@@ -1,0 +1,2 @@
+max,basis,smooth_count,primes,covered,coverage_pct,time_s
+10000000,"[2, 3, 5, 7, 11, 13, 17]",16626,664576,392947,59.127473757704166,1360.5845806598663

@@ -1,0 +1,428 @@
+{
+  "n_total_samples": 40,
+  "n_structure_types": 8,
+  "best_k_radial": 3,
+  "silhouette": 0.505,
+  "composite_code_map": {
+    "R01_A03": 0,
+    "R01_A02": 1,
+    "R00_A00": 2,
+    "R01_A00": 3,
+    "R02_A03": 4,
+    "R02_A01": 5,
+    "R00_A02": 6,
+    "R02_A02": 7
+  },
+  "level_stats": {
+    "L0": {
+      "type_00": 1,
+      "type_01": 2,
+      "type_02": 2,
+      "__total_samples__": 5,
+      "__n_structure_types__": 3
+    },
+    "L1": {
+      "type_03": 5,
+      "__total_samples__": 5,
+      "__n_structure_types__": 1
+    },
+    "L2": {
+      "type_04": 5,
+      "__total_samples__": 5,
+      "__n_structure_types__": 1
+    },
+    "L3": {
+      "type_05": 4,
+      "type_04": 1,
+      "__total_samples__": 5,
+      "__n_structure_types__": 2
+    },
+    "L4": {
+      "type_03": 3,
+      "type_06": 2,
+      "__total_samples__": 5,
+      "__n_structure_types__": 2
+    },
+    "L5": {
+      "type_02": 2,
+      "type_06": 2,
+      "type_07": 1,
+      "__total_samples__": 5,
+      "__n_structure_types__": 3
+    },
+    "L6": {
+      "type_02": 5,
+      "__total_samples__": 5,
+      "__n_structure_types__": 1
+    },
+    "L7": {
+      "type_02": 2,
+      "type_06": 2,
+      "type_03": 1,
+      "__total_samples__": 5,
+      "__n_structure_types__": 3
+    }
+  },
+  "sample_meta": [
+    {
+      "idx": 0,
+      "level": 0,
+      "label": "L0 zoom=0x",
+      "sub": "center",
+      "cx": -0.5,
+      "cy": 0.0,
+      "final_label": 0
+    },
+    {
+      "idx": 1,
+      "level": 0,
+      "label": "L0 zoom=0x",
+      "sub": "TL",
+      "cx": -0.09999999999999998,
+      "cy": 0.4,
+      "final_label": 1
+    },
+    {
+      "idx": 2,
+      "level": 0,
+      "label": "L0 zoom=0x",
+      "sub": "TR",
+      "cx": -0.9,
+      "cy": 0.4,
+      "final_label": 2
+    },
+    {
+      "idx": 3,
+      "level": 0,
+      "label": "L0 zoom=0x",
+      "sub": "BR",
+      "cx": -0.9,
+      "cy": -0.4,
+      "final_label": 2
+    },
+    {
+      "idx": 4,
+      "level": 0,
+      "label": "L0 zoom=0x",
+      "sub": "BL",
+      "cx": -0.09999999999999998,
+      "cy": -0.4,
+      "final_label": 1
+    },
+    {
+      "idx": 5,
+      "level": 1,
+      "label": "L1 zoom=1x",
+      "sub": "center",
+      "cx": -0.75,
+      "cy": 0.1,
+      "final_label": 3
+    },
+    {
+      "idx": 6,
+      "level": 1,
+      "label": "L1 zoom=1x",
+      "sub": "TL",
+      "cx": -0.65,
+      "cy": 0.2,
+      "final_label": 3
+    },
+    {
+      "idx": 7,
+      "level": 1,
+      "label": "L1 zoom=1x",
+      "sub": "TR",
+      "cx": -0.85,
+      "cy": 0.2,
+      "final_label": 3
+    },
+    {
+      "idx": 8,
+      "level": 1,
+      "label": "L1 zoom=1x",
+      "sub": "BR",
+      "cx": -0.85,
+      "cy": 0.0,
+      "final_label": 3
+    },
+    {
+      "idx": 9,
+      "level": 1,
+      "label": "L1 zoom=1x",
+      "sub": "BL",
+      "cx": -0.65,
+      "cy": 0.0,
+      "final_label": 3
+    },
+    {
+      "idx": 10,
+      "level": 2,
+      "label": "L2 zoom=5x",
+      "sub": "center",
+      "cx": -1.25,
+      "cy": 0.38,
+      "final_label": 4
+    },
+    {
+      "idx": 11,
+      "level": 2,
+      "label": "L2 zoom=5x",
+      "sub": "TL",
+      "cx": -1.225,
+      "cy": 0.405,
+      "final_label": 4
+    },
+    {
+      "idx": 12,
+      "level": 2,
+      "label": "L2 zoom=5x",
+      "sub": "TR",
+      "cx": -1.275,
+      "cy": 0.405,
+      "final_label": 4
+    },
+    {
+      "idx": 13,
+      "level": 2,
+      "label": "L2 zoom=5x",
+      "sub": "BR",
+      "cx": -1.275,
+      "cy": 0.355,
+      "final_label": 4
+    },
+    {
+      "idx": 14,
+      "level": 2,
+      "label": "L2 zoom=5x",
+      "sub": "BL",
+      "cx": -1.225,
+      "cy": 0.355,
+      "final_label": 4
+    },
+    {
+      "idx": 15,
+      "level": 3,
+      "label": "L3 zoom=10x",
+      "sub": "center",
+      "cx": -0.101,
+      "cy": 0.956,
+      "final_label": 5
+    },
+    {
+      "idx": 16,
+      "level": 3,
+      "label": "L3 zoom=10x",
+      "sub": "TL",
+      "cx": -0.08850000000000001,
+      "cy": 0.9684999999999999,
+      "final_label": 5
+    },
+    {
+      "idx": 17,
+      "level": 3,
+      "label": "L3 zoom=10x",
+      "sub": "TR",
+      "cx": -0.1135,
+      "cy": 0.9684999999999999,
+      "final_label": 4
+    },
+    {
+      "idx": 18,
+      "level": 3,
+      "label": "L3 zoom=10x",
+      "sub": "BR",
+      "cx": -0.1135,
+      "cy": 0.9435,
+      "final_label": 5
+    },
+    {
+      "idx": 19,
+      "level": 3,
+      "label": "L3 zoom=10x",
+      "sub": "BL",
+      "cx": -0.08850000000000001,
+      "cy": 0.9435,
+      "final_label": 5
+    },
+    {
+      "idx": 20,
+      "level": 4,
+      "label": "L4 zoom=50x",
+      "sub": "center",
+      "cx": -0.7436,
+      "cy": 0.1318,
+      "final_label": 3
+    },
+    {
+      "idx": 21,
+      "level": 4,
+      "label": "L4 zoom=50x",
+      "sub": "TL",
+      "cx": -0.7411000000000001,
+      "cy": 0.1343,
+      "final_label": 3
+    },
+    {
+      "idx": 22,
+      "level": 4,
+      "label": "L4 zoom=50x",
+      "sub": "TR",
+      "cx": -0.7461,
+      "cy": 0.1343,
+      "final_label": 6
+    },
+    {
+      "idx": 23,
+      "level": 4,
+      "label": "L4 zoom=50x",
+      "sub": "BR",
+      "cx": -0.7461,
+      "cy": 0.1293,
+      "final_label": 6
+    },
+    {
+      "idx": 24,
+      "level": 4,
+      "label": "L4 zoom=50x",
+      "sub": "BL",
+      "cx": -0.7411000000000001,
+      "cy": 0.1293,
+      "final_label": 3
+    },
+    {
+      "idx": 25,
+      "level": 5,
+      "label": "L5 zoom=200x",
+      "sub": "center",
+      "cx": -0.749,
+      "cy": 0.107,
+      "final_label": 2
+    },
+    {
+      "idx": 26,
+      "level": 5,
+      "label": "L5 zoom=200x",
+      "sub": "TL",
+      "cx": -0.748375,
+      "cy": 0.107625,
+      "final_label": 2
+    },
+    {
+      "idx": 27,
+      "level": 5,
+      "label": "L5 zoom=200x",
+      "sub": "TR",
+      "cx": -0.749625,
+      "cy": 0.107625,
+      "final_label": 6
+    },
+    {
+      "idx": 28,
+      "level": 5,
+      "label": "L5 zoom=200x",
+      "sub": "BR",
+      "cx": -0.749625,
+      "cy": 0.106375,
+      "final_label": 7
+    },
+    {
+      "idx": 29,
+      "level": 5,
+      "label": "L5 zoom=200x",
+      "sub": "BL",
+      "cx": -0.748375,
+      "cy": 0.106375,
+      "final_label": 6
+    },
+    {
+      "idx": 30,
+      "level": 6,
+      "label": "L6 zoom=833x",
+      "sub": "center",
+      "cx": -0.7453,
+      "cy": 0.1127,
+      "final_label": 2
+    },
+    {
+      "idx": 31,
+      "level": 6,
+      "label": "L6 zoom=833x",
+      "sub": "TL",
+      "cx": -0.74515,
+      "cy": 0.11284999999999999,
+      "final_label": 2
+    },
+    {
+      "idx": 32,
+      "level": 6,
+      "label": "L6 zoom=833x",
+      "sub": "TR",
+      "cx": -0.74545,
+      "cy": 0.11284999999999999,
+      "final_label": 2
+    },
+    {
+      "idx": 33,
+      "level": 6,
+      "label": "L6 zoom=833x",
+      "sub": "BR",
+      "cx": -0.74545,
+      "cy": 0.11255,
+      "final_label": 2
+    },
+    {
+      "idx": 34,
+      "level": 6,
+      "label": "L6 zoom=833x",
+      "sub": "BL",
+      "cx": -0.74515,
+      "cy": 0.11255,
+      "final_label": 2
+    },
+    {
+      "idx": 35,
+      "level": 7,
+      "label": "L7 zoom=3333x",
+      "sub": "center",
+      "cx": -0.7436,
+      "cy": 0.1318,
+      "final_label": 2
+    },
+    {
+      "idx": 36,
+      "level": 7,
+      "label": "L7 zoom=3333x",
+      "sub": "TL",
+      "cx": -0.7435625,
+      "cy": 0.1318375,
+      "final_label": 2
+    },
+    {
+      "idx": 37,
+      "level": 7,
+      "label": "L7 zoom=3333x",
+      "sub": "TR",
+      "cx": -0.7436375000000001,
+      "cy": 0.1318375,
+      "final_label": 6
+    },
+    {
+      "idx": 38,
+      "level": 7,
+      "label": "L7 zoom=3333x",
+      "sub": "BR",
+      "cx": -0.7436375000000001,
+      "cy": 0.1317625,
+      "final_label": 6
+    },
+    {
+      "idx": 39,
+      "level": 7,
+      "label": "L7 zoom=3333x",
+      "sub": "BL",
+      "cx": -0.7435625,
+      "cy": 0.1317625,
+      "final_label": 3
+    }
+  ]
+}

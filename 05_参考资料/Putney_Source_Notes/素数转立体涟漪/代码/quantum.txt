@@ -1,0 +1,55 @@
+Skip to content
+The Prime Scalar Field
+Primes: A Multi-dimensional Information Field
+
+A Scalar Field
+From the Author
+Paper + Python Scripts
+Here are the python scripts anyone can use to recreate the plots used throughout. Formal paper with math at bottom.
+
+These scripts have variables for different aspects. Gap size, number of prime waves, selections of primes, skipping set amounts, opacity; are all important depending on the size and selection of primes you choose. I recommend starting with the code pasted here and tweak the variables from there. Make sure you have the libraries installed at the top of the script or they won’t work.
+
+Below is the main 2d wave field I have showed, primes as frequencies, self bound as loops. These 4 scripts are the main plots used, so I gave 4 examples, same scripts, but with different variable settings to give you starting points. As discussed, you must change gaps, opacity, amount of prime waves used, amplitudes, line width, skips, etc… to get to different layers of patterns. If you don’t see much, try zooming in.
+
+Click on the box to expand for the code.
+
+2D circular wave field v1 – large waves
+Copy code
+2D wave field v2 – nodes
+Copy code
+2D wave field – v3
+Copy code
+
+v1
+
+v2
+
+v3
+These next python script shows the interference density as amplitudes, displaying true 3d patterns. View angle displays dynamic patterns. These can be tricky; play with ALPHA and z_scale variables.
+
+3D wave field – density as amplitudes
+Copy code
+3D density amplitude v2
+Copy code
+
+3D wave field – interference density as amplitudes
+
+3D wave field -script 2 amplitude adjustments
+
+2d field – interference from linear boundaries
+Shown above on the right, this next python script shows the prime waves stacked in a linear boundary.
+
+2D wave field – linear boundaries
+Copy code
+Below, this python script shows the the standing wave propagations with selected prime waves and gives a phase-coincidence density heatmap. It creates the multi-mode standing field, then separately measures where many modes align in phase (a “coincidence density”).
+
+3D wave field – standing waves
+Copy code
+
+3D wave field – phase density heatmap
+
+3D wave field – standing wave ampltides
+Here is the formal published paper below. Or it can be seen at https://zenodo.org/records/17269878
+
+The Prime Scalar Field- 3D informationDownload
+解释

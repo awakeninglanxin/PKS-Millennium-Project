@@ -1,0 +1,248 @@
+{
+  "n=3,L=3": {
+    "螺旋": {
+      "invm_linear": 0.135,
+      "invm_svm": 0.085,
+      "invm_enh_linear": 0.135,
+      "invm_enh_svm": 0.085,
+      "invm_params": 0,
+      "std_linear": 0.065,
+      "std_svm": 0.01,
+      "std_params": 6,
+      "L_diff": 0.5019721198138454,
+      "invm_dim": 3,
+      "std_dim": 3
+    },
+    "同心圆": {
+      "invm_linear": 0.49000000000000005,
+      "invm_svm": 0.5,
+      "invm_enh_linear": 0.49000000000000005,
+      "invm_enh_svm": 0.5,
+      "invm_params": 0,
+      "std_linear": 0.575,
+      "std_svm": 0.615,
+      "std_params": 6,
+      "L_diff": 0.4896733123260873,
+      "invm_dim": 3,
+      "std_dim": 3
+    },
+    "XOR": {
+      "invm_linear": 0.6050000000000001,
+      "invm_svm": 0.67,
+      "invm_enh_linear": 0.6050000000000001,
+      "invm_enh_svm": 0.67,
+      "invm_params": 0,
+      "std_linear": 0.6799999999999999,
+      "std_svm": 0.6699999999999999,
+      "std_params": 6,
+      "L_diff": 0.6089792509467155,
+      "invm_dim": 3,
+      "std_dim": 3
+    }
+  },
+  "n=3,L=5": {
+    "螺旋": {
+      "invm_linear": 0.37,
+      "invm_svm": 0.325,
+      "invm_enh_linear": 0.37,
+      "invm_enh_svm": 0.325,
+      "invm_params": 0,
+      "std_linear": 0.15499999999999997,
+      "std_svm": 0.095,
+      "std_params": 9,
+      "L_diff": 0.4747771780328719,
+      "invm_dim": 3,
+      "std_dim": 3
+    },
+    "同心圆": {
+      "invm_linear": 0.535,
+      "invm_svm": 0.5599999999999999,
+      "invm_enh_linear": 0.535,
+      "invm_enh_svm": 0.5599999999999999,
+      "invm_params": 0,
+      "std_linear": 0.5599999999999999,
+      "std_svm": 0.64,
+      "std_params": 9,
+      "L_diff": 0.4674054180527403,
+      "invm_dim": 3,
+      "std_dim": 3
+    },
+    "XOR": {
+      "invm_linear": 0.52,
+      "invm_svm": 0.61,
+      "invm_enh_linear": 0.52,
+      "invm_enh_svm": 0.61,
+      "invm_params": 0,
+      "std_linear": 0.655,
+      "std_svm": 0.6900000000000001,
+      "std_params": 9,
+      "L_diff": 0.7046366909996393,
+      "invm_dim": 3,
+      "std_dim": 3
+    }
+  },
+  "n=4,L=3": {
+    "螺旋": {
+      "invm_linear": 0.23499999999999996,
+      "invm_svm": 0.145,
+      "invm_enh_linear": 0.205,
+      "invm_enh_svm": 0.05,
+      "invm_params": 0,
+      "std_linear": 0.08499999999999999,
+      "std_svm": 0.039999999999999994,
+      "std_params": 8,
+      "L_diff": 0.4087895851359542,
+      "invm_dim": 4,
+      "std_dim": 4
+    },
+    "同心圆": {
+      "invm_linear": 0.5700000000000001,
+      "invm_svm": 0.5599999999999999,
+      "invm_enh_linear": 0.54,
+      "invm_enh_svm": 0.635,
+      "invm_params": 0,
+      "std_linear": 0.65,
+      "std_svm": 0.77,
+      "std_params": 8,
+      "L_diff": 0.3906802584870448,
+      "invm_dim": 4,
+      "std_dim": 4
+    },
+    "XOR": {
+      "invm_linear": 0.7300000000000001,
+      "invm_svm": 0.755,
+      "invm_enh_linear": 0.72,
+      "invm_enh_svm": 0.71,
+      "invm_params": 0,
+      "std_linear": 0.695,
+      "std_svm": 0.675,
+      "std_params": 8,
+      "L_diff": 0.5339382958747116,
+      "invm_dim": 4,
+      "std_dim": 4
+    }
+  },
+  "n=4,L=5": {
+    "螺旋": {
+      "invm_linear": 0.38,
+      "invm_svm": 0.29,
+      "invm_enh_linear": 0.28500000000000003,
+      "invm_enh_svm": 0.205,
+      "invm_params": 0,
+      "std_linear": 0.07999999999999999,
+      "std_svm": 0.05,
+      "std_params": 12,
+      "L_diff": 0.433304651403777,
+      "invm_dim": 4,
+      "std_dim": 4
+    },
+    "同心圆": {
+      "invm_linear": 0.485,
+      "invm_svm": 0.5700000000000001,
+      "invm_enh_linear": 0.45500000000000007,
+      "invm_enh_svm": 0.6,
+      "invm_params": 0,
+      "std_linear": 0.615,
+      "std_svm": 0.6849999999999999,
+      "std_params": 12,
+      "L_diff": 0.45327774700086354,
+      "invm_dim": 4,
+      "std_dim": 4
+    },
+    "XOR": {
+      "invm_linear": 0.605,
+      "invm_svm": 0.67,
+      "invm_enh_linear": 0.7,
+      "invm_enh_svm": 0.725,
+      "invm_params": 0,
+      "std_linear": 0.6950000000000001,
+      "std_svm": 0.7050000000000001,
+      "std_params": 12,
+      "L_diff": 0.6375950467424659,
+      "invm_dim": 4,
+      "std_dim": 4
+    }
+  },
+  "n=5,L=3": {
+    "螺旋": {
+      "invm_linear": 0.205,
+      "invm_svm": 0.18500000000000003,
+      "invm_enh_linear": 0.21000000000000002,
+      "invm_enh_svm": 0.175,
+      "invm_params": 0,
+      "std_linear": 0.11499999999999999,
+      "std_svm": 0.075,
+      "std_params": 10,
+      "L_diff": 0.36501488278937944,
+      "invm_dim": 5,
+      "std_dim": 5
+    },
+    "同心圆": {
+      "invm_linear": 0.55,
+      "invm_svm": 0.505,
+      "invm_enh_linear": 0.53,
+      "invm_enh_svm": 0.6950000000000001,
+      "invm_params": 0,
+      "std_linear": 0.6699999999999999,
+      "std_svm": 0.76,
+      "std_params": 10,
+      "L_diff": 0.3529324003383365,
+      "invm_dim": 5,
+      "std_dim": 5
+    },
+    "XOR": {
+      "invm_linear": 0.76,
+      "invm_svm": 0.7449999999999999,
+      "invm_enh_linear": 0.75,
+      "invm_enh_svm": 0.7250000000000001,
+      "invm_params": 0,
+      "std_linear": 0.6749999999999999,
+      "std_svm": 0.675,
+      "std_params": 10,
+      "L_diff": 0.537096889488568,
+      "invm_dim": 5,
+      "std_dim": 5
+    }
+  },
+  "n=5,L=5": {
+    "螺旋": {
+      "invm_linear": 0.38,
+      "invm_svm": 0.25999999999999995,
+      "invm_enh_linear": 0.37499999999999994,
+      "invm_enh_svm": 0.23500000000000001,
+      "invm_params": 0,
+      "std_linear": 0.175,
+      "std_svm": 0.06,
+      "std_params": 15,
+      "L_diff": 0.37919666217712017,
+      "invm_dim": 5,
+      "std_dim": 5
+    },
+    "同心圆": {
+      "invm_linear": 0.49000000000000005,
+      "invm_svm": 0.5599999999999999,
+      "invm_enh_linear": 0.515,
+      "invm_enh_svm": 0.6100000000000001,
+      "invm_params": 0,
+      "std_linear": 0.595,
+      "std_svm": 0.8100000000000002,
+      "std_params": 15,
+      "L_diff": 0.3867957059807897,
+      "invm_dim": 5,
+      "std_dim": 5
+    },
+    "XOR": {
+      "invm_linear": 0.635,
+      "invm_svm": 0.695,
+      "invm_enh_linear": 0.5999999999999999,
+      "invm_enh_svm": 0.705,
+      "invm_params": 0,
+      "std_linear": 0.66,
+      "std_svm": 0.7050000000000001,
+      "std_params": 15,
+      "L_diff": 0.6359056277934119,
+      "invm_dim": 5,
+      "std_dim": 5
+    }
+  }
+}

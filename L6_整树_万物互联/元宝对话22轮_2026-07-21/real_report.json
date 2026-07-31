@@ -1,0 +1,60 @@
+{
+  "config": {
+    "source": "westock-data \u817e\u8baf\u81ea\u9009\u80a1",
+    "universe": "\u6caa\u6df1300\u62bd\u683732\u53ea",
+    "n_stocks": 32,
+    "industries": {
+      "\u91d1\u878d": 5,
+      "\u98df\u54c1\u996e\u6599": 4,
+      "\u533b\u836f\u751f\u7269": 3,
+      "\u7535\u529b\u8bbe\u5907": 3,
+      "\u6c7d\u8f66": 5,
+      "\u6709\u8272\u91d1\u5c5e": 3,
+      "\u77f3\u6cb9\u77f3\u5316": 2,
+      "\u516c\u7528\u4e8b\u4e1a": 1,
+      "\u901a\u4fe1": 1,
+      "\u8ba1\u7b97\u673a": 1,
+      "\u7535\u5b50": 3,
+      "\u975e\u94f6\u91d1\u878d": 1
+    },
+    "date_range": "2023-01-01~2026-07-21",
+    "WIN": 120,
+    "STEP": 20,
+    "n_samples": 1184
+  },
+  "encoder": "LiquidODE (8f/6m/4s)",
+  "signatures": [
+    "ode_fast/mid/slow/joint",
+    "hq(11)",
+    "width",
+    "hurst",
+    "tail_alpha"
+  ],
+  "clustering": "Ward + 3 cuts (3/5/8)",
+  "ground_truth": "HMM vol-regime + \u884c\u4e1a",
+  "metrics": {
+    "coarse": {
+      "ARI(HMM)": 0.010018154151846039,
+      "NMI(HMM)": 0.012121385926720003,
+      "Purity(ind)": 0.20270270270270271,
+      "k": "4"
+    },
+    "mid": {
+      "ARI(HMM)": 0.03788139215864406,
+      "NMI(HMM)": 0.08439693553448463,
+      "Purity(ind)": 0.25844594594594594,
+      "k": "6"
+    },
+    "fine": {
+      "ARI(HMM)": 0.027858003366866443,
+      "NMI(HMM)": 0.0793198358387423,
+      "Purity(ind)": 0.26013513513513514,
+      "k": "9"
+    }
+  },
+  "within_cluster_corr_mean": 0.2840148139700214,
+  "between_cluster_corr_mean": 0.22288991203821598,
+  "n_within": 119,
+  "n_between": 377,
+  "elapsed_sec": 81.06
+}

@@ -1,0 +1,230 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from scipy.optimize import fsolve
+
+# 参数设置
+phi = (np.sqrt(5) - 1) / 2
+ln_phi = np.log(phi)  # 负值
+
+
+# 计算b_n（z轴截距）
+def calculate_b_n(n):
+    return (np.log(n) + 1 / (2 * np.pi * n)) / ln_phi
+
+
+# 计算z_n（A_n点的z坐标）
+def calculate_z_n(n):
+    return np.log(n) / ln_phi
+
+
+# 计算A_n系数
+def calculate_A_n(n):
+    return (1 / n ** 2) * np.exp(-1 / (np.pi * n))
+
+
+# 计算v值（基于2D曲线方程）
+def solve_v(u, n):
+    """计算给定u和n时的v值"""
+    A_n = calculate_A_n(n)
+    term = A_n * np.exp(-u / np.pi) - u ** 2
+    if term >= 0:
+        return np.sqrt(term)
+    else:
+        return np.nan
+
+
+# 优化u范围求解
+def find_u_range(n):
+    """找到给定n时u的有效范围"""
+    A_n = calculate_A_n(n)
+
+    # 定义方程：f(u) = A_n * exp(-u/π) - u² = 0
+    def equation(u):
+        return A_n * np.exp(-u / np.pi) - u ** 2
+
+    # 使用二分法查找根
+    u_min, u_max = -10, 10  # 初始范围
+    tolerance = 1e-6
+    max_iter = 100
+
+    # 查找左根（负值区域）
+    left = u_min
+    right = 0
+    for _ in range(max_iter):
+        mid = (left + right) / 2
+        if equation(mid) > 0:
+            left = mid
+        else:
+            right = mid
+        if abs(right - left) < tolerance:
+            u_min = mid
+            break
+
+    # 查找右根（正值区域）
+    left = 0
+    right = u_max
+    for _ in range(max_iter):
+        mid = (left + right) / 2
+        if equation(mid) > 0:
+            right = mid
+        else:
+            left = mid
+        if abs(right - left) < tolerance:
+            u_max = mid
+            break
+
+    return u_min, u_max
+
+
+# 生成节点数据
+def generate_nodes(n_values):
+    nodes = []
+    for n in n_values:
+        b_n = calculate_b_n(n)
+        z_n = calculate_z_n(n)
+        A_n = calculate_A_n(n)
+        u_min, u_max = find_u_range(n)
+        nodes.append({
+            'n': n,
+            'b_n': b_n,
+            'z_n': z_n,
+            'A_n': A_n,
+            'u_min': u_min,
+            'u_max': u_max,
+            'label': f'n={n}'
+        })
+    return nodes
+
+
+# 设置参数
+num_curves = 29  # 曲线数量
+n_values = range(1, num_curves + 1)  # n从1到5
+
+# 生成节点
+nodes = generate_nodes(n_values)
+
+# 创建图像和子图
+fig = plt.figure(figsize=(18, 8))
+
+# 创建3D子图
+ax1 = fig.add_subplot(121, projection='3d')
+
+# 创建颜色映射
+colors = plt.cm.viridis(np.linspace(0, 1, num_curves))
+
+# 绘制每条曲线
+for i, node in enumerate(nodes):
+    n = node['n']
+    z_n = node['z_n']
+    u_min = node['u_min']
+    u_max = node['u_max']
+    color = colors[i]
+
+    # 生成u值
+    u_values = np.linspace(u_min, u_max, 500)
+
+    # 计算v值
+    v_positive = np.array([solve_v(u, n) for u in u_values])
+    v_negative = -v_positive
+
+    # 创建z值数组
+    z_values = np.full_like(u_values, z_n)
+
+    # 绘制曲线
+    ax1.plot(u_values, v_positive, z_values, color=color, alpha=0.8)
+    ax1.plot(u_values, v_negative, z_values, color=color, alpha=0.8)
+
+    # 标记原点
+    ax1.scatter(0, 0, z_n, color=color, s=30)
+    ax1.text(0, 0, z_n, f"n={n}", fontsize=8)
+
+# 添加z轴曲线（红色曲线）
+t_values = np.linspace(0.5, num_curves, 100)
+x_red = 1 / t_values
+z_red = np.log(t_values) / ln_phi
+
+# 绘制红色曲线（正负两条）
+ax1.plot(x_red, np.zeros_like(z_red), z_red,
+         color='red', linewidth=2, alpha=0.7)
+ax1.plot(-x_red, np.zeros_like(z_red), z_red,
+         color='red', linewidth=2, alpha=0.7)
+
+# 添加标签和网格
+ax1.set_xlabel('u')
+ax1.set_ylabel('v')
+ax1.set_zlabel('z')
+ax1.set_title(f'3D Edge Curves for n=1 to {num_curves} with Red Curves')
+ax1.grid(True)
+
+# 设置uv坐标等轴
+# 计算uv平面的最大范围
+u_min, u_max = ax1.get_xlim()
+v_min, v_max = ax1.get_ylim()
+max_range = max(u_max - u_min, v_max - v_min) / 2.0
+u_center = (u_min + u_max) / 2
+v_center = (v_min + v_max) / 2
+ax1.set_xlim(u_center - max_range, u_center + max_range)
+ax1.set_ylim(v_center - max_range, v_center + max_range)
+
+# 设置z轴范围以匹配uv平面
+z_min, z_max = ax1.get_zlim()
+z_range = z_max - z_min
+ax1.set_zlim(z_max, z_min)  # 使z轴范围与uv平面范围成比例
+
+# 设置视角
+ax1.view_init(elev=30, azim=-60)
+
+# 创建2D UV投影子图
+ax2 = fig.add_subplot(122)
+
+# 绘制每条曲线在UV平面上的投影
+for i, node in enumerate(nodes):
+    n = node['n']
+    u_min = node['u_min']
+    u_max = node['u_max']
+    color = colors[i]
+
+    # 生成u值
+    u_values = np.linspace(u_min, u_max, 500)
+
+    # 计算v值
+    v_positive = np.array([solve_v(u, n) for u in u_values])
+    v_negative = -v_positive
+
+    # 绘制曲线在UV平面上的投影
+    ax2.plot(u_values, v_positive, color=color, alpha=0.8)
+    ax2.plot(u_values, v_negative, color=color, alpha=0.8)
+
+    # 标记原点
+    ax2.scatter(0, 0, color=color, s=30)
+    ax2.text(0, 0, f"n={n}", fontsize=8)
+
+# 添加红色曲线在UV平面上的投影
+# 在UV平面中，红色曲线投影为v=0的线段
+ax2.plot(x_red, np.zeros_like(x_red),
+         color='red', linewidth=2, alpha=0.7)
+ax2.plot(-x_red, np.zeros_like(-x_red),
+         color='red', linewidth=2, alpha=0.7)
+
+# 设置2D坐标轴标签和标题
+ax2.set_xlabel('u')
+ax2.set_ylabel('v')
+ax2.set_title(f'UV Plane Projection (n=1 to {num_curves})')
+ax2.grid(True)
+ax2.set_aspect('equal')  # 保持纵横比相等
+
+# 设置相同的UV范围，便于比较
+uv_range = max(max_range, max(np.abs(u_values)), max(np.abs(v_positive))) * 1.1
+ax2.set_xlim(-uv_range, uv_range)
+ax2.set_ylim(-uv_range, uv_range)
+
+# 添加图例
+ax2.legend(['Curve Projection', 'Red Curve Projection'], loc='upper right')
+
+# 调整布局
+plt.tight_layout()
+
+# 保存并显示图像
+plt.savefig(f"3d_edge_curves_n={num_curves}_with_projection.png", dpi=300, transparent=True)
+plt.show()

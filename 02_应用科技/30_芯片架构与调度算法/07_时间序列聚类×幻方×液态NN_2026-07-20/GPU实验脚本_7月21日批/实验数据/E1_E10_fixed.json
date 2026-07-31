@@ -1,0 +1,36 @@
+{
+  "E1": {
+    "pass_rate": 0.0578,
+    "L1_compression": 17.3,
+    "core_enrichment": 0.98,
+    "constraint": "loose: |(v1+v2)%65|<10",
+    "n_trials": 20000
+  },
+  "E2": {
+    "tetrahedra": 1000,
+    "canonical_unique_rate": 1.0,
+    "compression_24x": true
+  },
+  "exp_E8": {
+    "error": "zero-size array to reduction operation minimum which has no identity"
+  },
+  "E3": {
+    "N": 200,
+    "total_C(N,4)": 64684950,
+    "L1_rate": 0.05735,
+    "L1_surviving": 3709681,
+    "L1_compression": 17.4
+  },
+  "E10": {
+    "sampled": 10000,
+    "passing": 576,
+    "L1_rate": 0.0576,
+    "direct_kB": 27.0,
+    "template_kB": 7.9,
+    "joint_compression": 3.4
+  },
+  "_meta": {
+    "elapsed": 1.3,
+    "timestamp": "2026-07-20 20:41:09"
+  }
+}

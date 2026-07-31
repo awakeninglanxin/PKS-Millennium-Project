@@ -1,0 +1,36 @@
+# Hof 2018 湍流崩塌 — 网络链接汇总
+# 存档日期: 2026-06-15
+
+=== 主论文 ===
+1. arXiv 预印本 (全文+补充材料, 免费)
+   https://arxiv.org/abs/1711.06543
+   https://arxiv.org/pdf/1711.06543.pdf
+
+2. Nature Physics 发表版
+   https://www.nature.com/articles/s41567-017-0018-3
+   https://www.nature.com/articles/s41567-017-0018-3.pdf
+
+3. NASA ADS 摘要
+   https://ui.adsabs.harvard.edu/abs/2018NatPh..14..386K/abstract
+
+4. ResearchGate
+   https://www.researchgate.net/publication/320841680_Destabilizing_turbulence_in_pipe_flow
+
+=== 会议报告 ===
+5. GALA 2017 (German Association for Laser Anemometry) — Kuhnen 报告
+   https://www.gala-ev.org/images/Beitraege/Beitraege%202017/pdf/5.pdf
+   标题: RELAMINARISATION OF TURBULENCE IN PIPE FLOW
+   包含: 25孔射流阵列的详细实验装置结构
+
+=== 第三方存档 ===
+6. KipHub (中文, 全文下载)
+   https://www.kiphub.com/paper/61e502aab1587fb4c7f62378
+
+7. 道客巴巴 (中文, 论文阅读)
+   https://www.doc88.com/p-49539234976636.html
+
+=== 作者信息 ===
+- 第一作者: Jakob Kuhnen (IST Austria)
+- 通讯作者: Bjorn Hof (IST Austria)
+- 合作者: Baofang Song, Davide Scarselli, Nazmi Burak Budanur, Michael Riedl, Ashley P. Willis, Marc Avila
+- 机构: Institute of Science and Technology Austria (IST Austria)

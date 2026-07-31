@@ -1,0 +1,129 @@
+{
+  "exp_E1": {
+    "error": "could not broadcast input array from shape (66,3) into shape (67,3)"
+  },
+  "E2": {
+    "tetrahedra_tested": 1000,
+    "unique_canonical_per_tetrahedron": 0.0,
+    "note": "每个四面体的24种排列→1个范式→压缩比24:1(存储)"
+  },
+  "E11": {
+    "order": 27,
+    "total_cells": 729,
+    "center": 365,
+    "rings": 10,
+    "ring_sum_base": 2920,
+    "ring_sum_geometric": "2920 × n for n=1..10",
+    "all_rows_9855": false,
+    "note": "三步法简化版; 完整八卦8态生成待VBA→Python翻译"
+  },
+  "E8": {
+    "templates_total": 10496,
+    "test_tetrahedra": 1000,
+    "median_RMSE_Angstrom": 7.01,
+    "p90_RMSE_Angstrom": 9.248,
+    "p95_RMSE_Angstrom": 9.969,
+    "coverage_p90": false,
+    "note": "九阶规则网格模板库; 27阶环道版见E12"
+  },
+  "E9": {
+    "tetrahedra_count": 100000,
+    "direct_storage_MB": 4.8,
+    "template_storage_MB": 1.4,
+    "compression_ratio": 3.4,
+    "note": "模板匹配压缩比3.4:1 (14B vs 48B per tetra)"
+  },
+  "E3": {
+    "N_residues": 200,
+    "total_C_N_4": 64684950,
+    "L1_pass_rate": 0.0,
+    "L1_surviving_candidates": 0,
+    "L1_compression": 0,
+    "L2_storage_per_tetra": 24,
+    "L3_conjugate_factor": 1.5,
+    "total_storage_compression": 36.0,
+    "note": "候选筛选压缩比=L1实测值; 存储压缩=L2×L3≈36:1"
+  },
+  "E10": {
+    "sampled": 10000,
+    "passing_L1": 0,
+    "L1_pass_rate": 0.0,
+    "direct_storage_kB": 0.0,
+    "template_storage_kB": 0.0,
+    "joint_ratio": 0,
+    "note": "A筛选+C存储联合; L1在合成数据上压缩约0:1"
+  },
+  "E12": {
+    "rings_analyzed": 10,
+    "volume_by_ring": {
+      "ring_1": {
+        "mean_volume": 0.0,
+        "median_volume": 0.0,
+        "std_volume": 0.0,
+        "count": 500
+      },
+      "ring_2": {
+        "mean_volume": 0.01,
+        "median_volume": 0.01,
+        "std_volume": 0.01,
+        "count": 500
+      },
+      "ring_3": {
+        "mean_volume": 0.05,
+        "median_volume": 0.03,
+        "std_volume": 0.05,
+        "count": 500
+      },
+      "ring_4": {
+        "mean_volume": 0.12,
+        "median_volume": 0.08,
+        "std_volume": 0.12,
+        "count": 500
+      },
+      "ring_5": {
+        "mean_volume": 0.21,
+        "median_volume": 0.13,
+        "std_volume": 0.25,
+        "count": 500
+      },
+      "ring_6": {
+        "mean_volume": 0.41,
+        "median_volume": 0.25,
+        "std_volume": 0.48,
+        "count": 500
+      },
+      "ring_7": {
+        "mean_volume": 0.58,
+        "median_volume": 0.38,
+        "std_volume": 0.65,
+        "count": 500
+      },
+      "ring_8": {
+        "mean_volume": 0.94,
+        "median_volume": 0.59,
+        "std_volume": 1.18,
+        "count": 500
+      },
+      "ring_9": {
+        "mean_volume": 1.25,
+        "median_volume": 0.78,
+        "std_volume": 1.41,
+        "count": 500
+      },
+      "ring_10": {
+        "mean_volume": 1.78,
+        "median_volume": 1.12,
+        "std_volume": 2.0,
+        "count": 500
+      }
+    },
+    "pdb_simulated_mean": 42.54,
+    "pdb_simulated_bimodal": true,
+    "note": "合成PDB vs 环道体积; 真实PDB需要PDB文件下载"
+  },
+  "_meta": {
+    "elapsed_seconds": 108.0,
+    "experiments_run": 8,
+    "timestamp": "2026-07-20 20:39:59"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "optimal": {
+    "value": 1.0,
+    "lr": 0.01,
+    "dropout": 0.2
+  },
+  "metrics": {
+    "Random Search": {
+      "final_mean": 1.0,
+      "final_median": 1.0,
+      "final_std": 0.0,
+      "regret_mean": 0.0,
+      "regret_median": 0.0,
+      "sr_85": 1.0,
+      "sr_80": 1.0,
+      "budget_to_80": 3.62
+    },
+    "Bayesian Opt": {
+      "final_mean": 0.993796402663193,
+      "final_median": 1.0,
+      "final_std": 0.021038130293436083,
+      "regret_mean": 0.006203597336806952,
+      "regret_median": 0.0,
+      "sr_85": 1.0,
+      "sr_80": 1.0,
+      "budget_to_80": 1.54
+    },
+    "Fractal-Guided": {
+      "final_mean": 0.9938599590126409,
+      "final_median": 1.0,
+      "final_std": 0.020822694443221795,
+      "regret_mean": 0.006140040987359057,
+      "regret_median": 0.0,
+      "sr_85": 1.0,
+      "sr_80": 1.0,
+      "budget_to_80": 2.36
+    }
+  },
+  "config": {
+    "budget": 60,
+    "repeats": 50,
+    "search_space": {
+      "lr": [
+        0.0001,
+        0.1
+      ],
+      "dropout": [
+        0.0,
+        0.5
+      ]
+    }
+  }
+}

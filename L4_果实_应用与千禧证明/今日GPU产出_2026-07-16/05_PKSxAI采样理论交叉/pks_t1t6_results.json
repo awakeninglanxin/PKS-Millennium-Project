@@ -1,0 +1,9 @@
+{
+  "farey_max_gap": 1.9919919919919926e-05,
+  "linear_max_gap": 1.9919919919921675e-05,
+  "cos_max_gap": 3.129012414693384e-05,
+  "prime_autocorr": 0.9999999996163372,
+  "gauss_autocorr": 0.003082811016840854,
+  "dp_stop_ratio": 0.0752,
+  "smooth_coverage_7basis_10000": 0.0945
+}

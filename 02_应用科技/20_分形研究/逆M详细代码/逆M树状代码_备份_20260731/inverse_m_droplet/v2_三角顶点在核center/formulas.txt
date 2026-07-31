@@ -1,0 +1,32 @@
+
+┌────────────────────────────────────────────────────────────────────────┐
+│ 公式 → 图 对照                                                          │
+├────────────────────────────────────────────────────────────────────────┤
+│                                                                        │
+│  ① C(n,k) = C(n-1,k) + C(n-1,k-1) mod P                              │
+│     Yang Hui recurrence → A_pascal.png                                 │
+│                                                                        │
+│  ② iter_count = 正M逃逸时间(z=z²+c', c'=1/c)                          │
+│     Defines droplet shape → B_iter_shape.png                           │
+│                                                                        │
+│  ③ D(p) = ln[p(p+1)/2] / ln(p) = 1.585                             │
+│     Reiter Theorem 2 → used in mapping                                 │
+│                                                                        │
+│  ④ n(iter) = (1 − (iter−imin)/(imax−imin))^D · (N−1)                 │
+│     Maps escape time → Pascal row → C_iter_to_n.png                    │
+│     High iter (nucleus) → low n (triangle top, dense)                 │
+│     Low iter (edge) → high n (triangle bottom, sparse)                 │
+│                                                                        │
+│  ⑤ ★ 360° 全方向映射, 原点 (0,0) ★                                    │
+│     k = (θ+π)/(2π) · n   (无张角限制)                                  │
+│     → D_droplet_gray.png (shape preserved, origin=0,0)                 │
+│                                                                        │
+│  ⑥ brightness = pascal[ n(iter) ][ k(θ) ]                            │
+│     Lookup only, no multiplication                                    │
+│     → D_droplet_gray.png (shape preserved)                            │
+│     → E_droplet_blue.png (reference style)                            │
+│                                                                        │
+│  ⑦ Color = n mod colormap → F_color_ripples.png                       │
+│     Each color band = one Pascal row = one ripple                     │
+│                                                                        │
+└────────────────────────────────────────────────────────────────────────┘

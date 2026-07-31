@@ -1,0 +1,2 @@
+﻿N_max,ratio_prime_vs_all,ratio_prime_vs_ppow,ratio_prime_vs_multi,var_p,var_ppow,var_multi,n_prime,n_ppow,n_multi,t_linear,t_build,t_kernel,t_total
+10000000,0.0957,30.6405,0.1070,19.7149,0.6434,184.2333,581573,97881,1653878,5.1,7.5,9.5,22.1

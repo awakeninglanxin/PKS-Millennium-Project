@@ -1,0 +1,8 @@
+﻿文件,内容
+btse_v2_realdat��_final.py,最终可重跑脚本（含 fetch+签名+聚类+评估+出图）
+btse_v2_output/real_report.json,完整报告（配置/指标/相关统计）
+real_distance.png,1184×1184 距离矩阵 + mid 簇边界
+real_cluster_industry.png,簇(mid) × 行业 交叉热力图​
+real_pca_cuts.png,签名空间 PCA × 三档切树分布
+real_price_paths.png,32 只票对数价格路径，按 mid 簇着色​
+real_within_between.png,簇内 vs 簇间相关性直方图

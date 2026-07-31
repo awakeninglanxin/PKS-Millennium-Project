@@ -1,0 +1,32 @@
+
+┌────────────────────────────────────────────────────────────────────────┐
+│ OUTWARD 公式 → 图 对照                                                  │
+├────────────────────────────────────────────────────────────────────────┤
+│                                                                        │
+│  A. C(n,k) = C(n-1,k) + C(n-1,k-1) mod P                             │
+│     Yang Hui recurrence → A_pascal.png                                 │
+│                                                                        │
+│  B. iter_count from z = z² + 1/c (Mobius)                             │
+│     Droplet shape & escape time → B_iter.png                            │
+│                                                                        │
+│  C. ★ OUTWARD 映射方向反转 ★                                           │
+│     n = ((iter−imin)/(imax−imin))^D · (N−1)                          │
+│     (之前是 1−iter_norm，现在直接用 iter_norm)                           │
+│     → C_mapping.png                                                     │
+│                                                                        │
+│  D. 360° 角度映射                                                      │
+│     k = (θ+π)/(2π) · n   (全范围, 无张角限制)                           │
+│     → D_angle360.png                                                   │
+│                                                                        │
+│  E. D(p) = ln[p(p+1)/2]/ln(p) = 1.585                              │
+│     Reiter Theorem 2 → controls n mapping nonlinearity                  │
+│                                                                        │
+│  F. brightness = pascal[n(iter)][k(θ)]                                │
+│     Lookup only → E_outward_gray.png                                   │
+│     Core (high n, sparse) = DIM                                        │
+│     Outward (low n, dense) = BRIGHT                                    │
+│                                                                        │
+│  G. Blue tone → F_outward_blue.png (MAIN)                             │
+│     Outward = cyan/bright | Core = dark blue/black                      │
+│                                                                        │
+└────────────────────────────────────────────────────────────────────────┘

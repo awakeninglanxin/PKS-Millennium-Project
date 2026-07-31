@@ -1,0 +1,61 @@
+{
+  "config": {
+    "n_stocks": 40,
+    "T": 600,
+    "crash_days": [
+      "153",
+      "441",
+      "454"
+    ],
+    "WIN": 120,
+    "STEP": 30,
+    "n_samples": 640
+  },
+  "encoder": "LiquidODE (n_fast=8,n_mid=6,n_slow=4, dt=1)",
+  "signatures": [
+    "ode_fast/mid/slow/joint",
+    "hq(11)",
+    "width",
+    "hurst",
+    "tail_alpha",
+    "anchors"
+  ],
+  "clustering": "Ward hierarchical + 3 cuts (3/5/8)",
+  "ground_truth": "HMM vol-regime (3-state) + industry",
+  "metrics": {
+    "coarse": {
+      "ARI(HMM)": 0.08546886744585686,
+      "NMI(HMM)": 0.0865488521062793,
+      "Purity(ind)": 0.15
+    },
+    "mid": {
+      "ARI(HMM)": 0.06703724259820643,
+      "NMI(HMM)": 0.11111221510482219,
+      "Purity(ind)": 0.1546875
+    },
+    "fine": {
+      "ARI(HMM)": 0.06130133074399104,
+      "NMI(HMM)": 0.1059529044769554,
+      "Purity(ind)": 0.165625
+    }
+  },
+  "crash_jump": {
+    "coarse": {
+      "near": 0.1625,
+      "far": 0.2403846153846154
+    },
+    "mid": {
+      "near": 0.5625,
+      "far": 0.24615384615384617
+    },
+    "fine": {
+      "near": 0.625,
+      "far": 0.4673076923076923
+    }
+  },
+  "hurst_baseline": {
+    "near": 0.5675102040533995,
+    "far": 0.5551411333017325
+  },
+  "elapsed_sec": 28.24
+}

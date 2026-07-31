@@ -1,0 +1,357 @@
+	r"tier                              
+TYPE Original Research PUBLISHED 11 May 2026
+DOI 10.3389/fams.2026.1826475
+OPEN ACCESS
+EDITED BY
+Ulrich Parlitz,
+Max Planck Institute for Dynamics and Self-Organization, Germany
+REVIEWED BY
+Yinxing Zhang,
+Kunming University of Science and Technology, China
+Sanjay Padaliya,
+Shri Guru Ram Rai PG College, India
+*CORRESPONDENCE
+CITATION
+Kopp M and Samuilik I (2026) Generation of new batik ﬂoral patterns via chaotic
+modulation and Julia-Mandelbrot fractal transformations.
+Front. Appl. Math. Stat. 12:1826475. doi: 10.3389/fams.2026.1826475
+COPYRIGHT
+© 2026  Kopp and Samuilik. This is an
+open-access article distributed under the terms of the Creative Commons
+Attribution License (CC BY). The use,
+distribution or reproduction in other
+forums is permitted, provided the
+original author(s) and the copyright
+owner(s) are credited and that the
+original publication in this journal is
+cited, in accordance with accepted
+academic practice. No use, distribution or reproduction is permitted which does not comply with these terms.
+Generation of new batik ﬂoral
+patterns via chaotic modulation
+and Julia-Mandelbrot fractal transformations
+Michael Kopp1  and Inna Samuilik2,3*
+1 Institute for Single Crystals, NAS Ukraine, Kharkiv, Ukraine, 2 Institute of Life Sciences and
+Technologies, Daugavpils University, Daugavpils, Latvia, 3 Institute of Applied Mathematics, Riga Technical University, Riga, Latvia
+This  paper  presents  a  novel  hierarchical  approach  for  generating  complex ﬂoral   patterns   through   sequential   application   of   chaotic   modulation   and fractal  transformations.  Classical  geometric  ﬂoral  patterns  are  ﬁrst  subjected to binary chaotic modulation using signals extracted from a four-dimensional memristor-based  hyperchaotic system,  introducing controlled  irregularity  into regular   structures.   Subsequently,   Julia   and   Mandelbrot   set-based   fractal transformations   embed   hierarchical   self-similarity   within   these   chaotically modulated conﬁgurations. The choice of the hyperchaotic system is motivated by its minimal complexity enabling practical analog and digital implementation, hyperchaotic  dynamics  providing  rich  modulation  signals,  and  capability  to generate  multi-scroll  attractors.  Analysis  demonstrates  that  global  geometric order  coexists  with  local  fractal  complexity  in  the  resulting  patterns,  with topological   features   and   symmetries   partially   preserved   throughout   the transformation  cascade.  This  synergistic  synthesis  of  chaotic  dynamics  and fractal geometry opens  new  possibilities for generating  patterns with tunable visual and topological characteristics applicable to digital art and textile design.
+KEYWORDS
+batik, chaotic modulation, ﬂoral patterns, fractal transformation, hyperchaotic system, Julia and Mandelbrot set
+1  Introduction
+The  use  of  Julia  and  Mandelbrot  sets  for  ﬂoral  pattern   generation  represents  a fascinating intersection of mathematical rigor and organic aesthetics. Fractals, inherently self-similar, perfectly mimic petal growth, vein branching, and spiral structures found in botany, such as phyllotaxis  [1, 2].  Fractal  geometry, also known as “nature’s geometry,” studies  irregular  geometric  objects  that,  despite  their  apparent  chaos,  possess  internal regularities  [3, 4]. Unlike traditional geometry, which operates with integer dimensions, fractal geometry works with non-integer dimensions, enabling more accurate descriptions of complex natural objects and creating patterns with controlled visual complexity.
+The Mandelbrot and Julia sets are based on a simple iterative formula on the complex
+plane: zn+1  = z + c. For the Mandelbrot set, the parameter c varies while the initial value
+is ﬁxed (z0   = 0), with the set serving as a “map” of all possible shapes. For Julia sets, the parameter c is ﬁxed while the initial value z0  varies, with each point on the Mandelbrot map corresponding to a unique Julia fractal [5–7]. Of particular interest are areas near the boundary of the Mandelbrot set, where in zones of high turbulence, structures curl into
+Frontiers in Applied Mathematics and Statistics                                                            01                                                                                                                         frontiersin.org
+spirals and rosettes. By selecting the parameter c in certain regions, such  as  the “Seahorse  Valley,” one  can  obtain  forms  resembling orchids, succulents, or chrysanthemums [8].
+Applying fractal geometry to the design of traditional patterns, such  as  batik,  signiﬁcantly  enriches  their  diversity  and  enables digital  preservation  of  cultural  heritage   [9].  Iterated  Function Systems (IFS) are among the most commonly used fractal methods, where   a  two-dimensional   IFS   is   a   ﬁnite   collection   of  aﬃne transformations  whose  solution  is  a  set  that  is  the  ﬁxed  point of Hutchinson’s  recursive  set  equation  [10, 11].  Various  studies demonstrate the eﬀectiveness of using fractal algorithms: L-systems are  actively  applied  for  generating  plant  patterns   due  to  their ability to mimic branching and growth [12,13]; escape-time fractals are  used  to  create  ornamental  designs   [14];  quaternion  fractals enable  generation  of three-dimensional  forms  resembling  exotic ﬂower buds  [15]. Modern approaches to batik pattern generation include the use of Fourier transformation  [16], stochastic fractals [17], and hybrid methods combining fractal geometry with cellular automata [18].
+To  transform  abstract  mathematics  into  organic  patterns, specialized  techniques  are  employed,  such  as  orbit  traps,  where instead of simply checking whether a point escapes to inﬁnity, the proximity of iterations to  a  speciﬁc  geometric  ﬁgure  is  tracked, allowing mathematical lines to be transformed into textured objects resembling stamens or soft leaf edges [19]. Exponential smoothing (color cycling) using continuous coloring based on potential makes color transitions smooth, like gradients on living ﬂower petals [20]. Adding trigonometric functions by modifying the basic iterative formula to zn+1  = sin(zn)+ c or using polar coordinates introduces symmetry characteristic of ﬂowering plants into chaos [21].
+The  central  question  of  this   study  concerns  the  behavior of fractal  transformations  when  applied  not  to  pristine  chaotic attractors   but    to   geometrically    preprocessed   structures    that have  already  undergone  chaotic  modulation.  This  methodology represents   a   hierarchical   complexity   augmentation   strategy: initially, chaotic dynamics inject irregularity into orderly geometric conﬁgurations;    subsequently,    fractal    transformations    embed hierarchical   self-similarity   within    these    irregular    structures. To   the  best   of  our   knowledge,   the   speciﬁc   combination   of chaotic  modulation  of  geometric  structures  followed  by  fractal transformations   has   not   been   systematically   explored   in   the literature.  Although  fractal  transformations  of chaotic  attractors and   chaotic   modulation   of   geometric    patterns    have    been investigated separately [22–25], their synthesis within an integrated framework presents  novel  opportunities  for  generating  complex patterns with controlled characteristics.
+Of   particular    signiﬁcance    in    the    context    of    practical implementation   of   pattern   generation   systems   is   the   choice of  chaotic   system  for  modulating  geometric  structures.  From the  perspective  of  technical  feasibility,  the  most  attractive  are chaotic systems with a small number of nonlinear terms, which corresponds  to  a  minimal  number  of  electronic  components  in analog  circuits  and  reduces  computational  complexity  in  digital implementations [26, 27]. Hyperchaotic systems, possessing more than one positive Lyapunov exponent, demonstrate more complex dynamics  and  provide  greater  unpredictability  of  modulating signals compared to ordinary chaotic systems [28, 29]. In the last
+decade, signiﬁcant interest has been generated by memristor-based chaotic  systems,  which  combine  the  advantages  of  nonlinear dynamics with the possibilities  of compact hardware  realization thanks to the unique properties of memristive elements [30, 31].
+A    transformative    paradigm    has    emerged     through    the integration of dynamical systems with fractal geometry principles. The conceptual foundations originated from Julia’s investigations and  Mandelbrot’s  pioneering  discoveries  concerning  self-similar patterns in complex domains  [5, 6].  The  reverse  transformation methodology,  involving  the  determination  of  antecedent  points under    fractal    operations,    provides     unique    capabilities    for converting  established  chaotic trajectories  into  fractal-embedded conﬁgurations.  Bouallegue  et  al.   [22]  introduced  the  innovative concept  of  applying  reverse  Julia  transformations  to  dynamical systems,   establishing    the   “fractal    process”    methodology   for synthesizing  multi-scroll  and  multi-wing  patterns.  Their  binary computational  scheme  employs  inverse  square  root  operations on  bidimensional  sequences  extracted  from  chaotic  generators, systematically amplifying structural multiplicity through successive iterations [23, 32].
+In  the  present  study,  a  four-dimensional  memristor-based hyperchaotic  system  described  in   [33]   is   used   as  the   source of  chaotic   modulation.  This   system  combines  the  advantages of    hyperchaotic     dynamics     with     memristive     nonlinearity, enabling the generation of multi-scroll attractors through fractal transformations. The system is characterized by a relatively simple structure,  making  it  attractive  for  both  analog  implementation based on operational ampliﬁers and memristor emulators, and for digital implementation on microcontrollers. An important aspect is the possibility of extracting two independent binary sequences from  diﬀerent  state  variables  of  the  system,  which  enables  the implementation of two-channel chaotic modulation of geometric parameters of ﬂoral patterns. The choice of this particular system is motivated by its demonstration of rich hyperchaotic dynamics with a minimal number of control parameters, the availability of detailed veriﬁcation through analog and digital implementation, and  the  ability  to  generate  diverse  multi-scroll  attractors  whose structure  can  be  used  to  encode  spatial  characteristics  of  the generated patterns [33].
+Recent  advances  in  complex-variable  chaotic  models  have demonstrated   their    eﬀectiveness    for    generating   rich   fractal structures. In particular, one-dimensional complex-variable chaotic maps   [34]   and   multi-valued   models    [35]   provide   enhanced complexity through  complex-domain  dynamics,  while  hardware implementations  on  FPGA  platforms  [36]  conﬁrm  the  practical feasibility of such systems for real-time pattern generation. These developments  further  motivate  the  use  of  hyperchaotic  systems with hardware-oriented design, as adopted in the present work.
+A central innovation of our approach lies in the introduction of a binary chaotic modulation scheme for classical ﬂoral patterns [37],  wherein  two  independent  chaotic  signals  simultaneously control  complementary  geometric  parameters,  thereby  injecting controlled irregularity into regular structures. We demonstrate that applying fractal transformations based  on  Julia  and  Mandelbrot sets  to  these  chaotically  modulated  patterns  creates  a  two-stage complexity enhancement process, generating structures that exhibit both  chaotic  variability  and  hierarchical  fractal  self-similarity.
+Throughout  this  investigation,  we   analyze  the  preservation  of topological  features  and  symmetries  during  the  transformation cascade,   establishing  that   global   geometric   order   can   coexist with  local   fractal   complexity,   thus   opening   new   possibilities for   generating   patterns   with   tunable   visual    and   topological characteristics.
+This  paper  is  organized  as  follows.  Section  2  introduces  a method  for  the   chaotic   modulation  of  classical  ﬂoral  patterns using    binary    sequences    derived     from    a    four-dimensional memristor-based  hyperchaotic  system.  Section  3  applies  fractal transformations based  on  Julia  sets  to these  modulated patterns and   analyzes   the   resulting   hierarchical   structures.   Section   4 speciﬁcally   examines   the   eﬀects    of   Mandelbrot-based   fractal transformations on the chaotic ﬂoral patterns, including analysis of  the   inﬂuence  of  transformation   parameters   on  topological properties  of  the  resulting  structures.  Section  5  describes  new methods for batik pattern generation based on chaotic modulation and fractal transformations, including point-wise modulation of ﬂoral  motifs  by  a  hyperchaotic  system,  and  the  application  of Julia set and Mandelbrot Multiscroll expansions to the resulting compositions.  The  Conclusion  summarizes  the  main  ﬁndings of the  study  and  outlines  directions  for  further  research  in  the synthesis of chaotic dynamics and fractal geometry for generating complex visual patterns.
+2  Chaotic modulation of ﬂoral
+patterns
+To   introduce    controlled   irregularity    into   classical    ﬂoral patterns,  we  apply  a  novel  memristor-based  four-dimensional nonlinear dynamical system [33]:
+The  memristive  coupling  is  introduced  through  the  term (tanhx4)x2  in the ﬁrst equation, establishing a nonlinear feedback mechanism that enhances the system’s complexity. The memristive term (tanhx4)x2 modulates the inﬂuence ofx2 on the rate of change of x1 , with the modulation governed by the internal state x4 .
+This   memristive   term   represents   the   voltage-dependent resistance  inherent  to  memristive  devices,  enabling  the  system to  exhibit  memory-dependent  dynamics.  The  resulting  system (Equation 1)   consists   of   only   seven   terms,   which   represents the    theoretical    minimum     number    of    terms     required    to generate  chaotic  dynamics  in  a  four-dimensional  autonomous system.    This    parsimony    is    particularly    advantageous     for hardware    implementation,     as     each     term    corresponds     to a    speciﬁc    electronic    component    in     analog    circuits    or    a computational    operation     in     digital     implementations.     For the  parameter  values  a    =   5,  b    =   96  and  initial  conditions
+x1 (0) = 5,     x2 (0) = 10,     x3 (0) = x4 (0) = 5, system (Equation 1) exhibits   hyperchaotic   behavior   characterized   by   two   positive Lyapunov  exponents:  LEi       =   (0.9246, 0.0215, 0.0024, __5.9503), where i = (1, 2, 3, 4), with Kaplan-Yorke dimension DKY  ≈ 3.159. The presence  of two positive  Lyapunov  exponents  conﬁrms  the hyperchaotic  nature  of the  dynamics,  ensuring  high  complexity and unpredictability of the generated signals.
+Chaotic   signals   from    system   (Equation 1)    can   modulate periodic  geometric  patterns  to  create  complex  visual  structures. We  extract  binary  sequences  from  the  state  variables  x1    and x2  through thresholding operations, generating two independent modulation  channels.  These  binary  signals  are  then  applied  to control  parameters  of  polar  coordinate  functions  that  generate ﬂower-like patterns, speciﬁcally modulating the radial amplitude and angular phase of classical ﬂoral curves.
+2.1  Classical polar ﬂoral patterns
+Before  applying  chaotic  modulation,  we  ﬁrst  consider  three classical   ﬂoral   patterns    constructed    using    polar   coordinate formulas. The ﬁrst pattern is a family of cardioids deﬁned by the polar equation:
+r = acos(8θ),      a ∈ [__10, 10],      θ ∈ [0, 2π],               (2)
+where  parameter  a  controls  the  amplitude  of  modulation.  This formula generates 16 petals (corresponding to n = 8 in the cosine term,  yielding  2n    =   16  petals). Figure 1a  shows  the  resulting pattern,  where  multiple  curves  are  superimposed  with  varying values of parameter a. The second pattern consists of rose curves (also called six-petaled cardioids) given by:
+r = 10 + acos(6θ),     a ∈ [__1, 15],     θ ∈ [0, 2π].           (3)
+This    family    generates    patterns    with    distinct    petal-like structures. Figure 1b illustrates the superposition of multiple roses with varying parameter a.
+The third pattern is a wave-like spiral deﬁned by:
+r = θ + 2 sin(2πθ) + 4 cos(4πθ),     θ ∈ [0, 24π].           (4)
+This  formula  combines  linear  spiral  growth  with  sinusoidal modulations,  creating  a  complex  wave-like  structure  shown  in Figure 1c.
+2.2  Chaotic modulation methodology
+We extract the ﬁrst two components, denoted as X  = x1  and Y = x2 , which serve as modulating signals. These signals are then normalized to the range [0, 1]:
+and  substituted  into  the polar  formulas  as  dynamic  parameters. For the ﬁrst cardioid pattern (Equation 2), we use a "binary input"
+FIGURE 1 Family of cardioids: (a) with 16 petals; (b) six-petal ﬂower (rose); (c) wave-like spiral.
+
+approach  where  X  controls  the  amplitude  and   Y  controls  the number of petals:
+r = a(X) cos(n(Y)θ),     a(X) = amax·Xnorm ,     n(Y) = nmax·Ynorm . (6)
+While the classical case with ﬁxed n = 8 exhibits a clear 16-petal structure,  the  dynamically  modulated  formulation   (Equation 6) allows n tovary continuously, resulting in a geometry that no longer corresponds to a ﬁxed petal count. The term "binary input" refers to the simultaneous use of two independent modulation channels, X = x1  and Y  = x2 , rather than to binary-valued {0, 1} sequences.
+Both signals are mapped continuously to the interval [0, 1] via min- max normalization (Equation 5), which constitutes the modulation law used throughout this work. The two free parameters  of the modulation  scheme  are the  amplitude  scale  amax   and  the  petal- frequency  scale   nmax.  Their   eﬀect  on  the  generated  pattern  is illustrated in Figure 2.  Varying  amax    ∈  (5, 10, 15)  while  holding nmax   = 8 scales the radial extent of the pattern without altering its topological structure. Conversely, varying nmax   ∈ (4, 8, 16) with ﬁxed amax  = 10 controls the maximum number of petals accessible to  the  chaotic  trajectory:  smaller  nmax   produces  sparser,  low- frequency petal distributions, while larger nmax  generates denser, higher-order structures. In all cases the global ﬂower-like topology is  preserved,  conﬁrming  that  the  choice  of  scaling  parameters aﬀects visual complexity but not the fundamental organization of the pattern.
+To  further  verify  robustness,  three  normalization  strategies were  compared.  The  normalization  rule  (Equation 5)  maps  the raw chaotic signal x1 (t) continuously onto the interval  [0, 1],  so that  every value  in the  attractor’s  amplitude  range  contributes  a distinct modulation level (Strategy C). To clarify the role of this choice, we consider two alternative ways of using the same signal to  control  the  amplitude  a(X)  and  the  petal  frequency  n(Y)  in Equation 6.  In  the  ﬁrst  alternative   (Strategy  A),  the  amplitude takes  only  two  discrete  values:  a(X)    =   0  whenever  x1      <   0, and  a(X)    =   amax    whenever  x1       ≥   0.   This  corresponds  to tracking  the  sign  of  x1    and  reﬂects  the  zero-crossing  structure of  the   attractor.   In   the   second   alternative   (Strategy  B),  the
+switching  level  is  set  to  the  mean  value  of x1    over  the  steady- state  trajectory,  so  that  the   signal  spends  approximately  equal time  above  and  below  the  switching  level.  The  amplitude  again takes  only  two  values,  0  or  amax.  All  three  variants  continuous normalization (Equation 5), sign-based switching, and mean-level switching are compared in Figure 3 for the ﬁrst cardioid pattern. The global ﬂower topology (radially distributed petals, approximate rotational  symmetry)  is  preserved  in  all  cases.  The  diﬀerences are purely quantitative: the continuous variant produces a dense, smoothly   graded   distribution   of  petal   sizes   and   frequencies, while   the   two   discrete   variants   generate   patterns   with   only two  distinct  amplitude  levels,  resulting  in  a  sparser  and  more regular  appearance.  The  continuous  normalization  (Equation 5) is therefore adopted throughout this work, as it exploits the full dynamical range of the hyperchaotic signal and produces the richest pattern complexity. For the six-petal cardioid pattern (Equation 3), X  controls  the  base  radius  while   Y  controls  the  modulation amplitude:
+r  = R(X) + a(Y) cos(6θ),  R(X) = 5 + 10 · Xnorm ,
+a(Y)  = 10 · Ynorm .                                                                     (7)
+The two free parameters of modulation scheme (Equation 7) are   the   base   radius   range    [Rmin , Rmax]   and   the   modulation amplitude scale amax. Varying the base radius range while holding amax       =    10   shifts   and   rescales   the   overall   ﬂower   diameter without  aﬀecting  its  six-fold  symmetry   (Figures 4a–c).  Varying amax with ﬁxed R  ∈ [5, 15] controls the depth of petal modulation: at  small  amax    the   petals  are  nearly  indistinguishable  from  a circle, while at large amax  the petal boundaries become  strongly pronounced  (Figures 4d–f).  In  both  cases  the  six-fold  rotational symmetry is preserved for all parameter values, conﬁrming that it is an intrinsic property of the cos(6θ) term rather than of the modulation parameters.
+For   the   spiral   pattern   (Equation 4),   X   controls   the   sine modulation  amplitude  and  Y  controls  the  cosine  modulation amplitude:
+r = θ + A(X) sin(2πθ) + B(Y) cos(4πθ),                 (8)
+FIGURE 2 Chaotically modulated cardioid pattern (Equation 6) for varying normalization parameters: (a–c) ﬁxed nmax  = 8, amplitude scale amax  = (5, 10, 15); (d–f) ﬁxed amax  = 10, petal-frequency scale nmax  = (4,8,16).
+
+where A(X) = Amax  · Xnorm and B(Y) = Bmax  · Ynorm .
+The two free parameters of modulation scheme (Equation 8) are the sine amplitude scale, Amax, and the cosine amplitude scale, Bmax. Varying Amax  with ﬁxed Bmax    =  6  controls  the  intensity of the low-frequency  (2π)  undulation  along  the  spiral:  at  small Amax  the radial proﬁle remains nearly linear, while at large Amax pronounced wave-like oscillations develop, increasing the lateral spread of the spiral arms (Figures 5a–c). Varying Bmax  with ﬁxed Amax   =  4 governs the high-frequency  (4π) ripple superimposed on the spiral growth: small Bmax  produces smooth arms, whereas large Bmax  generates a dense corrugated texture along each turn (Figures 5d–f).  In both  cases the underlying Archimedean  spiral topology monotone radial growth with θ is preserved  across  all parameter values.
+This dual-channel approach assigns geometrically distinct roles to  each  modulating  variable:  in  Pattern  1,  X  governs  the  radial scale while  Y  controls  the  rotational  frequency;  in  Pattern  2,  X determines the mean ﬂower diameter while Y modulates the petal
+depth; in  Pattern  3, X  and  Y  independently  drive  the  low-  and high-frequency undulations ofthe spiral arms. Since x1  and x2  are dynamically independent components of the hyperchaotic attractor conﬁrmed by the presence  of two  positive  Lyapunov  exponents the  two  channels  carry  uncorrelated  information,  ensuring  that amplitude  and  structural  variations  occur  simultaneously  and without synchronization. This produces richer and less repetitive patterns than single-variable modulation, in which all geometric parameters would covary along a single chaotic trajectory.
+3  Fractal transformation of chaotically
+modulated ﬂoral patterns
+To  further  enrich  the  complexity  and  self-similarity  of  the chaotically modulated ﬂoral patterns, we apply the binary fractal algorithm  based   on  the  inverse  Julia  set  transformation.  This
+
+
+FIGURE 3 Pattern 1 (Equation 6) generated with three normalization strategies for amax  = 10, nmax  = 8: (a) sign-based switching at x1  = 0; (b) mean-level switching at x1  = mean(x1); (c) continuous min-max normalization (Equation 5, adopted in this work).
+
+transformation  introduces  hierarchical  fractal  structures  while preserving  the  underlying  topological  features  of  the   original patterns.
+The  binary  fractal  algorithm  proposed  by  Bouallegue  et  al.
+[22] is based on the inverse Julia map. The original description in Bouallegue et al.  [22] is  challenging to interpret, so we follow the systematic framework developed by Dai et al.  [38] to provide a rigorous derivation. The algorithm originates from the quadratic complex Z-map:
+Zn+1  = Z + Zc                                                       (9)
+To  construct  the  inverse  Julia  mapping  in  this  section,  we restrict the dynamics to a two-dimensional subspace spanned by (x1 , x2 ), denoted as (x, y) for simplicity. Setting Zn    =  xn   + iyn , Zn+1   = xn+1  + iyn+1, and Zc    =  0 in Equation 9, we obtain the real and imaginary components:
+By exchanging subscripts in Equation 10, we derive the inverse transformation:
+Solving Equation 11 for xn+1  and yn+1  in terms of xn  and yn yields the binary fractal transformation:
+                     (12)
+In  this  transformation,  xn    and  yn    are  sequences  generated by  the  chaotic  system  described  in  Equation 1.  The   ±  signs
+introduce  branching  that  creates  the  fractal  structure.  At  each iteration, the branch is selected randomly to populate the fractal attractor uniformly. This binary choice mechanism is fundamental to the fractal generation process, as it determines how the inverse mapping unfolds into a multi-valued function. When applied to chaotic sequences, the transformation ampliﬁes the point density according to:
+M2  = M1  × 2N                                                   (13)
+where  M1    is   the  initial  number  of  points,  N   is  the  number of iterations,  and  M2   is  the  ﬁnal  point  count.  This  exponential growth pattern is consistent across all projections and enables the hierarchical reﬁnement of the fractal structure.
+We apply the fractal transformation (Equation 12) to each of the  three  chaotically  modulated  ﬂoral  patterns  generated  in  the previous section: the variable-petal cardioid (Equation 6), the six- petal cardioid (Equation 7), and the wave-like spiral (Equation 8). The transformation is implemented by substituting the Cartesian coordinates (x, y) of each pattern as the initial sequences (x0 , y0) in Equation 12,  then  iterating  N  times  to  generate  the  fractal- embedded version. The transformation is applied for N  =  1, 2, 3 successive  iterations  corresponding  to   2×,  4×,   and  8×  point ampliﬁcation according to Equation 12.
+The fractal transformation fundamentally alters the geometric structure of the patterns. While the chaotic modulation introduced aperiodic  variations  in  the  radial  and  angular  components,  the inverse Julia transformation  superimposes  self-similar  structures at multiple scales. This hierarchical complexity manifests as ﬁne tendrils and ﬁlamentary structures that branch from the main ﬂoral contours,  creating  a  visual  eﬀect  reminiscent  of  organic  growth processes such as dendritic crystallization or neural arborization. Importantly,   the   global   symmetry   properties   of   the   original patterns are preserved, given that patterns with n-fold rotational symmetry  maintain  this  symmetry  after  fractal  transformation,
+FIGURE 4 Chaotically modulated six-petal cardioid (Equation 7) for varying normalization parameters: (a–c) ﬁxed amax  = 10, base radius range [Rmin , Rmax] = [2, 8], [5, 15], [8, 22]; (d–f) ﬁxed R ∈ [5, 15], modulation amplitude amax  = (3, 10, 20).
+
+although local deviations from perfect symmetry emerge due to the chaotic component.
+3.1  Cardioid pattern with variable petals
+Figure 6  shows  the   results  of  applying   single,  double,  and triple   fractal   transformations   to   the   chaotically   modulated cardioid pattern. The single transformation (Figure 6a) preserves the  radial  petal  structure  while  introducing  branching  details within  each  petal.  The  pattern  exhibits  a  radial  symmetry  with fractal   subdivisions   emanating   from   the   center.   The   double transformation   (Figure 6b)   creates   a   denser,   more    intricate structure where each primary branch generates secondary fractal features.  The  overall  pattern  contracts  spatially  while  increasing in  complexity.  The  triple  transformation  (Figure 6c)  produces  a
+highly  compact,  circular  structure  with  ﬁne-scale  fractal  details concentrated  near  the  periphery.  The  iterative  transformation progressively compresses the  spatial  extent while  amplifying  the fractal characteristics.
+3.2  Six-petal cardioid pattern
+Figure 7   demonstrates  the  eﬀect  of  fractal  transformation on  the  six-petal  cardioid  structure.  The  single  transformation (Figure 7a)  maintains  the  six-fold  symmetry  while  introducing jagged,  fractal  edges  to  each  petal.  The  transformation  creates a  star-like  appearance  with  complex  boundary  structures.  The double transformation  (Figure 7b)  intensiﬁes the fractal features, generating  serrated  petal  edges  with  multiple  levels  of  detail. The  six-fold  symmetry  remains  clearly  visible,  but   each   petal
+FIGURE 5 Chaotically modulated wave-like spiral (Equation 7) for varying normalization parameters: (a–c) ﬁxed Bmax  = 6, sine amplitude scale Amax  = (1,4,8); (d–f) ﬁxed Amax  = 4, cosine amplitude scale Bmax  = (1, 6, 12).
+
+now contains  intricate  sub-structures.  The  triple transformation (Figure 7c) produces a remarkably detailed pattern where the petals exhibit zigzag boundaries with ﬁne-scale self-similar features. The overall  structure  becomes   more  compact  while   preserving  the fundamental six-petal organization.
+3.3  Wave-like spiral pattern
+Figure 8shows the fractal transformation applied to the chaotic wave-like  spiral.  The  single  transformation  (Figure 8a)  converts the  smooth  spiral  into  a  complex web-like  structure with  radial organization. The transformation introduces numerous loops and interconnections  while  preserving  the  overall  spiral  topology. The  double  transformation  (Figure 8b)  creates  an  increasingly dense  pattern  where  the  spiral  structure  becomes  fragmented
+into  a  complex  network  of  curves.  The  fractal  features  become more  prominent,  generating  a  lace-like  appearance.  The  triple transformation  (Figure 8c)  produces   a  highly  intricate   circular pattern where the original spiral is almost completely dissolved into a dense fractal texture. The structure exhibits circular symmetry with complex radial variations.
+4  Mandelbrot-based fractal
+transformations applied to chaotic
+ﬂoral patterns
+While  the  inverse  Julia  map  produces  distinctive  geometric multiscroll    structures,    we    explore    an     alternative    class    of transformations  based  on  the  Mandelbrot  set  dynamics.  Rather
+
+
+FIGURE 6 Fractal transformation of chaotically modulated cardioid with variable petal number: (a) single transformation, (b) double transformation, and (c) triple transformation.
+
+
+
+FIGURE 7 Fractal transformation of six-petal cardioid: (a) single transformation, (b) double transformation, and (c) triple transformation.
+
+
+
+FIGURE 8 Fractal transformation of wave-like spiral: (a) single transformation, (b) double transformation, and (c) triple transformation.
+
+than   exploring    phase   space    through   inverse    iteration    with ﬁxed parameter  c   =  0,  the  Mandelbrot-based  methods  explore parameter space, where each point of the chaotic trajectory serves
+as a parameter value  c in the forward iteration z k+1    =  z  + c starting from z0  = 0. To demonstrate the versatility of Mandelbrot- based  transformations,  we  apply  them  to  three  distinct  classes
+of chaotically modulated  geometric patterns  generated  from the hyperchaotic  trajectory:  (1)  variable-petal  cardioid  (Equation 6);
+(2)  six-petal  rose   (Equation 7);   (3)  chaotic   spiral  (Equation 8). These   patterns   inherit   the   chaotic   nature   of   the   underlying dynamical  system  while possessing  distinct  geometric  structures that serve as input to the fractal transformations.
+4.1  Mandelbrot transformation methods
+We  apply  three  distinct  Mandelbrot-based  transformation algorithms to each ﬂoral pattern.
+4.1.1  Method A: Mandelbrot orbit cloud
+This method treats each point (xi , yi) of the ﬂoral pattern as a parameter ci    =  xnorm,i   + iynorm,i  in the Mandelbrot iteration. The  coordinates  are  normalized  to  an  interesting  region  of the Mandelbrot parameter space [−0.5, 0.1]×[−0.3, 0.3]i near the main
+cardioid boundary. Starting from z0   = 0, we iterate z k+1   = z + ci
+for up to Niter  = 15 steps, collecting all intermediate points (u, v) = (Re(z k), Im(z k)) until  |z k |  >  50. The iteration is performed until |z k | > resc. In contrast to the classical escape radius resc   = 2, larger thresholds (e.g., resc   = 30 and resc   = 50) are used here to allow longer trajectory evolution within a limited number of iterations, enhancing the resulting geometric structures. The union of these orbits forms  a  cloud-like  structure that  inherits properties from both the input pattern and Mandelbrot dynamics.
+4.1.2  Method B: Mandelbrot multiscroll expansion
+This iterative method combines forward Mandelbrot dynamics with  binary  branching.  Starting  with  the  normalized  pattern coordinates  as  initial  values  (u(0) , v(0)),  we  perform  D    =   2 expansion iterations. At each depth level, for every point (ui , vi ), we compute c = ui +ivi, iterate z = z2+c for K = 3 steps starting from z0  = 0, and generate two branches: (u, v) = (Re(z), Im(z)) and its reﬂection (−Re(z), −Im(z)). This produces 2D   = 4 distinct scroll- like  regions with  quadrant  symmetry,  analogous  to  the  classical Julia transformation but with diﬀerent internal dynamics governed by the forward Mandelbrot map.
+4.1.3  Method C: Mandelbrot fractal web
+This method explores the basin structure of the Mandelbrot dynamics by  computing  orbits  from  multiple  initial  conditions. For  each  pattern  point,  we  normalize  to  the  parameter  region near c  ≈  −0.75, then generate orbits from ﬁve diﬀerent starting points:  z0     ∈   {0, 0.1, −0.1, 0.1i, −0.1i}.  Each  orbit  is  iterated  up to  Niter       =   12  times  with  escape  threshold   |z|    >   30.   The resulting structure reveals how diﬀerent initial conditions in the complex plane converge or diverge under the same parameter value, creating a web-like pattern with radial connectivity and intricate ﬁlamentary structures.
+4.2  Results and structural analysis
+Figure 9 presents the transformation results for all three input patterns under each Mandelbrot-based method, compared with the original chaotically modulated patterns.
+Method  A  (Orbit  Cloud)  generates  the  most  organic  and visually   complex   structures.   The   cardioid   pattern   (top   row) transforms into a dense cloud with a bright central core and diﬀuse periphery,  exhibiting  continuous  density  gradients  characteristic of overlapping  orbits.  The  cloud’s  extent  in  the   (u, v)  plane  is approximately [−0.6, 0.1] × [0, 0.6], indicating convergence toward the  main  body  of  the   Mandelbrot   set.   The  six-petal  pattern produces a similar cloud structure but with slightly broader spatial distribution,  while  the  spiral  generates  the  most  intricate  cloud with  visible  layering  and  spiral-like  features  inherited  from  the input geometry.
+Method  B  (Multiscroll)  produces  the  most  geometrically regular  results  among  the  three  methods.  The  transformation generates  exactly  four  distinct  scrolls  arranged  in  approximate quadrant  symmetry,  though  with  asymmetric  internal  structure determined by the input pattern. The cardioid yields two dominant vertical  lobes  separated  along  the  u-axis,  each  containing  dense trajectories  with  sharp  outer  boundaries.  The  six-petal  pattern produces  a more  circularly symmetric four-scroll  structure with spiral features connecting the scrolls, reminiscent of the original rose   symmetry.   The   spiral   input   creates   the   most   complex multiscroll with chaotic ﬁlaments visible throughout, occupying a region approximately [−1.5, 1.5] × [−0.8, 0.8].
+Method  C  (Fractal  Web)  exhibits  remarkable  convergence across diﬀerent input patterns. All three ﬂoral patterns transform into   similar   two-lobe    structures   concentrated   in   the    region [−0.8, −0.2]  ×  [−0.2, 0.4],  suggesting  that  the  multiple  initial conditions sample a common stable manifold structure near the boundary of the Mandelbrot set at c ≈ −0.75. The cardioid and six- petal produce nearly identical web structures, while the spiral shows richer  ﬁlamentary  detail  with  more  pronounced  radial  features. This convergence indicates that Method C is most sensitive to the choice of parameter region rather than the input pattern geometry.	The three  Mandelbrot-based  methods  exhibit  fundamentally diﬀerent behaviors compared to the inverse Julia transformation. Mandelbrot-based transformations oﬀer a rich alternative to Julia methods  for  generating  multiscroll  and  fractal  patterns  from chaotic systems, with each method suited to diﬀerent applications:
+method  A  for  organic,  high-density  structures;  method  B  for controlled multiscroll generation; and method C for revealing basin structures in parameter space.
+5  New methods for batik pattern generation based on chaotic
+modulation and fractal transformations
+Traditional batik patterns exhibit pronounced characteristics of self-similarity and self-aﬃnity, making fractal geometry a natural tool for their digital synthesis  [9, 24]. In this section, in contrast
+FIGURE 9 Mandelbrot-based fractal transformations applied to chaotically modulated ﬂoral patterns.
+
+to the works  [9, 24]  and  based on the results from the previous sections, we  describe  a  novel  three-stage  method  for  generating batik patterns. This method combines chaotic modulation of curve parameters with Julia and Mandelbrot fractal transformations.
+In  the  ﬁrst  stage,  the  geometric  components  of  the  batik such   as   butterﬂy   wings,    antennae,    and   ﬂoral    elements   are parametrically modulated by point-wise coeﬃcients extracted from the trajectory of a four-dimensional chaotic system (Equation 1). In  the  second  stage,  an  inverse  Julia  mapping  is  applied  to  the modulated  coordinates,  generating  multi-scale  fractal  detailing. In the third stage, a Mandelbrot transformation redistributes the entire  composition  in  the  complex  plane,  preserving  the  spatial relationships of the original design while creating a new class of fractal batik patterns.
+5.1  Generation of the regular batik pattern
+The base batik composition studied in this work is assembled from  three  independently  deﬁned  geometric  steps:  an  iterated butterﬂy  with  antennae,  a  layered  center  ﬂower  and  four   side ﬂowers placed along the coordinate axes. All curves are expressed in polar coordinates (ρ , θ) and converted to Cartesian coordinates via
+x = ρ cos θ ,         y = ρ sin θ .                           (14)
+The following subsections describe each step in detail.
+5.1.1  Butterﬂy wing body
+The butterﬂy body is generated by the piecewise polar function V1 introduced in [24]:
+where a11  is the amplitude of the upper wing half and a12   is the amplitude of the lower wing half. Equation 15 produces a ﬁgure- eight lemniscate-like outline whose two lobes diﬀer in size when a11     a12 , giving the characteristic asymmetry of a real butterﬂy. After converting to Cartesian coordinates (seeEquation 14), a _90◦ rigid rotation is applied:
+                                     (16)
+so that the wing tips point upward and downward rather than left and right (Equation 16).
+Iterative layering. To produce the multi-contour “nested outline” eﬀect,  the  amplitude  parameters  are  scaled  by  a  monotonically increasing factor sk  = k/K, k = 1, ... , K:
+a)  = ase  · sk ,          a)   = ase  · sk ,          sk   =  ,            (17)
+while the beard amplitude a2  remains ﬁxed. In the combined batik
+composition the values ase    =  1.8,  ase    =  1.4,  a2    =  2.0,  and
+K  =  8 are used; in the stand-alone butterﬂy ﬁgure ase    = 0.8, ase  = 0.4, a2  = 1.0, K = 15.
+5.1.2  Butterﬂy antennae
+The  antennae  are  described  by  the  piecewise  polar  function V2  [24]:
+The ﬁrst branch corresponds to the left antenna and the second to the right antenna. Both branches are concentrated in a narrow angular  interval  around  270◦   (i.e.,  along  the  negative  vertical direction in the initial polar coordinate system).
+After conversion to Cartesian coordinates, an additional ﬁxed transformation
+(x, y)  →\  (y,  __x)                                       (19)
+is applied, which corresponds to a rotation by __90◦  (Equation 19). This  aligns  the  antennae  with  the  head  region  of  the  butterﬂy model.
+The complete butterﬂy pattern is given by F2  = F1  + V2   [24], where F1  denotes the body outline obtained from Equation 15.
+5.1.2.1  Placement and orientation
+Four butterﬂy instances are positioned at the corners (±d, ±d), d = 3.5. Each instance is further rotated and translated according
+to
+where (x, y) are the original Cartesian coordinates obtained from the polar representation, and R(ϕ) is the standard rotation matrix:
+The rotation angles are chosen as
+ϕp  ∈ {__135◦,  135◦ ,  __45◦,  45◦ },
+for the top-left, top-right, bottom-left, and bottom-right positions, respectively. This conﬁguration ensures that the  antennae  (head region)  of  each  butterﬂy  are  oriented  toward  the  center  of  the composition. This orientation (Equation 20) is also directly veriﬁed in the implementation, where the transformation (x, y) →\ (y, __x) is applied prior to the global rotation R(ϕp).
+5.1.3  Center ﬂower
+The center ﬂower follows the four-step construction of [9], each step adding one superimposed layer.
+Step A—Flower leaves. The outer leaves are generated by the Rhodonea (rose) curve:
+ρleaf(θ) = a1 cos(4θ),          a1  = 2.0.                     (21)
+Since n  = 4 is even, the curve produces 2n  = 8 petals over θ ∈ [0, 2π].
+Step  B—Rounded  petals.  Eight  wide  rounded  petals  are obtained   from   an   “inﬂated”   rose   formula   with   a   sub-unity exponent:
+The constant oﬀset aoﬀ prevents the radius from reaching zero, keeping adjacent petals merged at the base. The exponent p  <  1 widens and rounds the tips; the normalization by max ρ maps the result to [0, 1], after which a scale factor sp   = 0.70 is applied.
+Step C—Pistil. The pistil is a regular star polygon with nt  = 16 spikes, constructed by alternating two radii:
+where nt   = 16 is the number of spike tips of the star polygon, the even-indexed vertices (j even) lie at the outer radius rout  forming the spike tips, and the odd-indexed vertices (j odd) lie at the inner radius rin forming the valleys between spikes. A ﬁlled circle of radius rin  is superimposed to give a solid black star shape; a scaling factor s pistil  = 0.55 is applied in the ﬁnal composition.
+Step D—Flower core. The inner core is an eight-petal rose with absolute value:
+ρcore (θ) = a2  | cos(4θ)| ,         a2   = 0.40.                  (24)
+The absolute value removes sign changes of cos(4θ), yielding eight non-negative lobes. Two concentric rings are added at the center: a ﬁlled disk of radius Rout   = 0. 110 and an inner white disk of radius Rin  = 0.063. A scale factor score  = 0.90 is applied.
+5.1.4  Side ﬂowers
+Four identical small ﬂowers are placed at positions (±d,  0) and (0, ±d), d = 3.5, midway between adjacent butterﬂy corners. Each side ﬂower consists of two superimposed layers.
+Layer 1—Green four-petal rose.
+ρsg (θ) = 2 cos(2θ).                                    (25)
+With n = 2 odd, this rose produces n = 2 × 2 = 4 petals [each lobe appears twice over [0, 2π] [24]].
+Layer  2—Olive  inﬂated  petal.   Following  the   ﬂower-leaves formula of [9] with parameters a = 0.2, b = 1.0:
+ρso(θ) = 2a (1 + | cos(4θ)| 1/b ) = 0.4 (1 + | cos(4θ)| ).         (26)
+For b = 1 the exponent equals unity, giving the strongest petal modulation; the radius ranges from 0.4 (petal base) to 0.8 (petal tip). Both layers are uniformly scaled by sside  = 0.55.
+TABLE 1  Parameters of the regular batik pattern.
+Element | Parameter | Value | Description
+Butterﬂy | ase | 1.8 | Upper wing base amplitude
+Butterﬂy | ase | 1.4 | Lower wing base amplitude
+Butterﬂy | a2 | 2.0 | Antenna amplitude
+Butterﬂy | K | 8 | Number of iteration layers
+Center ﬂower | a1 | 2.0 | Leaf rose amplitude
+Center ﬂower | aoﬀ, b, p | 0.30, 0.70, 0.45 | petal formula
+Center ﬂower | nt , rin , rout | 16, 0.32, 0.78 | pistil star
+Center ﬂower | a2 | 0.40 | Core rose amplitude
+Side ﬂower | a, b | 0.2, 1.0 | Olive petal parameters
+Side ﬂower | sside | 0.55 | Scale factor
+Layout | d | 3.5 | Corner/axis oﬀset
+Layout | φp | ±45◦ , ±135◦ | butterﬂy orientations
+
+5.1.5  Composition and layer ordering
+The  full  regular  batik  pattern  is  assembled  by  sequentially drawing the motifs in the following bottom-to-top order:
+1.  Butterﬂies (background): for each of the four corner positions, K  =  8  scaled  contours  are rendered from s1  to sK , with the outermost contour (k = K) drawn with a heavier line weight.
+2.  Side  ﬂowers:  Layer  1  (green  rose, Equation 25)  then  Layer  2 (olive petal, Equation 26),  drawn on top of the butterﬂy wing lines.
+3.  Center ﬂower: Steps A through D (Equations 21–24) drawn last so that the center is always on the foreground.
+Table 1  summarizes  all  numerical  parameters  of  the  regular batik (see Equations 17, 21–26). The composition described above yields the regular batik pattern shown in Figure 10, obtained with K = 8 butterﬂy iteration layers and side-ﬂower parameters a = 0.2, b = 1.0.
+5.2  Point-wise chaotic modulation of the regular batik pattern
+To  introduce  controlled  irregularity  into  the   regular  batik composition, a point-wise chaotic modulation scheme is applied to all geometric layers. The modulating signals are derived from the four-dimensional chaotic system (Equation 1), integrated over t ∈ [0, 500] with initial conditions x0   = (5, 10, 5, 5)T ; the ﬁrst half of the trajectory is discarded as a transient. The surviving orbit is normalized according to Equation 5, yielding two scalar sequences X(i), Y(i) ∈ [0, 1] resampled to match the point count of each layer (Nθ  = 1200, Nbody  = 1500, Nant  = 500).
+Each     base      polar     radius      deﬁned      in     Equations 21– 26    is     replaced     by    a     point-wise     modulated     counterpart ρ (θi)      =     ρbase (θi , X(i), Y(i)),   where   X(i)    and    Y(i)   enter
+FIGURE 10 Regular batik pattern.
+
+multiplicatively into the amplitude and exponent parameters. The butterﬂy wing amplitudes in Equation 15 are perturbed at every iteration layer k; the antennae amplitude in Equation 18 receives an  additive  chaotic term; the  center-ﬂower leaves  (Equation 21), rounded    petals    (Equation 22),    and    core    (Equation 24)    are modulated   through   their   respective   amplitude   and   exponent coeﬃcients; the side-ﬂower layers—Equations 25, 26 are similarly aﬀected. The pistil star polygon  (Equation 23)  is left unchanged, serving as a ﬁxed visual anchor. The resulting pattern is shown in Figure 11. Compared with the regular composition of Figure 10, the butterﬂy wings are no longer sharp closed contours but dense families of irregular curves ﬁlling the wing area with a ﬁne texture reminiscent of hand-drawn wax strokes. The center ﬂower retains its eight-fold symmetry, yet each petal acquires a unique curvature proﬁle;   the    dual-frequency    core   develops   a   high-frequency fringe  pattern   absent  in  the   regular  version.   The  side  ﬂowers exhibit continuously varying petal roundness due to the variable exponent   in   Equation 26,    producing    organic,   non-repetitive silhouettes. Since {X(i), Y(i)} is drawn from a deterministic chaotic attractor, the pattern  is  fully  reproducible  from  the  same  initial conditions  while   remaining  visually  indistinguishable  from   a hand-crafted original.
+5.3  Julia fractal transformation of the chaotically modulated batik pattern
+To   embed   hierarchical   self-similarity   into   the   chaotically modulated    batik,    the    binary    inverse     Julia    transformation (Equation 12)  is   applied  to  the   Cartesian   coordinates   of  the entire   composition.   All    elements—butterﬂy   wings,   antennae, center  ﬂower,  and  side  ﬂowers—are  ﬁrst  collected  into  a  single point set (xi , yi), each point carrying its original color. This merged set serves as the input sequence (xn , yn) forEquation 12.
+The        transformation        is        applied        iteratively        for N        =       1, 2, 3    successive    steps.    At     each     step    the     ±
+FIGURE 11 Batik pattern after point-wise chaotic modulation.
+
+branching    in   Equation 12    is    resolved     randomly,    so    that the     fractal     attractor     is     populated     uniformly.     Following Equation 13,      every      iteration      doubles      the      number      of points:   M2          =     M1      ×  2N,   yielding    2×,   4×,   and   8× point-density    ampliﬁcation    for     single,    double,     and    triple transforms, respectively.
+The  results  are  shown  in Figure 12.  The  single  transform (Figure 12a)  redistributes  the  original  composition  into  a  ring- like  arrangement  of  recognizable  butterﬂy  and  ﬂower  motifs arranged   around    a   circular    orbit.    The   individual    elements retain   their    color    coding    and    remain    clearly    identiﬁable, while    the    overall    layout     acquires    a    rotational     symmetry absent    in    the    original    square    composition    of   Figure 11. The   double   transform    (Figure 12b)    compresses    the    spatial extent   and   produces    a    denser,    more    tightly   packed    ring; the   motifs   become   smaller   but   color   structure   is   preserved, and   additional    fractal   branching    introduces    ﬁne    secondary details   between   the   primary   elements.   The   triple   transform (Figure 12c)   condenses    the   pattern    further   into    a   compact circular  band  with  a  clearly  visible  inner  void;  the  high  point density   (8 ×   ampliﬁcation)   generates    a    continuous   textured annulus   in    which    individual   motifs    remain    discernible    at the periphery.
+Across   all   three   transform    depths   the    global   rotational symmetry   of   the    ring    is    maintained,   consistent   with    the symmetry   preservation   property   discussed    in   Section    3   for simpler   ﬂoral   inputs.   The   progressive   spatial   compression with    increasing    N    corresponds     geometrically    to    repeated square-root  operations  that  contract  the  point  cloud  toward  a bounded attractor, while the exponential growth of point density according to Equation 13 continuously reﬁnes the fractal detail at each scale.
+5.4  Mandelbrot Multiscroll expansion of the chaotically modulated batik pattern
+The Mandelbrot Multiscroll expansion is the ﬁnal and visually most   expressive   stage   of   the   proposed   pipeline.   Unlike   the Julia  transformation,  which  rearranges  individual  points  into  a circular  orbit  while  roughly  preserving  the  size  of  each  motif, the Multiscroll  algorithm  applies  a  global  conformal  remapping in  the  complex  plane  followed  by  repeated  mirror  branching, producing  a  qualitatively  new  spatial  organization  of the  entire batik composition.
+5.4.1  Input preparation and global normalization
+All nine point layers: the center-ﬂower leaves  (L1),  rounded petals   (L2),   dual-frequency   core    (L3),   four    side-ﬂower   rose instances   (L4),   four   olive-petal   instances   (L5),   and   the   four iterated butterﬂy sets  (L6–L9)  are  merged  into  a  single  array  of approximately 4 × 105  points at decimation step s = 2. Each point retains  an  integer  layer label l  ∈  {1, ... ,9} inherited  from  the original layer, propagated without change through all subsequent transform steps and used exclusively for color assignment.
+A  crucial  design  choice  is  global  normalization:  the  spatial extents are computed once over the entire merged array and used to map all coordinates into the Multiscroll parameter rectangle:
+Normalizing   each   layer   independently  would   destroy  the relative spatial proportions ofthe composition; the global approach ensures that the shape of the original chaotic batik  (Figure 11) is faithfully preserved inside the Multiscroll attractor.
+5.4.2  Multiscroll expansion algorithm
+The    Multiscroll    expansion    is    based    on    the    quadratic Mandelbrot map
+zn+1  = z + c,                                       (28)
+where c = u + i v is the complex parameter derived from the batik point coordinates via the normalization (Equation 27).
+The expansion is applied for D  = 2 successive depth levels. At each level, every point  (ui , vi ) is treated as a complex parameter c  = ui  + i vi  and fed into the Mandelbrot iteration  (Equation 28) with z0  = 0 and three internal steps:
+z k  = z−1  + c,     k = 1, 2, 3;       z0  = 0.                 (29)
+The ﬁnal iterate z3   = ξ + i η is then mirror-expanded into two new points:
+(u+ , v+ ) = (ξ ,  η),         (u − ,  v− ) = (−ξ ,  −η),           (30)
+both inheriting the layer label l of the parent point. After D  = 2 depth levels the point count quadruples, yielding  approximately 1.6 × 106  scatter points.
+
+
+FIGURE 12 Julia fractal transformation of the chaotically modulated batik pattern (N = 1, 2, 3 iterations of Equation 12): (a) single transform: ring arrangement of butterﬂy and ﬂowers, 2 × point ampliﬁcation; (b) double transform: denser ring with secondary fractal branching, 4× ampliﬁcation; (c) triple transform: compact textured annulus, 8 × ampliﬁcation. Color coding of each step is preserved throughout all stages.
+
+FIGURE 13 Comparison of the chaotically modulated batik (a) and its Mandelbrot Multiscroll expansion (b).
+
+5.4.3  Visual result and layer color coding
+The  output  is  rendered  as  a  scatter  plot  on  a  light-gray background. Each of the nine layers is assigned a distinct saturated color:   emerald   green    (L1—leaves),   bright   cyan    (L2—petals), acid   yellow-green    (L3—core),    vivid    green    (L4—side    rose), saturated   yellow    (L5—side   olive),    and   blue/green/red/violet for   the   four   butterﬂy   corners    (L6–L9).    The    draw    order reproduces  the   depth   hierarchy  of  the   original   composition: butterﬂies  ﬁrst,  then  side  ﬂowers,  then  center-ﬂower  layers  on the foreground.
+The  result  is   shown   alongside  the   original   chaotic  batik in Figure 13.  The  Multiscroll  expansion  reorganizes  the  square composition  into  a  closed  oval  ring  with  a  well-deﬁned  hollow center.  The  four  corner  butterﬂies  migrate  to  the  outer  arc  of the  ring,  retaining  their  internal  concentric-layer  texture  and
+individual  colors.  The  side  ﬂowers  appear  at  intermediate  arc positions  between  the  butterﬂies,  with  their  two-layer  structure (rose  outline  and  ﬁlled   olive  petal)   clearly  visible.  The  center ﬂower  is  redistributed  into  two vertically aligned  clusters  at  the inner boundary of the ring; the three layers remain separable by color: emerald leaves, cyan petals, and acid yellow-green core. The ± mirror branching (Equation 30) introduces bilateral symmetry absent in both the regular and the chaotically modulated versions.
+The   combination   of   chaotic   point-wise   modulation   with the    Multiscroll    expansion    thus    produces    a    batik    pattern with  three  simultaneous  levels  of  structure:   (i)   ﬁne   irregular texture within each step, inherited from the chaotic modulation (Equation 1); (ii) a global ring topology imposed by the Mandelbrot iteration (Equation 29); and  (iii) bilateral mirror symmetry from Equation 30, i.e., all with full reproducibility from the ﬁxed initial conditions of the chaotic system.
+TABLE 2 Quantitative characteristics of batik patterns at different stages.
+Stage | M | Rg | Db
+Regular | 140,033 | 4.559 | 1.246
+Chaotic | 141,733 | 4.535 | 1.371
+Julia (N = 1) | 284,466 | 2.096 | 1.567
+Julia (N = 2) | 568,932 | 1.438 | 1.594
+Julia (N = 3) | 1,137,864 | 1.196 | 1.625
+Multiscroll (D = 2) | 282,400 | 0.540 | 1.641
+
+5.5  Quantitative comparison of pattern transformations
+To  provide  a  more  systematic  analysis  of  the   diﬀerences between regular, chaotically modulated, and fractally transformed patterns, we introduce the following quantitative metrics:
+•  point count M;
+•  radius of gyration Rg , deﬁned as the root mean square distance of all points from the center of mass;
+•  box-counting fractal dimension Db.
+The computed values for all stages are summarized in Table 2. The results reveal several clear trends.
+The  regular  pattern  exhibits  the  largest  radius  of  gyration, reﬂecting a spatially distributed structure. The transition to chaotic modulation produces only a minor change in Rg , but signiﬁcantly increases  the  fractal  dimension  Db,  indicating  higher  geometric complexity.
+The    Julia-based    transformations    lead    to    a    progressive spatial  compression,  as  evidenced  by  the   decreasing  Rg ,  while simultaneously   increasing   Db.    This    demonstrates    that    the pattern   becomes    more   compact    and    structurally   rich    with each iteration.
+The  Multiscroll  transformation  shows  the  strongest  eﬀect, producing the smallest Rg  and the highest structural density.
+Overall,  this  quantitative  analysis  clariﬁes  the  role  of  each module: chaotic dynamics enhances geometric complexity, while fractal transformations provide spatial compression and increased pattern density, thereby improving the expressive capabilities of the proposed method.
+6  Conclusion
+This paper proposes a novel approach to generating complex ﬂoral patterns through sequential chaotic modulation and fractal transformations.   The   central   innovation   lies   in   the   synergy between   a   four-dimensional    memristive   hyperchaotic   system and  fractal  mapping.   By  utilizing   a   seven-term  hyperchaotic system,   the    method    introduces    controlled    irregularity   into classical   geometric   structures   via    dual-channel    modulation. Simultaneously,    fractal     transformations    embed     hierarchical
+self-similarity   into   the   resulting   conﬁgurations.   Applying   an inverse  Julia  map  to  these  modulated  patterns  preserves  the topological   features    and    global   n-fold    rotational    symmetry of   the    input.    Furthermore,    a    binary     iteration    algorithm with  exponential  point  density  growth   (M2       =    M1    ×  2N ) progressively   enhances    structural   multiplicity    to   create    ﬁne branching   details.   Among   the   investigated   Mandelbrot-based methods, the Orbit Cloud produces organic high-density textures, Multiscroll   Expansion   reorganizes    compositions   into   regular conﬁgurations, and the Fractal Web reveals basins of attraction as ﬁlamentary patterns.
+The    approach    is     demonstrated    through    batik-inspired compositions  combining  iterated  butterﬂy  motifs  and  layered ﬂoral  elements.  These  patterns  exhibit  the  visual  hallmarks  of traditional   hand-drawn    batik,   including    organic    irregularity and  decorative  symmetry,  while  remaining  fully  reproducible. Due   to   its    multi-parametric   controllability,    this   pipeline   is highly  promising  for   digital  textile   design,  generative   art,  and visual cryptography.
+Data availability statement
+The datasets presented in this article are not readily available because  no  ethical,  legal,  or  privacy  restrictions  apply  to  the dataset.  Requests  to  access  the  datasets  should  be  directed  to ichaelkopp0165@gmail.com.
+Author contributions
+MK:   Writing    –    review   &    editing,    Writing   –    original draft.    IS:     Writing     –    original     draft,     Writing     –    review & editing.
+Funding
+The author(s) declared that ﬁnancial support was not received for this work and/or its publication.
+Acknowledgments
+We   thank   two    reviewers   for    their   valuable    suggestions and comments.
+Conﬂict of interest
+The   author(s)   declared   that    this    work   was    conducted in  the   absence   of  any   commercial   or   ﬁnancial   relationships that      could      be       construed       as       a       potential       conﬂict of interest.
+Generative AI statement
+The author(s) declared that generative AI was not used in the creation of this manuscript.
+Any  alternative  text  (alt  text)  provided  alongside  ﬁgures  in this  article has been generated by Frontiers with the  support  of artiﬁcial  intelligence  and  reasonable  eﬀorts  have  been  made  to ensure accuracy, including review by the authors wherever possible. If you identify any issues, please contact us.
+References
+1.  Prusinkiewicz P, Lindenmayer A. The Algorithmic Beauty of Plants. New York, NY: Springer-Verlag (1990). doi:10.1007/978-1-4613-8476-2
+2.  Vogel  H.  A  better  way  to   construct  the   sunﬂower  head.  Math  Biosci.   (1979) 44:179–89. doi:10.1016/0025-5564(79)90080-4
+3.  Mandelbrot  BB.  The  Fractal  Geometry  of  Nature.  New York,  NY:  WH  Freeman (1982).
+4.  Falconer   K.    Fractal   Geometry:   Mathematical    Foundations   and   Applications. Hoboken, NJ: John Wiley & Sons Inc (2004). doi:10.1002/0470013850
+5.  Julia G. Mémoire sur l’itération des fonctions rationnelles. J Math Pures Appl. (1918) 1:47–245.
+6.  Mandelbrot BB. Fractal aspects of the iteration of z → λz(1 _ z) for complex λ and z. Ann NY Acad Sci. (1980) 357:249–59. doi:10.1111/j.1749-6632.1980.tb29690.x
+7.  Peitgen HO, Jürgens H, Saupe D. Chaos and Fractals: New Frontiers of Science. New York, NY: Springer (2004). doi:10.1007/b97624
+8.  Pickover  CA.  Chaos  and  Fractals:  A  Computer  Graphical  Journey.  Amsterdam: Elsevier (1998).
+9.  Tian G, Yuan Q, Hu T, Shi Y. Auto-generation system based on fractal geometry for batik pattern design. Appl Sci. (2019) 9:2383. doi:10.3390/app9112383
+10.  Barnsley MF, Demko S. Iterated function systems and the global construction of fractals. Proc Roy Soc London A. (1985) 399:243–75. doi:10.1098/rspa.1985.0057
+11.  Fisher  Y.  Fractal  Image  Compression:  Theory  and  Application.  Berlin:  Springer Science & Business Media (2012).
+12.  Prusinkiewicz  P,  Runions  A.  Computational  models  of plant  development  and form. New Phytol. (2012) 193:549–69. doi:10.1111/j.1469-8137.2011.04009.x
+13.  Zhang D,  Chen L, Wang  H. Application of deterministic L-systems in knitting pattern design. J Text Res. (2015) 36:35–8. doi:10.1145/2820645.2820650
+14.  Wang S, Yang X. Generation of fractal image on complex plane and its application in textiles. J Silk. (2017) 54:56–61.
+15.  Hariadi Y, Lukman M, Destiarmand AH. Batik fractal: marriage of art and science. J Vis Art Des. (2013) 4:84–93. doi:10.5614/itbj.vad.2013.4.1.9
+16.  Hariadi Y, Lukman M. Batik fractal: from traditional art to modern complexity. In: Proceeding of Bandung Creative Movement 2013. Bandung (2013).
+17.  Romadiastri Y. Batik fraktal: perkembangan aplikasi geometri fraktal. Delta: J Ilm Pendidik Matematika. (2017) 1:158–64.
+18.  Zhang X, Li H. Production of art patterns based on fractal cloud model cellular automata. J Tsinghua Univ. (2013) 53:1098–103.
+19.  Field M, Golubitsky M. Symmetry in Chaos: A Search for Pattern in Mathematics, Art, and Nature. Philadelphia, PA: SIAM (1999).
+20.  Wegner T, Tyler B. Fractal Creations. Mill Valley, CA: Waite Group Press (1995).
+21.  Sprott JC. Chaos and Time-Series Analysis. Oxford: Oxford University Press (2003). doi:10.1093/oso/9780198508397.001.0001
+Publisher’s note
+All    claims    expressed    in    this     article    are    solely    those of   the   authors    and   do    not    necessarily   represent    those   of their    aﬃliated     organizations,    or     those    of    the     publisher, the   editors    and   the    reviewers.    Any   product    that   may    be evaluated   in    this   article,    or   claim    that    may   be   made    by its    manufacturer,    is    not    guaranteed    or    endorsed    by    the publisher.
+22.  Bouallegue   K,   Chaari   A,    Toumi   A.   Multi-scroll    and   multi-wing    chaotic attractor generated with Julia process fractal.  Chaos  Soliton Fract.  (2011)  44:79–85. doi:10.1016/j.chaos.2010.12.005
+23.  Bouallegue K. Gallery of chaotic attractors generated by fractal network. Int JBifurc Chaos. (2015) 25:1530002. doi:10.1142/S0218127415300025
+24.  Yuan  Q,  Lv J,  Huang  H. Auto-generation  method  of butterﬂy pattern  of batik based on fractal geometry. Int J Signal Process Image Process Pattern Recognit. (2016) 9:369–92. doi:10.14257/ijsip.2016.9.4.33
+25.  Cui  J,  Tang  MX.  Integrating  shape  grammars  into  a  generative  system  for Zhuang ethnic embroidery design exploration. Comput Aided Des. (2013) 45:591–604. doi:10.1016/j.cad.2012.08.002
+26.  Sprott JC. Elegant  Chaos: Algebraically Simple  Chaotic Flows.  Singapore: World Scientiﬁc (2010). doi:10.1142/7183
+27.  Sprott JC. A proposed standard for the publication of new chaotic systems. Int J Bifurc Chaos. (2011) 21:2391–4. doi:10.1142/S021812741103009X
+28.  Li Y, Tang WKS, Chen G. Generating hyperchaos via state feedback control. Int J Bifurc Chaos. (2005) 15:3367–75. doi:10.1142/S0218127405013988
+29.  Gao T, Chen Z, Yuan Z, Chen G. A hyperchaos generated from Chen’s system. Int J Mod Phys C. (2006) 17:471–8. doi:10.1142/S0129183106008625
+30.  Itoh M, Chua LO. Memristor oscillators. Int J Bifurc  Chaos. (2008) 18:3183–206. doi:10.1142/S0218127408022354
+31.  Buscarino  A,  Fortuna  L,  Frasca  M,  Valentina  Gambuzza  L.  A  chaotic  circuit based  on  Hewlett-Packard  memristor.   Chaos.  (2012)  22:023136.  doi:   10. 1063/1.47 29135
+32.  Bouallegue K. A new fractal model of chromosome and DNA processes. In: Ercetin SS,  editor.  Chaos,  Complexity  and  Leadership  2012.  Dordrecht:  Springer  (2014).  p. 155–63.
+33.  Kopp  MI.  Generation  of  multi-scroll  attractors  in  a  new  4D  memristor-based hyperchaotic system using fractal transformations: from simulation to microcontroller design. Preprint. (2025). doi:10.36227/techrxiv.176522719.95864495/v1
+34.  Zhang  Y,   Hua  Z,   Bao   H,   Huang   H.   1-D   Complex-variable   chaotic  model with  hardware  implementation.  IEEE   Trans  Industr  Inform.   (2026)  22:1659–70. doi:10.1109/TII.2025.3629682
+35.  Zhang Y, Hua Z, Bao H, Huang H. Multi-valued model for generating complex chaos   and   fractals.  IEEE   Trans   Circuits   Syst  I:   Regul  Pap.   (2024)   71:2783–96. doi:10.1109/TCSI.2024.3378448
+36.  Li X, Bai F, Li R, Li X, Zhang Y. A complex-valued rotational chaotic map with Zynq-based  hardware  implementation.  IEEE  Trans  Circuits  Syst  II:  Express  Briefs. (2026) 73:323–7. doi:10.1109/TCSII.2026.3653830
+37.  Lockwood EH. A Book of Curves. Cambridge: Cambridge University Press (1961). doi:10.1017/CBO9780511569340
+38.  Dai S, Sun K, He S, Ai W. Complex chaotic attractor via fractal transformation. Entropy. (2019) 21:1115. doi:10.3390/e21111115

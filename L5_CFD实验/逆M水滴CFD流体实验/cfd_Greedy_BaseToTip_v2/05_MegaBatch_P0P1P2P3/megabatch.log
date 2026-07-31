@@ -1,0 +1,41 @@
+============================================================
+P0: 同余 MoE HashRouter + 芯片调度全族 50K轮
+============================================================
+MoE HashRouter uniformity: mean std_ratio=0.789313
+Chip schedule: CPM=50.03 Shark=70.36 Hybrid=40.36 (19.3% vs CPM)
+
+============================================================
+P1: 幻方3600 + Sharkovsky NN + Farey NN剪枝
+============================================================
+Pan5 dedup: 3600 → 3600 unique → 40 Frenicle
+Sharkovsky NN: loss=1.3324 vs random=1.9852 (+32.9%)
+Farey prune: keep=0.4 farey_norm=0.6312 rand_norm=0.6401
+
+============================================================
+P2: KDiscShapeNet + Hadamard初始化
+============================================================
+  xavier: cond=3608.52, ortho_err=8.0376
+  he: cond=4601.9, ortho_err=18.0425
+  orthogonal: cond=1.0, ortho_err=0.0
+  hadamard: cond=882.04, ortho_err=7.9392
+  uniform: cond=1456.76, ortho_err=6.5216
+KDiscShapeNet style: ARI=0.3733
+
+============================================================
+P3: 素数幻方RL搜索 + QUBO组合优化
+============================================================
+Prime magic search: score=0 (0=perfect), solved=True
+QUBO portfolio: objective=0.0291, K=6
+
+============================================================
+GENERATING DASHBOARD FIGURES
+============================================================
+
+Output: 3 files in /root/megabatch_results/
+  megabatch_all_results.json
+  megabatch_dashboard.png
+  megabatch_summary.txt
+
+============================================================
+MEGABATCH COMPLETE
+============================================================

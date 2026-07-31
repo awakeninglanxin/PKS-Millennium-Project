@@ -1,0 +1,90 @@
+{
+  "P0_MoE_HashRouter": {
+    "mean_std_ratio": 0.7893133608505758,
+    "max_std_ratio": 2.6457513110645907
+  },
+  "P0_ChipSchedule": {
+    "cpm": 50.03,
+    "sharkovsky": 70.36,
+    "hybrid": 40.36,
+    "hybrid_vs_cpm_pct": 19.3
+  },
+  "P1_MagicSquare": {
+    "total": 3600,
+    "unique": 3600,
+    "frenicle": 40
+  },
+  "P1_SharkovskyNN": {
+    "shark_mean": 1.3324,
+    "rand_mean": 1.9852,
+    "improvement_pct": 32.9,
+    "shark_history": [
+      1.260083139232394,
+      1.2673545810755549,
+      1.5706334197603031,
+      1.364755850387002,
+      1.384268818323294,
+      1.4473607945142821,
+      1.33879281530993,
+      1.3037857167330273,
+      1.2072079934922457,
+      1.1732218080176167
+    ],
+    "rand_history": [
+      2.064593193234284,
+      2.0147655632889787,
+      1.7533843350481395,
+      2.000247748987495,
+      2.244173823711046,
+      2.0989687878275607,
+      1.9974022524798156,
+      1.9970397092424468,
+      1.6909359412371336,
+      2.0235349802917537
+    ]
+  },
+  "P1_FareyPrune": {
+    "farey_keep_ratio": 0.4,
+    "farey_norm_ratio": 0.6312,
+    "rand_norm_ratio": 0.6401,
+    "farey_better": false
+  },
+  "P2_HadamardInit": {
+    "xavier": {
+      "cond_mean": 3608.52,
+      "ortho_error": 8.0376
+    },
+    "he": {
+      "cond_mean": 4601.9,
+      "ortho_error": 18.0425
+    },
+    "orthogonal": {
+      "cond_mean": 1.0,
+      "ortho_error": 0.0
+    },
+    "hadamard": {
+      "cond_mean": 882.04,
+      "ortho_error": 7.9392
+    },
+    "uniform": {
+      "cond_mean": 1456.76,
+      "ortho_error": 6.5216
+    }
+  },
+  "P2_KDiscStyle": {
+    "ARI": 0.3733,
+    "n_series": 300
+  },
+  "P3_PrimeMagicRL": {
+    "best_score": 0,
+    "attempts": 50000,
+    "solved": true,
+    "square_summary": "N/A"
+  },
+  "P3_QUBO_Portfolio": {
+    "n_assets": 20,
+    "K": 6,
+    "best_objective": 0.0291,
+    "selected_count": 6
+  }
+}
