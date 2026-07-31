@@ -73,3 +73,5 @@ pillow-12.2.0.dist-info/
 
 # --- 元数据 ---
 .workbuddy/
+_wave_cache*.npz
+.git_broken_20260731/
