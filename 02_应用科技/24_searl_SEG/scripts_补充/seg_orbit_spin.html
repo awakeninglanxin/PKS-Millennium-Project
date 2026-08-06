@@ -36,6 +36,7 @@ canvas{border:1px solid #ccc;border-radius:10px;display:block;margin:4px auto}
   <button onclick="paused=!paused">⏯</button>
   <button onclick="speed=speed>=3?0.5:speed+0.5;document.getElementById('spd').textContent=speed+'x'">⏩</button>
   <span id="spd" style="font-size:.65em;color:#8899bb">0x</span>
+  <span style="font-size:.65em;color:#8899bb">加速⏱<input type="range" id="rampR" min="0.0005" max="0.006" value="0.002" step="0.0005" oninput="document.getElementById('rampRN').value=(this.value*1000).toFixed(1)+'ms';rampRate=+this.value" style="width:60px;vertical-align:middle"><span id="rampRN" style="width:32px;display:inline-block;text-align:center">2.0ms</span></span>
   <button onclick="viewYawAuto=!viewYawAuto">🔄3D自转</button>
 </div>
 <div class="smoothbar">
@@ -126,7 +127,7 @@ function computeMaterialDensity(mass, devk){
 
 // Globals
 let devKey='SEG',schemeId=9,cfg=ALL_CFGS[0],geo,angle=0,viewYaw=0,viewYawAuto=true,speed=0,paused=true,showTrajectory=true,showSpiral=true;
-let spiralTrail=[],rampProg=0;
+let spiralTrail=[],rampProg=0,rampRate=0.002;
 let heightOverrides={s:[],r:[]},heightAuto=true;
 let paramOverrides={Yr:[2,2,2],Br0:0,n:[1,1,1]},paramAuto=true;
 let volumeOverrides={Bv:[2293,2512,2731]},volumeAuto=true;
@@ -334,7 +335,7 @@ if(schemeId===9)cfg=ALL_CFGS[2];
 geo=computeGeometry(devKey,schemeId,cfg);buildDevSelect();buildSchemeSelect();buildCfgSelect();buildMassSelect();
 if(schemeId===9)document.getElementById('cfgSelect').value=2;
 initParticles();updateStatus();syncHtSliders();updateSliderLock();updateVolDisplay();
-setInterval(()=>{if(!paused){rampProg=Math.min(1,rampProg+0.002*speed);angle+=0.005*speed;}if(viewYawAuto)viewYaw+=0.003*speed;},16);
+setInterval(()=>{if(!paused){rampProg=Math.min(1,rampProg+rampRate*speed);angle+=0.005*speed;}if(viewYawAuto)viewYaw+=0.003*speed;},16);
 (function frame(){draw2D();drawFront();requestAnimationFrame(frame);})();
 async function captureScreenshot(){const btn=document.getElementById('btnCap');btn.textContent='⏳生成中...';btn.disabled=true;window.scrollTo(0,0);await new Promise(r=>setTimeout(r,200));try{const{default:h2c}=await import('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.esm.js');const el=document.body;const canvas=await h2c(el,{scale:2,backgroundColor:'#ffffff',useCORS:true,logging:false,windowWidth:document.documentElement.scrollWidth,windowHeight:document.documentElement.scrollHeight});const a=document.createElement('a');a.download='SEG_截图_'+new Date().toISOString().slice(0,19).replace(/[T:]/g,'-')+'.png';a.href=canvas.toDataURL('image/png');a.click();}catch(e){alert('截图失败: '+e.message+'。可改用浏览器自带截图 Ctrl+Shift+S');}btn.textContent='📷截长图';btn.disabled=false;}
 </script></body></html>
