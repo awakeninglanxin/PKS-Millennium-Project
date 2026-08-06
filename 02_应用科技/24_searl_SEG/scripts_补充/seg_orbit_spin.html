@@ -134,6 +134,7 @@ const LAYER_COLORS=['#1d9e75','#378add','#ba7517','#c90','#9b59b6','#e67e22'];
 
 function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b];}return a;}
 function lcm(a,b){return a*b/gcd(a,b);}
+function bestDivisor(nP,maxV){let best=1;for(let d=1;d<=Math.sqrt(nP);d++){if(nP%d===0){const d2=nP/d;if(d<=maxV&&d>best)best=d;if(d2<=maxV&&d2>best)best=d2;}}return best>=60?best:Math.min(nP,maxV);}
 function layerSpeed(i){return Math.pow(2.5,i);}
 
 function computeGeometry(dk,si,cf){
@@ -205,7 +206,7 @@ function scale2d(){return 200/geo.maxR;}function scale3dR(){return 150/geo.maxR;
 
 function drawStator2D(cx,cy,Ri,Ro,nP,col,mats){
   const ml=mats.length,dr=(Ro-Ri)/ml;
-  for(let m=0;m<ml;m++){const r1=Ri+m*dr,r2=Ri+(m+1)*dr,mc=mats[m];if(mc.color==='mag'){x2.beginPath();x2.arc(cx,cy,r2,0,2*Math.PI);x2.arc(cx,cy,r1,0,2*Math.PI,true);x2.fillStyle='rgba(80,80,120,0.15)';x2.fill('evenodd');const da=2*Math.PI/nP,vis=Math.min(nP,180),step=nP/vis;for(let i=0;i<vis;i++){const a=2*Math.PI*i/vis,isN=Math.floor(i*step)%2===0;x2.beginPath();x2.arc(cx,cy,r2,a,a+2*Math.PI/vis*0.85);x2.arc(cx,cy,r1,a+2*Math.PI/vis*0.85,a,true);x2.closePath();x2.fillStyle=isN?'rgba(255,70,70,0.55)':'rgba(70,120,255,0.55)';x2.fill();}}else{x2.beginPath();x2.arc(cx,cy,r2,0,2*Math.PI);x2.arc(cx,cy,r1,0,2*Math.PI,true);x2.fillStyle=mc.color;x2.fill('evenodd');}}
+  for(let m=0;m<ml;m++){const r1=Ri+m*dr,r2=Ri+(m+1)*dr,mc=mats[m];if(mc.color==='mag'){x2.beginPath();x2.arc(cx,cy,r2,0,2*Math.PI);x2.arc(cx,cy,r1,0,2*Math.PI,true);x2.fillStyle='rgba(80,80,120,0.15)';x2.fill('evenodd');const da=2*Math.PI/nP,vis=bestDivisor(nP,360),step=nP/vis;for(let i=0;i<vis;i++){const a=2*Math.PI*i/vis,isN=Math.floor(i*step)%2===0;x2.beginPath();x2.arc(cx,cy,r2,a,a+2*Math.PI/vis*0.85);x2.arc(cx,cy,r1,a+2*Math.PI/vis*0.85,a,true);x2.closePath();x2.fillStyle=isN?'rgba(255,70,70,0.55)':'rgba(70,120,255,0.55)';x2.fill();}}else{x2.beginPath();x2.arc(cx,cy,r2,0,2*Math.PI);x2.arc(cx,cy,r1,0,2*Math.PI,true);x2.fillStyle=mc.color;x2.fill('evenodd');}}
   x2.fillStyle=col;x2.font='bold 7px system-ui';x2.textAlign='center';x2.fillText(nP.toLocaleString()+'极',cx,cy-(Ro+9));
 }
 function drawRoller2D(cx,cy,orbitR,nR,pPerRoller,col,rot,layIdx){
