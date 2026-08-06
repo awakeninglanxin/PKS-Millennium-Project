@@ -228,7 +228,7 @@ function drawRoller2D(cx,cy,orbitR,nR,pPerRoller,col,rot,layIdx,sc){
   for(let j=0;j<nR;j++){const th=rot+2*Math.PI*j/nR,rcx=cx+orbitR*Math.cos(th),rcy=cy+orbitR*Math.sin(th),TR=geo.layers[layIdx].Yr*sc;x2.beginPath();x2.arc(rcx,rcy,TR,0,2*Math.PI);x2.fillStyle=col+'88';x2.fill();x2.strokeStyle=col;x2.lineWidth=1.5;x2.stroke();const spA=th*(orbitR/(TR||1));for(let k=0;k<pPerRoller;k++){const pa=spA+2*Math.PI*k/pPerRoller,px=rcx+(TR-2)*Math.cos(pa),py=rcy+(TR-2)*Math.sin(pa),sz=pPerRoller>30?1.2:2;x2.fillStyle=k%2===0?'#ff5050':'#5080ff';x2.fillRect(px-sz/2,py-sz/2,sz,sz);}}
 }
 
-let drawTrajectory=function(ctx,trail,col){if(trail.length<2)return;ctx.beginPath();ctx.moveTo(trail[0].x,trail[0].y);for(let t=1;t<trail.length;t++){ctx.lineTo(trail[t].x,trail[t].y);}ctx.strokeStyle=col+'b3';ctx.lineWidth=1.2;ctx.setLineDash([1,3]);ctx.stroke();ctx.setLineDash([]);};
+let drawTrajectory=function(ctx,trail,col){if(trail.length<3)return;ctx.beginPath();ctx.moveTo(trail[0].x,trail[0].y);for(let t=1;t<trail.length-1;t++){const mx=(trail[t].x+trail[t+1].x)/2,my=(trail[t].y+trail[t+1].y)/2;ctx.quadraticCurveTo(trail[t].x,trail[t].y,mx,my);}ctx.lineTo(trail[trail.length-1].x,trail[trail.length-1].y);ctx.strokeStyle=col+'e6';ctx.lineWidth=1.2;ctx.stroke();};
 function drawCheckerboard(ctx,w,h){const ss=16;for(let y=0;y<h;y+=ss)for(let x=0;x<w;x+=ss){ctx.fillStyle=(Math.floor(x/ss)+Math.floor(y/ss))%2===0?'#fff':'#e8f0ff';ctx.fillRect(x,y,ss,ss);}}
 
 function draw2D(){
