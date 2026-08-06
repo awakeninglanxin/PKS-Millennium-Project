@@ -135,6 +135,7 @@ const LAYER_COLORS=['#1d9e75','#378add','#ba7517','#c90','#9b59b6','#e67e22'];
 function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b];}return a;}
 function lcm(a,b){return a*b/gcd(a,b);}
 function bestDivisor(nP,maxV){let best=1;for(let d=1;d<=Math.sqrt(nP);d++){if(nP%d===0){const d2=nP/d;if(d<=maxV&&d>best)best=d;if(d2<=maxV&&d2>best)best=d2;}}return best>=60?best:Math.min(nP,maxV);}
+function unifiedVis(sp){const G=gcd(gcd(sp[0],sp[1]),sp[2]);if(G>1){for(let d=360;d>=60;d--){if(G%d===0)return[d,d,d];}}const vis=[360,360,360];for(let i=0;i<3;i++){const nP=sp[i];let found=false;for(let d=360;d>=60;d--){if(nP%d===0){vis[i]=d;found=true;break;}}if(!found)vis[i]=Math.min(nP,180);}const sorted=[...vis].sort((a,b)=>a-b);const target=sorted[1];for(let i=0;i<3;i++){const nP=sp[i];let best=vis[i],bestDist=Math.abs(vis[i]-target);for(let delta=0;delta<=60;delta++){for(const sign of[1,-1]){const c=target+sign*delta;if(c>=60&&c<=360&&nP%c===0&&delta<bestDist){best=c;bestDist=delta;}}}vis[i]=best;}return vis;}
 function layerSpeed(i){return Math.pow(2.5,i);}
 
 function computeGeometry(dk,si,cf){
@@ -204,11 +205,10 @@ function calcVolumes(geo){const vs=[],vr=[];for(let i=0;i<geo.rings;i++){const l
 const c2d=document.getElementById('c2d'),x2=c2d.getContext('2d'),c3d=document.getElementById('c3dv'),x3=c3d.getContext('2d');
 function scale2d(){return 200/geo.maxR;}function scale3dR(){return 150/geo.maxR;}function scale3dZ(){return 4.5;}
 
-function drawStator2D(cx,cy,Ri,Ro,nP,col,mats){
+function drawStator2D(cx,cy,Ri,Ro,nP,col,mats,vis){
   const ml=mats.length,dr=(Ro-Ri)/ml;
-  for(let m=0;m<ml;m++){const r1=Ri+m*dr,r2=Ri+(m+1)*dr,mc=mats[m];if(mc.color==='mag'){x2.beginPath();x2.arc(cx,cy,r2,0,2*Math.PI);x2.arc(cx,cy,r1,0,2*Math.PI,true);x2.fillStyle='rgba(80,80,120,0.15)';x2.fill('evenodd');const da=2*Math.PI/nP,vis=bestDivisor(nP,360),step=nP/vis;for(let i=0;i<vis;i++){const a=2*Math.PI*i/vis,isN=Math.floor(i*step)%2===0;x2.beginPath();x2.arc(cx,cy,r2,a,a+2*Math.PI/vis*0.85);x2.arc(cx,cy,r1,a+2*Math.PI/vis*0.85,a,true);x2.closePath();x2.fillStyle=isN?'rgba(255,70,70,0.55)':'rgba(70,120,255,0.55)';x2.fill();}}else{x2.beginPath();x2.arc(cx,cy,r2,0,2*Math.PI);x2.arc(cx,cy,r1,0,2*Math.PI,true);x2.fillStyle=mc.color;x2.fill('evenodd');}}
-  x2.fillStyle=col;x2.font='bold 7px system-ui';x2.textAlign='center';x2.fillText(nP.toLocaleString()+'极',cx,cy-(Ro+9));
-}
+  const step=nP/vis;
+  for(let m=0;m<ml;m++){const r1=Ri+m*dr,r2=Ri+(m+1)*dr,mc=mats[m];if(mc.color==='mag'){x2.beginPath();x2.arc(cx,cy,r2,0,2*Math.PI);x2.arc(cx,cy,r1,0,2*Math.PI,true);x2.fillStyle='rgba(80,80,120,0.15)';x2.fill('evenodd');const da=2*Math.PI/nP;for(let i=0;i<vis;i++){const a=2*Math.PI*i/vis,isN=Math.floor(i*step)%2===0;x2.beginPath();x2.arc(cx,cy,r2,a,a+2*Math.PI/vis*0.85);x2.arc(cx,cy,r1,a+2*Math.PI/vis*0.85,a,true);x2.closePath();x2.fillStyle=isN?'rgba(255,70,70,0.55)':'rgba(70,120,255,0.55)';x2.fill();}}else{x2.beginPath();x2.arc(cx,cy,r2,0,2*Math.PI);x2.arc(cx,cy,r1,0,2*Math.PI,true);x2.fillStyle=mc.color;x2.fill('evenodd');}}
 function drawRoller2D(cx,cy,orbitR,nR,pPerRoller,col,rot,layIdx){
   const sc=scale2d();x2.beginPath();x2.arc(cx,cy,orbitR,0,2*Math.PI);x2.setLineDash([3,5]);x2.strokeStyle=col+'40';x2.lineWidth=1;x2.stroke();x2.setLineDash([]);
   for(let j=0;j<nR;j++){const th=rot+2*Math.PI*j/nR,rcx=cx+orbitR*Math.cos(th),rcy=cy+orbitR*Math.sin(th),TR=geo.layers[layIdx].Yr*sc;x2.beginPath();x2.arc(rcx,rcy,TR,0,2*Math.PI);x2.fillStyle=col+'88';x2.fill();x2.strokeStyle=col;x2.lineWidth=1.5;x2.stroke();const spA=th*(orbitR/(TR||1));for(let k=0;k<pPerRoller;k++){const pa=spA+2*Math.PI*k/pPerRoller,px=rcx+(TR-2)*Math.cos(pa),py=rcy+(TR-2)*Math.sin(pa),sz=pPerRoller>30?1.2:2;x2.fillStyle=k%2===0?'#ff5050':'#5080ff';x2.fillRect(px-sz/2,py-sz/2,sz,sz);}}
@@ -224,8 +224,8 @@ function draw2D(){
   const ctx=canvas.getContext('2d');
   ctx.clearRect(0,0,W,H);drawCheckerboard(ctx,W,H);
   updateParticles(sc,cx,cy);drawParticles(sc,cx,cy);
-  const rings=geo.rings,mats=getMat(geo.devKey);
-  for(let i=rings-1;i>=0;i--){const lay=geo.layers[i],col=LAYER_COLORS[i%6],opx=lay.orbit*sc;if(showTrajectory)drawTrajectory(x2,cx,cy,sc,lay,col);drawRoller2D(cx,cy,opx,lay.num,lay.rollerPoles,col,angle*layerSpeed(i),i);drawStator2D(cx,cy,lay.Br*sc,lay.BR*sc,lay.statorPoles,col,mats);}
+  const rings=geo.rings,mats=getMat(geo.devKey),vList=unifiedVis(geo.layers.map(l=>l.statorPoles));
+  for(let i=rings-1;i>=0;i--){const lay=geo.layers[i],col=LAYER_COLORS[i%6],opx=lay.orbit*sc;if(showTrajectory)drawTrajectory(x2,cx,cy,sc,lay,col);drawRoller2D(cx,cy,opx,lay.num,lay.rollerPoles,col,angle*layerSpeed(i),i);drawStator2D(cx,cy,lay.Br*sc,lay.BR*sc,lay.statorPoles,col,mats,vList[i]);}
   const sc2=smoothScore();x2.fillStyle='#333';x2.font='bold 9px system-ui';x2.textAlign='center';x2.fillText((cfg.name.split('★')[1]||cfg.name).substring(0,46),cx,12);x2.fillStyle=sc2>=80?'#1d9e75':sc2>=50?'#ba7517':'#e24b4a';x2.fillText('综合性价比 '+sc2+'分 | '+DEVICE[geo.devKey].name+' · 方案'+schemeId,cx,26);
 
 }
