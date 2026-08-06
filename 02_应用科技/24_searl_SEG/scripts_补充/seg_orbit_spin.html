@@ -218,7 +218,7 @@ let drawTrajectory=function(ctx,cx,cy,sc,lay,col){const orb=lay.orbit*sc;ctx.beg
 function drawCheckerboard(ctx,w,h){const ss=16;for(let y=0;y<h;y+=ss)for(let x=0;x<w;x+=ss){ctx.fillStyle=(Math.floor(x/ss)+Math.floor(y/ss))%2===0?'#fff':'#e8f0ff';ctx.fillRect(x,y,ss,ss);}}
 
 function draw2D(){
-  const W=Math.min(window.innerWidth-32,900),H=W,cx=W/2,cy=H/2,sc=W*0.45/geo.maxR;
+  const W=Math.min(window.innerWidth-32,1400),H=W,cx=W/2,cy=H/2,sc=W*0.45/geo.maxR;
   const canvas=document.getElementById('c2d');
   if(canvas.width!==W){canvas.width=W;canvas.height=H;}
   const ctx=canvas.getContext('2d');
@@ -230,13 +230,13 @@ function draw2D(){
 
 }
 
-function initParticles(){particles=[];const N=300,W=Math.min(window.innerWidth-32,900),sc=W*0.45/geo.maxR;for(let i=0;i<N;i++){const ri=Math.floor(Math.random()*geo.rings),lay=geo.layers[ri],r=lay.orbit*sc+(Math.random()*2-1)*lay.Yr*sc;particles.push({r,a:Math.random()*2*Math.PI,vr:0.02+Math.random()*0.08,vt:[1,2.5,6.25][ri]*0.01*(0.5+Math.random()),ring:ri,life:1,alpha:0.3+Math.random()*0.5});}}
+function initParticles(){particles=[];const N=300,W=Math.min(window.innerWidth-32,1400),sc=W*0.45/geo.maxR;for(let i=0;i<N;i++){const ri=Math.floor(Math.random()*geo.rings),lay=geo.layers[ri],r=lay.orbit*sc+(Math.random()*2-1)*lay.Yr*sc;particles.push({r,a:Math.random()*2*Math.PI,vr:0.02+Math.random()*0.08,vt:[1,2.5,6.25][ri]*0.01*(0.5+Math.random()),ring:ri,life:1,alpha:0.3+Math.random()*0.5});}}
 function updateParticles(sc,cx,cy){const scS=smoothScore(),rough=Math.max(0.005,(100-scS)/100*0.25),radU=scS/100;particles.forEach(p=>{p.life-=0.001;if(p.life<=0){const ri=Math.floor(Math.random()*geo.rings),lay=geo.layers[ri];p.ring=ri;p.r=lay.orbit*sc+(Math.random()*2-1)*lay.Yr*sc;p.a=Math.random()*2*Math.PI;p.vr=0.02+Math.random()*0.08;p.vt=[1,2.5,6.25][ri]*0.01*(0.5+Math.random());p.life=1;p.alpha=0.3+Math.random()*0.5;return;}p.vr+=0.0008*(1+p.r/cx)*radU;const bA=p.a*(p.ring+1)*3;p.vt+=rough*Math.sin(bA)*0.001;p.vr*=0.998;p.vt*=0.998;p.r+=p.vr;p.a+=p.vt/p.r;const lay=geo.layers[p.ring];if(p.r>lay.orbit*sc+lay.Yr*sc+8)p.life=0;if(p.r<20){p.r=20;p.vr*=-0.5;}});}
 function drawParticles(sc,cx,cy){const bins=40,dens=new Array(bins).fill(0);particles.forEach(p=>{const bi=Math.min(bins-1,Math.max(0,Math.floor(p.r/(cx*0.8)*bins)));dens[bi]++;});const maxD=Math.max(1,...dens);particles.forEach(p=>{if(p.life<=0)return;const px=cx+p.r*Math.cos(p.a),py=cy+p.r*Math.sin(p.a),bi=Math.min(bins-1,Math.max(0,Math.floor(p.r/(cx*0.8)*bins))),dN=dens[bi]/maxD;x2.beginPath();x2.arc(px,py,1.5,0,2*Math.PI);x2.fillStyle=`rgba(${150+50*dN|0},${130+60*dN|0},${40+30*dN|0},${p.alpha*(0.3+0.7*dN)})`;x2.fill();});}
 
 // 正视图（2D侧视，对称左右，半透明黄色）
 function drawFront(){
-  const W=Math.min(window.innerWidth-32,900),pad=30,maxH=geo.layers[0].hStator,H=Math.max(W*0.4,maxH*3.2+pad*2),cx=W/2,scale=W*0.40/geo.maxR,hScale=(H-pad*2)/maxH,midY=H/2;
+  const W=Math.min(window.innerWidth-32,1400),pad=30,maxH=geo.layers[0].hStator,H=Math.max(W*0.4,maxH*3.2+pad*2),cx=W/2,scale=W*0.40/geo.maxR,hScale=(H-pad*2)/maxH,midY=H/2;
   const canvas=document.getElementById('c3dv');
   if(canvas.width!==W||canvas.height!==H){canvas.width=W;canvas.height=H;}
   const ctx=canvas.getContext('2d');
