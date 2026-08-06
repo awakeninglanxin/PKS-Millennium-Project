@@ -88,7 +88,8 @@ canvas{border:1px solid #ccc;border-radius:10px;display:block;margin:4px auto}
   <button onclick="showTrajectory=!showTrajectory" style="padding:2px 6px;font-size:.65em;background:#223;border:1px solid #334;color:#aac;border-radius:3px;cursor:pointer">📐轨迹线</button>
   <button onclick="showSpiral=!showSpiral" style="padding:2px 6px;font-size:.65em;background:#223;border:1px solid #334;color:#aac;border-radius:3px;cursor:pointer">🟠中心线</button>
   <button onclick="showBSpiral=!showBSpiral" style="padding:2px 6px;font-size:.65em;background:#223;border:1px solid #334;color:#aac;border-radius:3px;cursor:pointer">🔵边沿线</button>
-  <select id="curveMode" onchange="curveMode=this.value" style="padding:1px 3px;font-size:.65em;background:#223;border:1px solid #334;color:#aac;border-radius:3px"><option value="quad">二次贝塞尔</option><option value="cubic">三次贝塞尔</option><option value="catmull">内插式曲线</option></select>
+  <select id="curveMode" onchange="curveMode=this.value" style="padding:1px 3px;font-size:.65em;background:#223;border:1px solid #334;color:#aac;border-radius:3px"><option value="quad">二次</option><option value="cubic">三次</option><option value="catmull">内插</option></select>
+  <span style="font-size:.65em;color:#8899bb">尾迹<input type="range" id="trailR" min="1" max="5" value="1" step="0.5" oninput="trailMul=+this.value;document.getElementById('trailN').textContent=trailMul+'x'" style="width:50px;vertical-align:middle"><span id="trailN">1x</span></span>
   <button onclick="captureScreenshot()" id="btnCap" style="padding:2px 8px;font-size:.65em;background:#1d9e75;border:none;color:#fff;border-radius:3px;cursor:pointer">📷截长图</button>
   <label id="fullPoleLabel" style="font-size:.65em;color:#8899bb;cursor:pointer;user-select:none"><input type="checkbox" id="fullPoleChk" onchange="onFullPoleChange()"> 全极数直绘(不压缩)</label>
   <span id="volInfo" style="font-size:.62em;color:#8899bb;max-width:360px;text-align:center;line-height:1.3"></span>
@@ -131,7 +132,7 @@ function computeMaterialDensity(mass, devk){
 
 // Globals
 let devKey='SEG',schemeId=9,cfg=ALL_CFGS[0],geo,angle=0,viewYaw=0,viewYawAuto=true,speed=0,paused=true,showTrajectory=true,showSpiral=true,showBSpiral=true,curveMode='quad';
-let spiralTrail=[],bSpiralTrail=[],rampProg=0,rampRate=0.002,selfRotLocked=true,selfRotOver=[-1,-1,-1],selfAngles=[0,0,0];
+let spiralTrail=[],bSpiralTrail=[],trailMul=1,rampProg=0,rampRate=0.002,selfRotLocked=true,selfRotOver=[-1,-1,-1],selfAngles=[0,0,0];
 function getSelfRot(i){return selfRotLocked?-(geo.layers[i].statorPoles/geo.layers[i].rollerPoles):selfRotOver[i];}
 let heightOverrides={s:[],r:[]},heightAuto=true;
 let paramOverrides={Yr:[2,2,2],Br0:0,n:[1,1,1]},paramAuto=true;
@@ -238,8 +239,8 @@ function draw2D(){
   updateParticles(sc,cx,cy);drawParticles(sc,cx,cy);
   const rings=geo.rings,mats=getMat(geo.devKey),vList=fullPoles?geo.layers.map(l=>l.statorPoles):unifiedVis(geo.layers.map(l=>l.statorPoles));
   for(let i=rings-1;i>=0;i--){const lay=geo.layers[i],col=LAYER_COLORS[i%6],opx=lay.orbit*sc;if(showTrajectory)drawTrajectory(x2,cx,cy,sc,lay,col);drawRoller2D(cx,cy,opx,lay.num,lay.rollerPoles,col,angle*layerSpeed(i),i,sc);drawStator2D(cx,cy,lay.Br*sc,lay.BR*sc,lay.statorPoles,col,mats,vList[i]);}
-  if(showSpiral&&!paused){const pts=geo.layers.map((l,i)=>({x:cx+l.orbit*sc*Math.cos(angle*layerSpeed(i)),y:cy+l.orbit*sc*Math.sin(angle*layerSpeed(i))}));spiralTrail.push(pts);if(spiralTrail.length>90)spiralTrail.shift();}
-  if(showBSpiral&&!paused){const bps=geo.layers.map((l,i)=>{const ox=cx+l.orbit*sc*Math.cos(angle*layerSpeed(i)),oy=cy+l.orbit*sc*Math.sin(angle*layerSpeed(i)),tr=l.Yr*sc;return{x:ox+tr*Math.cos(selfAngles[i]),y:oy+tr*Math.sin(selfAngles[i])}});bSpiralTrail.push(bps);if(bSpiralTrail.length>90)bSpiralTrail.shift();}
+  if(showSpiral&&!paused){const pts=geo.layers.map((l,i)=>({x:cx+l.orbit*sc*Math.cos(angle*layerSpeed(i)),y:cy+l.orbit*sc*Math.sin(angle*layerSpeed(i))}));spiralTrail.push(pts);if(spiralTrail.length>90*trailMul)spiralTrail.shift();}
+  if(showBSpiral&&!paused){const bps=geo.layers.map((l,i)=>{const ox=cx+l.orbit*sc*Math.cos(angle*layerSpeed(i)),oy=cy+l.orbit*sc*Math.sin(angle*layerSpeed(i)),tr=l.Yr*sc;return{x:ox+tr*Math.cos(selfAngles[i]),y:oy+tr*Math.sin(selfAngles[i])}});bSpiralTrail.push(bps);if(bSpiralTrail.length>90*trailMul)bSpiralTrail.shift();}
   if(showSpiral){for(let t=0;t<spiralTrail.length;t++){const p=spiralTrail[t],alpha=t/spiralTrail.length;x2.beginPath();x2.moveTo(p[0].x,p[0].y);drawSp(x2,p[0],p[1],p[2]);x2.strokeStyle=`rgba(255,140,30,${alpha*0.7})`;x2.lineWidth=1.2+alpha*1.8;x2.stroke();}
   x2.beginPath();const cp=spiralTrail[spiralTrail.length-1];if(cp){x2.moveTo(cp[0].x,cp[0].y);drawSp(x2,cp[0],cp[1],cp[2]);x2.strokeStyle='rgba(255,160,40,0.95)';x2.lineWidth=2.5;x2.shadowColor='rgba(255,120,20,0.6)';x2.shadowBlur=8;x2.stroke();x2.shadowBlur=0;}}
   // 蓝色螺旋拖尾+当前
