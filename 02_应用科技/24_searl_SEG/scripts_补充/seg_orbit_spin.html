@@ -89,7 +89,7 @@ canvas{border:1px solid #ccc;border-radius:10px;display:block;margin:4px auto}
   <button onclick="showSpiral=!showSpiral" style="padding:2px 6px;font-size:.65em;background:#223;border:1px solid #334;color:#aac;border-radius:3px;cursor:pointer">🟠中心线</button>
   <button onclick="showBSpiral=!showBSpiral" style="padding:2px 6px;font-size:.65em;background:#223;border:1px solid #334;color:#aac;border-radius:3px;cursor:pointer">🔵边沿线</button>
   <select id="curveMode" onchange="curveMode=this.value" style="padding:1px 3px;font-size:.65em;background:#223;border:1px solid #334;color:#aac;border-radius:3px"><option value="quad">二次</option><option value="cubic">三次</option><option value="catmull" selected>内插</option></select>
-  <span style="font-size:.65em;color:#8899bb">尾迹<input type="range" id="trailR" min="1" max="12" value="1" step="0.5" oninput="trailMul=+this.value;document.getElementById('trailN').textContent=trailMul+'x'" style="width:50px;vertical-align:middle"><span id="trailN">1x</span></span>
+  <span style="font-size:.65em;color:#8899bb">尾迹<span id="syncFramesN" style="color:#5599dd"></span><input type="range" id="trailR" min="0.5" max="30" value="1" step="0.5" oninput="trailMul=+this.value;updateTrailDisplay()" style="width:50px;vertical-align:middle"><span id="trailN">1x</span></span>
   <button onclick="captureScreenshot()" id="btnCap" style="padding:2px 8px;font-size:.65em;background:#1d9e75;border:none;color:#fff;border-radius:3px;cursor:pointer">📷截长图</button>
   <label id="fullPoleLabel" style="font-size:.65em;color:#8899bb;cursor:pointer;user-select:none"><input type="checkbox" id="fullPoleChk" onchange="onFullPoleChange()"> 全极数直绘(不压缩)</label>
   <span id="volInfo" style="font-size:.62em;color:#8899bb;max-width:360px;text-align:center;line-height:1.3"></span>
@@ -134,6 +134,7 @@ function computeMaterialDensity(mass, devk){
 let devKey='SEG',schemeId=9,cfg=ALL_CFGS[0],geo,angle=0,viewYaw=0,viewYawAuto=true,speed=0,paused=true,showTrajectory=true,showSpiral=true,showBSpiral=true,curveMode='catmull';
 let spiralTrail=[],bSpiralTrail=[],trailMul=1,rampProg=0,rampRate=0.002,selfRotLocked=true,selfRotOver=[-1,-1,-1],selfAngles=[0,0,0];
 function getSelfRot(i){return selfRotLocked?-(geo.layers[i].statorPoles/geo.layers[i].rollerPoles):selfRotOver[i];}
+function updateTrailDisplay(){const base=1+1.5*rampProg;let syncRad=4;document.getElementById('syncFramesN').textContent='';for(let r=1;r<=20;r++){if(Math.abs(base*r-Math.round(base*r))<1e-9){syncRad=r;break;}}const sf=Math.round(syncRad*1257/(speed||0.5));document.getElementById('syncFramesN').textContent='同步≈'+sf+'帧';document.getElementById('trailN').textContent=trailMul+'x';}
 let heightOverrides={s:[],r:[]},heightAuto=true;
 let paramOverrides={Yr:[2,2,2],Br0:0,n:[1,1,1]},paramAuto=true;
 let volumeOverrides={Bv:[2293,2512,2731]},volumeAuto=true;
@@ -346,7 +347,7 @@ if(schemeId===9)cfg=ALL_CFGS[2];
 geo=computeGeometry(devKey,schemeId,cfg);buildDevSelect();buildSchemeSelect();buildCfgSelect();buildMassSelect();
 if(schemeId===9)document.getElementById('cfgSelect').value=2;
 initParticles();updateStatus();syncHtSliders();updateSliderLock();updateVolDisplay();
-setInterval(()=>{if(!paused){rampProg=Math.min(1,rampProg+rampRate*speed);angle+=0.005*speed;for(let i=0;i<3;i++)selfAngles[i]+=0.005*speed*getSelfRot(i);}if(viewYawAuto)viewYaw+=0.003*speed;},16);
+setInterval(()=>{if(!paused){rampProg=Math.min(1,rampProg+rampRate*speed);angle+=0.005*speed;for(let i=0;i<3;i++)selfAngles[i]+=0.005*speed*getSelfRot(i);}if(viewYawAuto)viewYaw+=0.003*speed;updateTrailDisplay();},16);
 (function frame(){draw2D();drawFront();requestAnimationFrame(frame);})();
 async function captureScreenshot(){const btn=document.getElementById('btnCap');btn.textContent='⏳生成中...';btn.disabled=true;window.scrollTo(0,0);await new Promise(r=>setTimeout(r,200));try{const{default:h2c}=await import('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.esm.js');const el=document.body;const canvas=await h2c(el,{scale:2,backgroundColor:'#ffffff',useCORS:true,logging:false,windowWidth:document.documentElement.scrollWidth,windowHeight:document.documentElement.scrollHeight});const a=document.createElement('a');a.download='SEG_截图_'+new Date().toISOString().slice(0,19).replace(/[T:]/g,'-')+'.png';a.href=canvas.toDataURL('image/png');a.click();}catch(e){alert('截图失败: '+e.message+'。可改用浏览器自带截图 Ctrl+Shift+S');}btn.textContent='📷截长图';btn.disabled=false;}
 </script></body></html>
