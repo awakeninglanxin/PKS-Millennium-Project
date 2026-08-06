@@ -132,7 +132,7 @@ function computeMaterialDensity(mass, devk){
 
 // Globals
 let devKey='SEG',schemeId=9,cfg=ALL_CFGS[0],geo,angle=0,viewYaw=0,viewYawAuto=true,speed=0,paused=true,showTrajectory=true,showSpiral=true,showBSpiral=true,curveMode='catmull';
-let spiralTrail=[],bSpiralTrail=[],trailMul=1,rampProg=0,rampRate=0.002,selfRotLocked=true,selfRotOver=[-1,-1,-1],selfAngles=[0,0,0];
+let spiralTrail=[],bSpiralTrail=[],trajTrail=[[],[],[]],trailMul=1,rampProg=0,rampRate=0.002,selfRotLocked=true,selfRotOver=[-1,-1,-1],selfAngles=[0,0,0];
 function getSelfRot(i){return selfRotLocked?-(geo.layers[i].statorPoles/geo.layers[i].rollerPoles):selfRotOver[i];}
 function updateTrailDisplay(){const base=1+1.5*rampProg;let syncRad=4;document.getElementById('syncFramesN').textContent='';for(let r=1;r<=20;r++){if(Math.abs(base*r-Math.round(base*r))<1e-9){syncRad=r;break;}}const sf=Math.round(syncRad*1257/(speed||0.5));document.getElementById('syncFramesN').textContent='同步≈'+sf+'帧';document.getElementById('trailN').textContent=trailMul+'x';}
 let heightOverrides={s:[],r:[]},heightAuto=true;
@@ -228,7 +228,7 @@ function drawRoller2D(cx,cy,orbitR,nR,pPerRoller,col,rot,layIdx,sc){
   for(let j=0;j<nR;j++){const th=rot+2*Math.PI*j/nR,rcx=cx+orbitR*Math.cos(th),rcy=cy+orbitR*Math.sin(th),TR=geo.layers[layIdx].Yr*sc;x2.beginPath();x2.arc(rcx,rcy,TR,0,2*Math.PI);x2.fillStyle=col+'88';x2.fill();x2.strokeStyle=col;x2.lineWidth=1.5;x2.stroke();const spA=th*(orbitR/(TR||1));for(let k=0;k<pPerRoller;k++){const pa=spA+2*Math.PI*k/pPerRoller,px=rcx+(TR-2)*Math.cos(pa),py=rcy+(TR-2)*Math.sin(pa),sz=pPerRoller>30?1.2:2;x2.fillStyle=k%2===0?'#ff5050':'#5080ff';x2.fillRect(px-sz/2,py-sz/2,sz,sz);}}
 }
 
-let drawTrajectory=function(ctx,cx,cy,sc,lay,col){const orb=lay.orbit*sc,tr=lay.Yr*sc,ratio=lay.statorPoles/lay.rollerPoles,N=7200;ctx.beginPath();for(let t=0;t<=N;t++){const a=2*Math.PI*t/(N/1),sa=-ratio*a,px=cx+orb*Math.cos(a)+tr*Math.cos(a+sa),py=cy+orb*Math.sin(a)+tr*Math.sin(a+sa);if(t===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);}ctx.setLineDash([2,6]);ctx.strokeStyle=col+'55';ctx.lineWidth=0.8;ctx.stroke();ctx.setLineDash([]);};
+let drawTrajectory=function(ctx,trail,col){if(trail.length<2)return;ctx.beginPath();ctx.moveTo(trail[0].x,trail[0].y);for(let t=1;t<trail.length;t++){ctx.lineTo(trail[t].x,trail[t].y);}ctx.setLineDash([2,6]);ctx.strokeStyle=col+'55';ctx.lineWidth=0.8;ctx.stroke();ctx.setLineDash([]);};
 function drawCheckerboard(ctx,w,h){const ss=16;for(let y=0;y<h;y+=ss)for(let x=0;x<w;x+=ss){ctx.fillStyle=(Math.floor(x/ss)+Math.floor(y/ss))%2===0?'#fff':'#e8f0ff';ctx.fillRect(x,y,ss,ss);}}
 
 function draw2D(){
@@ -239,7 +239,7 @@ function draw2D(){
   ctx.clearRect(0,0,W,H);drawCheckerboard(ctx,W,H);
   updateParticles(sc,cx,cy);drawParticles(sc,cx,cy);
   const rings=geo.rings,mats=getMat(geo.devKey),vList=fullPoles?geo.layers.map(l=>l.statorPoles):unifiedVis(geo.layers.map(l=>l.statorPoles));
-  for(let i=rings-1;i>=0;i--){const lay=geo.layers[i],col=LAYER_COLORS[i%6],opx=lay.orbit*sc;if(showTrajectory)drawTrajectory(x2,cx,cy,sc,lay,col);drawRoller2D(cx,cy,opx,lay.num,lay.rollerPoles,col,angle*layerSpeed(i),i,sc);drawStator2D(cx,cy,lay.Br*sc,lay.BR*sc,lay.statorPoles,col,mats,vList[i]);}
+  for(let i=rings-1;i>=0;i--){const lay=geo.layers[i],col=LAYER_COLORS[i%6],opx=lay.orbit*sc,orbA=angle*layerSpeed(i),ratio=lay.statorPoles/lay.rollerPoles,tr=lay.Yr*sc,sa=-ratio*orbA;if(!paused){const ex=cx+opx*Math.cos(orbA)+tr*Math.cos(orbA+sa),ey=cy+opx*Math.sin(orbA)+tr*Math.sin(orbA+sa);trajTrail[i].push({x:ex,y:ey});if(trajTrail[i].length>90*trailMul)trajTrail[i].shift();}if(showTrajectory)drawTrajectory(x2,trajTrail[i],col);drawRoller2D(cx,cy,opx,lay.num,lay.rollerPoles,col,orbA,i,sc);drawStator2D(cx,cy,lay.Br*sc,lay.BR*sc,lay.statorPoles,col,mats,vList[i]);}
   if(showSpiral&&!paused){const pts=geo.layers.map((l,i)=>({x:cx+l.orbit*sc*Math.cos(angle*layerSpeed(i)),y:cy+l.orbit*sc*Math.sin(angle*layerSpeed(i))}));spiralTrail.push(pts);if(spiralTrail.length>90*trailMul)spiralTrail.shift();}
   if(showBSpiral&&!paused){const bps=geo.layers.map((l,i)=>{const ox=cx+l.orbit*sc*Math.cos(angle*layerSpeed(i)),oy=cy+l.orbit*sc*Math.sin(angle*layerSpeed(i)),tr=l.Yr*sc;return{x:ox+tr*Math.cos(selfAngles[i]),y:oy+tr*Math.sin(selfAngles[i])}});bSpiralTrail.push(bps);if(bSpiralTrail.length>90*trailMul)bSpiralTrail.shift();}
   if(showSpiral){for(let t=0;t<spiralTrail.length;t++){const p=spiralTrail[t],alpha=t/spiralTrail.length;x2.beginPath();x2.moveTo(p[0].x,p[0].y);drawSp(x2,p[0],p[1],p[2]);x2.strokeStyle='rgba(255,140,30,0.5)';x2.lineWidth=0.6;x2.stroke();}
@@ -312,7 +312,7 @@ function loadScheme(id){schemeId=parseInt(id);resetForRebuild();if(schemeId===9)
 function loadCfg(i){cfg=ALL_CFGS[i];rebuild();}
 function onMassSelect(idx){if(parseInt(idx)>=0){const d=MASSDATA[devKey][parseInt(idx)];const avgM=(d.sp[0]+d.sp[1]+d.sp[2])/3;const rho=computeMaterialDensity(avgM,devKey);cfg={id:'csv',name:'CSV推荐 '+d.sp.join('/'),sp:d.sp,rp:[34,34,34],num:[12,22,32],st:'good'};massAuto=false;massOverrides={m:d.sp,rho:rho};for(let i=0;i<3;i++){document.getElementById('m'+i).value=d.sp[i];document.getElementById('mn'+i).value=d.sp[i];}document.getElementById('rho').value=rho.toFixed(2);document.getElementById('rhoN').value=rho.toFixed(2);rebuild();}}
 function resetForRebuild(){heightAuto=true;heightOverrides={s:[],r:[]};paramAuto=true;paramOverrides={Yr:[2,2,2],Br0:0,n:[1,1,1]};volumeAuto=true;volumeOverrides={Bv:[]};massAuto=true;massOverrides={m:[],rho:2.5};rollerNumAuto=true;rollerNumOverrides={num:[]};}
-function rebuild(){geo=computeGeometry(devKey,schemeId,cfg);spiralTrail=[];bSpiralTrail=[];rampProg=0;if(heightAuto)syncHtSliders();if(paramAuto&&getScheme(schemeId).ctrl==='size')syncParamSliders();if(rollerNumAuto)syncRNSliders();updateSliderLock();initParticles();updateStatus();}
+function rebuild(){geo=computeGeometry(devKey,schemeId,cfg);spiralTrail=[];bSpiralTrail=[];trajTrail=[[],[],[]];rampProg=0;if(heightAuto)syncHtSliders();if(paramAuto&&getScheme(schemeId).ctrl==='size')syncParamSliders();if(rollerNumAuto)syncRNSliders();updateSliderLock();initParticles();updateStatus();}
 function syncHtSliders(){for(let i=0;i<3;i++){const l=geo.layers[i];document.getElementById('hs'+i).value=Math.round(l.hStator);document.getElementById('hn'+i).value=Math.round(l.hStator);document.getElementById('hr'+i).value=Math.round(l.hRoller);document.getElementById('hnr'+i).value=Math.round(l.hRoller);}}
 function syncParamSliders(){document.getElementById('pBr0').value=0;document.getElementById('pnBr0').value=0;document.getElementById('pYr0').value=2;document.getElementById('pnYr0').value=2;document.getElementById('pn0').value=1;document.getElementById('pnn0').value=1;}
 function syncRNSliders(){const dn=(cfg.num&&cfg.num.length===3)?cfg.num:[12,22,32];for(let i=0;i<3;i++){document.getElementById('rn'+i).value=dn[i];document.getElementById('rnn'+i).value=dn[i];}}
