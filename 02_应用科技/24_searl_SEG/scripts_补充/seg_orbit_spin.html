@@ -139,8 +139,6 @@ function layerSpeed(i){return Math.pow(2.5,i);}
 function computeGeometry(dk,si,cf){
   const dev=DEVICE[dk];const rings=dev.rings,matLayers=dev.matLayers;
   const sp=cf.sp,rp=cf.rp,ctrl=getScheme(si).ctrl,adj=getScheme(si).adj;
-  // 方案9：定子磁极=质量数，滚筒磁极=P34（固定）
-  if(si===9&&massOverrides.m){sp.splice(0,3,...massOverrides.m);rp.splice(0,3,34,34,34);}
   const defNum=(cf.num&&cf.num.length===3)?cf.num:[12,22,32];
   const num=[],nFac=[],Yr=[],su=[],sd=[];
   for(let i=0;i<rings;i++){
@@ -194,6 +192,8 @@ function computeGeometry(dk,si,cf){
   // 高度排序：定子高内≥中≥外，滚筒高内≥中≥外
   for(let i=1;i<rings;i++){if(hS[i]>hS[i-1])hS[i]=hS[i-1];if(hR[i]>hR[i-1])hR[i]=hR[i-1];}
   const maxR=orbit[rings-1]+Yr[rings-1],layers=[];
+  // 方案9：定子磁极=质量数，滚筒磁极=P34（固定）
+  if(si===9&&massOverrides.m&&massOverrides.m.length===3){sp.splice(0,3,...massOverrides.m);rp.splice(0,3,34,34,34);}
   for(let i=0;i<rings;i++)layers.push({k:i,Br:Br[i],BR:BR[i],orbit:orbit[i],Yr:Yr[i],hStator:hS[i],hRoller:hR[i],num:num[i],statorPoles:sp[i],rollerPoles:rp[i],matLayers:matLayers});
   return{rings,matLayers,layers,maxR,devKey:dk};
 }
