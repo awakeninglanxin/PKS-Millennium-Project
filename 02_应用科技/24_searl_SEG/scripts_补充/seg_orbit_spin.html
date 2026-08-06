@@ -236,7 +236,7 @@ function drawParticles(sc,cx,cy){const bins=40,dens=new Array(bins).fill(0);part
 
 // 正视图（2D侧视，对称左右，半透明黄色）
 function drawFront(){
-  const W=Math.min(window.innerWidth-32,1400),pad=30,maxH=geo.layers[0].hStator,H=Math.max(W*0.4,maxH*3.2+pad*2),cx=W/2,scale=W*0.40/geo.maxR,hScale=(H-pad*2)/maxH,midY=H/2;
+  const W=Math.min(window.innerWidth-32,1400),pad=30,maxH=geo.layers[0].hStator,H=Math.max(W*0.4,maxH*3.2+pad*2),cx=W/2,scale=W*0.45/geo.maxR,hScale=(H-pad*2)/maxH,midY=H/2;
   const canvas=document.getElementById('c3dv');
   if(canvas.width!==W||canvas.height!==H){canvas.width=W;canvas.height=H;}
   const ctx=canvas.getContext('2d');
