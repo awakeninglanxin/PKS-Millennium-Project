@@ -37,10 +37,10 @@ canvas{border:1px solid #ccc;border-radius:10px;display:block;margin:4px auto}
   <button onclick="speed=speed>=3?0.5:speed+0.5;document.getElementById('spd').textContent=speed+'x'">⏩</button>
   <span id="spd" style="font-size:.65em;color:#8899bb">0x</span>
   <span style="font-size:.65em;color:#8899bb">加速⏱<input type="range" id="rampR" min="0.0005" max="0.006" value="0.002" step="0.0005" oninput="document.getElementById('rampRN').value=(this.value*1000).toFixed(1)+'ms';rampRate=+this.value" style="width:60px;vertical-align:middle"><span id="rampRN" style="width:32px;display:inline-block;text-align:center">2.0ms</span></span>
-  <span style="font-size:.65em;color:#8899bb">自转🌀<input type="range" id="selfRotR" min="-1" max="1" value="-0.3" step="0.05" oninput="const v=+this.value;document.getElementById('selfRotN').textContent=(v*100).toFixed(0)+'%';if(selfRotLocked)selfRotSelf=v;else for(let i=0;i<3;i++)selfRotSelfs[i]=v;document.getElementById('selfRotR0').value=v;document.getElementById('selfRotR1').value=v;document.getElementById('selfRotR2').value=v" style="width:60px;vertical-align:middle"><span id="selfRotN">-30%</span></span>
-  <button onclick="selfRotLocked=!selfRotLocked;document.getElementById('selfLockRow').style.display=selfRotLocked?'none':'flex'" style="padding:1px 5px;font-size:.6em;background:#223;border:1px solid #334;color:#aac;border-radius:3px;cursor:pointer">🔓解锁</button>
+  <span style="font-size:.65em;color:#8899bb">自转🌀<span id="selfRotN" style="color:#5599dd">行星齿轮</span></span>
+  <button onclick="selfRotLocked=!selfRotLocked;document.getElementById('selfLockRow').style.display=selfRotLocked?'none':'flex';document.getElementById('selfRotN').textContent=selfRotLocked?'行星齿轮':'手动'" style="padding:1px 5px;font-size:.6em;background:#223;border:1px solid #334;color:#aac;border-radius:3px;cursor:pointer">🔓解锁</button>
 </div>
-<div id="selfLockRow" style="display:none;gap:4px;justify-content:center;margin:1px 0"><span style="font-size:.6em;color:#8899bb">自转内<input type="range" id="selfRotR0" min="-1" max="1" value="-0.3" step="0.05" oninput="selfRotSelfs[0]=+this.value" style="width:50px"></span><span style="font-size:.6em;color:#8899bb">自转中<input type="range" id="selfRotR1" min="-1" max="1" value="-0.3" step="0.05" oninput="selfRotSelfs[1]=+this.value" style="width:50px"></span><span style="font-size:.6em;color:#8899bb">自转外<input type="range" id="selfRotR2" min="-1" max="1" value="-0.3" step="0.05" oninput="selfRotSelfs[2]=+this.value" style="width:50px"></span></div>
+<div id="selfLockRow" style="display:none;gap:4px;justify-content:center;margin:1px 0"><span style="font-size:.6em;color:#8899bb">自转内<input type="range" id="selfRotR0" min="-500" max="500" value="-1" step="1" oninput="selfRotOver[0]=+this.value" style="width:50px"></span><span style="font-size:.6em;color:#8899bb">自转中<input type="range" id="selfRotR1" min="-500" max="500" value="-1" step="1" oninput="selfRotOver[1]=+this.value" style="width:50px"></span><span style="font-size:.6em;color:#8899bb">自转外<input type="range" id="selfRotR2" min="-500" max="500" value="-1" step="1" oninput="selfRotOver[2]=+this.value" style="width:50px"></span></div>
 <div class="smoothbar">
   <span>综合性价比得分</span><div class="bar"><div class="fill" id="smoothFill"></div></div><span id="smoothVal"></span>
 </div>
@@ -129,7 +129,8 @@ function computeMaterialDensity(mass, devk){
 
 // Globals
 let devKey='SEG',schemeId=9,cfg=ALL_CFGS[0],geo,angle=0,viewYaw=0,viewYawAuto=true,speed=0,paused=true,showTrajectory=true,showSpiral=true;
-let spiralTrail=[],rampProg=0,rampRate=0.002,selfRotLocked=true,selfRotSelf=-0.3,selfRotSelfs=[-0.3,-0.3,-0.3],selfAngles=[0,0,0];
+let spiralTrail=[],rampProg=0,rampRate=0.002,selfRotLocked=true,selfRotOver=[-1,-1,-1],selfAngles=[0,0,0];
+function getSelfRot(i){return selfRotLocked?-(geo.layers[i].statorPoles/geo.layers[i].rollerPoles):selfRotOver[i];}
 let heightOverrides={s:[],r:[]},heightAuto=true;
 let paramOverrides={Yr:[2,2,2],Br0:0,n:[1,1,1]},paramAuto=true;
 let volumeOverrides={Bv:[2293,2512,2731]},volumeAuto=true;
@@ -339,7 +340,7 @@ if(schemeId===9)cfg=ALL_CFGS[2];
 geo=computeGeometry(devKey,schemeId,cfg);buildDevSelect();buildSchemeSelect();buildCfgSelect();buildMassSelect();
 if(schemeId===9)document.getElementById('cfgSelect').value=2;
 initParticles();updateStatus();syncHtSliders();updateSliderLock();updateVolDisplay();
-setInterval(()=>{if(!paused){rampProg=Math.min(1,rampProg+rampRate*speed);angle+=0.005*speed;for(let i=0;i<3;i++){const sr=selfRotLocked?selfRotSelf:selfRotSelfs[i];selfAngles[i]+=0.005*speed*sr;}}if(viewYawAuto)viewYaw+=0.003*speed;},16);
+setInterval(()=>{if(!paused){rampProg=Math.min(1,rampProg+rampRate*speed);angle+=0.005*speed;for(let i=0;i<3;i++)selfAngles[i]+=0.005*speed*getSelfRot(i);}if(viewYawAuto)viewYaw+=0.003*speed;},16);
 (function frame(){draw2D();drawFront();requestAnimationFrame(frame);})();
 async function captureScreenshot(){const btn=document.getElementById('btnCap');btn.textContent='⏳生成中...';btn.disabled=true;window.scrollTo(0,0);await new Promise(r=>setTimeout(r,200));try{const{default:h2c}=await import('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.esm.js');const el=document.body;const canvas=await h2c(el,{scale:2,backgroundColor:'#ffffff',useCORS:true,logging:false,windowWidth:document.documentElement.scrollWidth,windowHeight:document.documentElement.scrollHeight});const a=document.createElement('a');a.download='SEG_截图_'+new Date().toISOString().slice(0,19).replace(/[T:]/g,'-')+'.png';a.href=canvas.toDataURL('image/png');a.click();}catch(e){alert('截图失败: '+e.message+'。可改用浏览器自带截图 Ctrl+Shift+S');}btn.textContent='📷截长图';btn.disabled=false;}
 </script></body></html>
