@@ -1,148 +1,103 @@
-# SEG/Searl补充脚本
+# SEG / IGV 几何引擎与三环磁极优化 — 主入口
 
-**目录**: `D:\AAA我的文件\PKS_千禧难题_统一解\02_应用科技\24_searl_SEG\scripts_补充`
-**文件数**: 4 个 .py 文件
-
----
-
-## 文件说明与参数详解
-
-### 📄 seg参数尺寸出图.py
-
-**功能描述**: Searl效应发生器七种方案参数生成原理数学说明 通用符号定义： - YrN: 第N环滚筒半径 - YhN: 第N环滚筒高度 - YvN: 第N环滚筒体积 - BrN: 第N环定子内径 - BRN: 第N环定子外径 - BhN: 第N环定子高度 - BvN: 第N环定子体积 - nN: 第N环稀疏因子 - numN: 第N环滚筒数量 - aN, bN: 定子与滚筒高度关系参数 - suN, sdN...
-
-**依赖**:
-- `import numpy as np`
-- `import matplotlib.pyplot as plt`
-- `from mpl_toolkits.mplot3d import Axes3D`
-- `import matplotlib.colors as mcolors`
-- `import colorsys`
-
-**可调参数**:
-
-| 参数名 | 默认值 | 类别 | 说明 |
-|--------|--------|------|------|
-| `n` | 3.5 | 基本参数 | (见源码注释) |
-| `a` | 0.8 | 基本参数 | (见源码注释) |
-| `alpha` | 0.8 | 权重/阈值 | (见源码注释) |
-
-**关键数学逻辑**:
-
-```python
-2. 定子环体积公式：BvN = π × (BRN² - BrN²) × BhN
-3. 定子外径计算：BRN = (numN × nN × YrN) / 2
-4. 定子滚筒高度关系：BhN = (YhN + aN) × bN 或 YhN = BhN/bN - aN
-1. 计算滚筒高度：YhN = BhN/bN - aN
-2. 计算定子外径：BRN = (numN × nN × YrN)/2
-```
-
-**函数流程**:
-- `print_scheme1_math()`
-- `print_scheme2_math()`
-- `print_scheme3_math()`
-- `print_scheme4_math()`
-- `print_scheme5_math()`
-- `print_scheme6_math()`
-- `print_scheme7_math()`
-- `print_common_mathematical_framework()`
-- `__init__()`
-- `solve_selected_scheme()`
+**主交付物**: `seg_orbit_spin.html`  
+**版本**: v3.2 | **日期**: 2026-08-06
 
 ---
 
-### 📄 圆周内摆线searl机.py
+## 项目概述
 
-**功能描述**: Parameters for the inner involute
+`seg_orbit_spin.html` 是一个**单文件交互式 Web 引擎**，实现 SEG（Searl 效应发电机）和 IGV（反重力装置）的完整几何建模、约束优化与 2D 可视磁极显示。
 
-**依赖**:
-- `import rhinoscriptsyntax as rs`
-- `import math`
-
-**关键数学逻辑**:
-
-```python
-x = (R - r) * math.cos(t) + r * math.cos(((R - r) / r) * t)
-y = (R - r) * math.sin(t) - r * math.sin(((R - r) / r) * t)
-t_start =-math.pi
-```
-
-**函数流程**:
-- `involute_curve()`
+核心功能：
+- **9 种几何方案**（从已知尺寸反算 → 质量驱动 → 等体积质量模式）
+- **9 步约束清洗流水线**（正厚度 → 间隙 → 排序 → 等厚/等间距 → 轨道重算）
+- **三环磁极布局可视化**（定子 N-S 红蓝交替 + 滚筒极点 + 间隙灰色带 + 8 片/滚筒）
+- **平滑评分算法**（gcd 互质 + cross-gcd 去耦 + LCM 寿命 + 滚筒统一性）
+- **CSV 质量推荐数据源**（`seg.csv` 5319 行 / `igv.csv` 86 行）
+- **双层高度约束**（k1 比例约束 + k2 间隙约束，二选一动态切换）
+- **材料密度 DNA 自动计算**（SEG 4 层 / IGV 6 层）
 
 ---
 
-### 📄 圆周外摆线searl机.py
+## 9 种几何方案速览
 
-**功能描述**: Ensure the curve is closed by adding the first point at the end
-
-**依赖**:
-- `import rhinoscriptsyntax as rs`
-- `import math`
-
-**关键数学逻辑**:
-
-```python
-x = (R + r) * math.cos(t) - r * math.cos(((R + r) / r) * t)
-y = (R + r) * math.sin(t) - r * math.sin(((R + r) / r) * t)
-t_start = -math.pi
-```
-
-**函数流程**:
-- `evolute_curve()`
+| 方案 | 控制模式 | 核心驱动 | e系数 |
+|:---|:---|:---|:---:|
+| 1 | size | 已知尺寸求体积 (Yr, Br₀, n, e) | ✅ |
+| 2 | volume | 已知体积求高度 (Bv, Yr) | ❌ |
+| 3 | size | BR = Yr·num·n/2（默认 n=3.5） | ✅ |
+| 4 | size | 体积等差 + 等厚 (nFac=2) | ✅ |
+| 5 | size | 等差 + 等厚等间距 | ✅ |
+| 6 | size | BR = (2Yr+n)/(2sin(π/num)) 三角函数法 | ✅ |
+| 7 | mass | 质量密度体积 (mᵢ/ρ) | ❌ |
+| 8 | mass | 等体积质量模式: Bv = (Σm)/(3ρ) | ❌ |
+| 9 | mass | 等体积 + sp=质量数 + rp=P34 | ❌ |
 
 ---
 
-### 📄 德布罗意波debroglie.py
+## 当前约束体系
 
-**功能描述**: Get the points of the curve
+### 几何约束（9 步流水线）
+① BR ≥ Br+1 正厚度 → ② 间隙 Br ≥ BR + 2Yr + clearanceGap → ③ 后环正厚度 → ④ 厚度排序 t₀≥t₁≥t₂ → ⑤ 方案5 等间距 → ⑥ 方案4/5 等厚 → ⑦ 间隙复查 → ⑧ 绝对排序 → ⑨ 轨道重算
 
-**依赖**:
-- `import rhinoscriptsyntax as rs`
-- `import math`
+### 高度约束
+- 每环滚筒高 ≤ 定子高 (hR[i] ≤ hS[i])
+- 引擎级高度排序: hS₀≥hS₁≥hS₂, hR₀≥hR₁≥hR₂
+- k1 比例约束 (hR ≤ hS/k, 默认 k=1.2)
+- k2 间隙约束 (hR = hS−2×k2, 默认 k2=1cm)
 
-**可调参数**:
-
-| 参数名 | 默认值 | 类别 | 说明 |
-|--------|--------|------|------|
-| `k` | 6 | 基本参数 | (见源码注释) |
-| `amplitude` | 1 | 几何参数 | (见源码注释) |
-| `frequency` | 1 | 几何参数 | (见源码注释) |
-
-**关键数学逻辑**:
-
-```python
-x = amplitude * math.cos(k * point[0] + phase)  # y-value of the wave, varies with x
-y= amplitude * math.sin(k * point[1] + phase)
-```
-
-**函数流程**:
-- `generate_de_broglie_wave()`
+### 滑条硬限制
+- 间隙: 1-5cm，默认 1cm
+- k1: 1-1.5，k2: 0-9cm
+- Br₀: 0-2000cm, step=0.5
+- 滚筒片质量: 8片×34g=272g/颗
+- V定子环min (仅检查定子)
+- 滚筒数量: num₀<num₁<num₂
 
 ---
 
-## 使用说明
+## 关键文档
 
-### 运行环境
+| 文档 | 内容 |
+|:---|:---|
+| `SEG_IGV_几何引擎说明.md` | 完整几何公式、8种方案（含8）、9步流水线、高度约束 |
+| `磁极颜色与评分算法说明.md` | bestDivisor→unifiedVis、评分公式、k1/k2 |
+| `SEG磁极设计_小白版.md` | 互质/lcm 通俗解释、9种方案说明 |
+| `SEG磁极优化算法v3_正式说明书.md` | v3.2 正式版：评分、搜索算法、最优配置表 |
+| `SEG仿真工具链评估_MHD_WarpX_magpylib_2026-07-18.md` | L1-L4 仿真可行性评估 |
+| `SEG最优磁极数设计教程_完整推导.md` | 完整数学推导、unifiedVis 算法 |
+| `三十二相_数学审美算法映射.md` | 32相→数学审美：unifiedVis GCD 联结 |
 
-- 大部分文件需 **Rhino 3D**（`import rhinoscriptsyntax`）
-- 少数文件可在标准 Python 环境运行（`matplotlib`/`numpy`）
-- 音乐算法文件需 `pygame` 或 `pyaudio` 播放 MIDI
-
-### 参数调节原则
-
-1. **几何参数**（`k`, `b`, `a`, `m`）— 控制曲线形状
-2. **缩放参数**（`scale`, `amplitude`, `n`）— 控制幅度/圈数
-3. **权重参数**（`weight`, `alpha`, `beta`）— 控制混合比例
-
-### 输出
-
-- Rhino 脚本：直接在 Rhino 视口中生成曲线/曲面
-- matplotlib 脚本：输出 `.png` 可视化文件
-- 音乐算法：播放音频或输出 MIDI
+### 补充脚本
+| 文件 | 说明 |
+|:---|:---|
+| `seg参数尺寸出图.py` | Python 7种方案参数生成 (matplotlib) |
+| `圆周内摆线searl机.py` | Rhino 内摆线曲线 |
+| `圆周外摆线searl机.py` | Rhino 外摆线曲线 |
+| `德布罗意波debroglie.py` | Rhino 德布罗意波生成 |
 
 ---
 
-*本说明由 AI 自动生成于 2026-06-15 19:51*
+### CSV 数据
+| 文件 | 行数 | 对应设备 |
+|:---|:---:|:---|
+| `seg.csv` | 5319 | SEG (4层, base=30) |
+| `igv.csv` | 86 | IGV (6层, base=105) |
+
+---
+
+## 使用方式
+
+1. 浏览器打开 `seg_orbit_spin.html`
+2. 下拉菜单选择方案 (1-9)
+3. 调节滑条实时看几何变化
+4. 观察 2D 俯视/正视图中的磁极与间隙
+5. 查看评分栏和 info 行获取关键参数
+
+---
+
+*更新于 2026-08-06*
 
 ---
 
