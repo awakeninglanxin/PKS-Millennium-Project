@@ -35,7 +35,7 @@ canvas{border:1px solid #ccc;border-radius:10px;display:block;margin:4px auto}
   <select id="cfgSelect" onchange="loadCfg(this.value)"></select>
   <button onclick="paused=!paused">⏯</button>
   <button onclick="speed=speed>=3?0.5:speed+0.5;document.getElementById('spd').textContent=speed+'x'">⏩</button>
-  <span id="spd" style="font-size:.65em;color:#8899bb">1x</span>
+  <span id="spd" style="font-size:.65em;color:#8899bb">0x</span>
   <button onclick="viewYawAuto=!viewYawAuto">🔄3D自转</button>
 </div>
 <div class="smoothbar">
@@ -125,8 +125,8 @@ function computeMaterialDensity(mass, devk){
 }
 
 // Globals
-let devKey='SEG',schemeId=9,cfg=ALL_CFGS[0],geo,angle=0,viewYaw=0,viewYawAuto=true,speed=1,paused=false,showTrajectory=true,showSpiral=true;
-let spiralTrail=[];
+let devKey='SEG',schemeId=9,cfg=ALL_CFGS[0],geo,angle=0,viewYaw=0,viewYawAuto=true,speed=0,paused=true,showTrajectory=true,showSpiral=true;
+let spiralTrail=[],rampProg=0;
 let heightOverrides={s:[],r:[]},heightAuto=true;
 let paramOverrides={Yr:[2,2,2],Br0:0,n:[1,1,1]},paramAuto=true;
 let volumeOverrides={Bv:[2293,2512,2731]},volumeAuto=true;
@@ -140,7 +140,7 @@ function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b];}return a;}
 function lcm(a,b){return a*b/gcd(a,b);}
 function bestDivisor(nP,maxV){let best=1;for(let d=1;d<=Math.sqrt(nP);d++){if(nP%d===0){const d2=nP/d;if(d<=maxV&&d>best)best=d;if(d2<=maxV&&d2>best)best=d2;}}return best>=60?best:Math.min(nP,maxV);}
 function unifiedVis(sp){const G=gcd(gcd(sp[0],sp[1]),sp[2]);if(G>1){for(let d=360;d>=60;d--){if(G%d===0)return[d,d,d];}}const vis=[360,360,360];for(let i=0;i<3;i++){const nP=sp[i];let found=false;for(let d=360;d>=60;d--){if(nP%d===0){vis[i]=d;found=true;break;}}if(!found)vis[i]=Math.min(nP,180);}const sorted=[...vis].sort((a,b)=>a-b);const target=sorted[1];for(let i=0;i<3;i++){const nP=sp[i];let best=vis[i],bestDist=Math.abs(vis[i]-target);for(let delta=0;delta<=60;delta++){for(const sign of[1,-1]){const c=target+sign*delta;if(c>=60&&c<=360&&nP%c===0&&delta<bestDist){best=c;bestDist=delta;}}}vis[i]=best;}return vis;}
-function layerSpeed(i){return Math.pow(2.5,i);}
+function layerSpeed(i){const base=1+1.5*rampProg;return Math.pow(base,i);}
 
 function computeGeometry(dk,si,cf){
   const dev=DEVICE[dk];const rings=dev.rings,matLayers=dev.matLayers;
@@ -299,7 +299,7 @@ function loadScheme(id){schemeId=parseInt(id);resetForRebuild();if(schemeId===9)
 function loadCfg(i){cfg=ALL_CFGS[i];rebuild();}
 function onMassSelect(idx){if(parseInt(idx)>=0){const d=MASSDATA[devKey][parseInt(idx)];const avgM=(d.sp[0]+d.sp[1]+d.sp[2])/3;const rho=computeMaterialDensity(avgM,devKey);cfg={id:'csv',name:'CSV推荐 '+d.sp.join('/'),sp:d.sp,rp:[34,34,34],num:[12,22,32],st:'good'};massAuto=false;massOverrides={m:d.sp,rho:rho};for(let i=0;i<3;i++){document.getElementById('m'+i).value=d.sp[i];document.getElementById('mn'+i).value=d.sp[i];}document.getElementById('rho').value=rho.toFixed(2);document.getElementById('rhoN').value=rho.toFixed(2);rebuild();}}
 function resetForRebuild(){heightAuto=true;heightOverrides={s:[],r:[]};paramAuto=true;paramOverrides={Yr:[2,2,2],Br0:0,n:[1,1,1]};volumeAuto=true;volumeOverrides={Bv:[]};massAuto=true;massOverrides={m:[],rho:2.5};rollerNumAuto=true;rollerNumOverrides={num:[]};}
-function rebuild(){geo=computeGeometry(devKey,schemeId,cfg);spiralTrail=[];if(heightAuto)syncHtSliders();if(paramAuto&&getScheme(schemeId).ctrl==='size')syncParamSliders();if(rollerNumAuto)syncRNSliders();updateSliderLock();initParticles();updateStatus();}
+function rebuild(){geo=computeGeometry(devKey,schemeId,cfg);spiralTrail=[];rampProg=0;if(heightAuto)syncHtSliders();if(paramAuto&&getScheme(schemeId).ctrl==='size')syncParamSliders();if(rollerNumAuto)syncRNSliders();updateSliderLock();initParticles();updateStatus();}
 function syncHtSliders(){for(let i=0;i<3;i++){const l=geo.layers[i];document.getElementById('hs'+i).value=Math.round(l.hStator);document.getElementById('hn'+i).value=Math.round(l.hStator);document.getElementById('hr'+i).value=Math.round(l.hRoller);document.getElementById('hnr'+i).value=Math.round(l.hRoller);}}
 function syncParamSliders(){document.getElementById('pBr0').value=0;document.getElementById('pnBr0').value=0;document.getElementById('pYr0').value=2;document.getElementById('pnYr0').value=2;document.getElementById('pn0').value=1;document.getElementById('pnn0').value=1;}
 function syncRNSliders(){const dn=(cfg.num&&cfg.num.length===3)?cfg.num:[12,22,32];for(let i=0;i<3;i++){document.getElementById('rn'+i).value=dn[i];document.getElementById('rnn'+i).value=dn[i];}}
@@ -327,14 +327,14 @@ function updateSliderLock(){const sch=getScheme(schemeId),ctrl=sch.ctrl,adj=sch.
 function resetHeights(){heightAuto=true;heightOverrides={s:[],r:[]};paramAuto=true;paramOverrides={Yr:[2,2,2],Br0:0,n:[1,1,1]};geo=computeGeometry(devKey,schemeId,cfg);syncHtSliders();syncParamSliders();document.getElementById('rn0').value=12;document.getElementById('rn1').value=22;document.getElementById('rn2').value=32;for(let i=0;i<3;i++)document.getElementById('rnn'+i).value=[12,22,32][i];rollerNumAuto=true;rollerNumOverrides={num:[]};updateVolDisplay();}
 
 // init
-c2d.addEventListener('wheel',e=>{e.preventDefault();speed=Math.max(0.1,Math.min(4,speed+(e.deltaY>0?-0.2:0.2)));document.getElementById('spd').textContent=speed+'x';});
+c2d.addEventListener('wheel',e=>{e.preventDefault();speed=Math.max(0,Math.min(4,speed+(e.deltaY>0?-0.2:0.2)));document.getElementById('spd').textContent=speed+'x';});
 c3dv.addEventListener('wheel',e=>{e.preventDefault();speed=Math.max(0.1,Math.min(4,speed+(e.deltaY>0?-0.2:0.2)));document.getElementById('spd').textContent=speed+'x';});
-c2d.addEventListener('click',()=>{paused=!paused;});c3dv.addEventListener('click',()=>{viewYawAuto=!viewYawAuto;});
+c2d.addEventListener('click',()=>{paused=!paused;if(!paused&&speed===0){speed=0.5;document.getElementById('spd').textContent='0.5x';}});c3dv.addEventListener('click',()=>{viewYawAuto=!viewYawAuto;});
 if(schemeId===9)cfg=ALL_CFGS[2];
 geo=computeGeometry(devKey,schemeId,cfg);buildDevSelect();buildSchemeSelect();buildCfgSelect();buildMassSelect();
 if(schemeId===9)document.getElementById('cfgSelect').value=2;
 initParticles();updateStatus();syncHtSliders();updateSliderLock();updateVolDisplay();
-setInterval(()=>{if(!paused)angle+=0.005*speed;if(viewYawAuto)viewYaw+=0.003*speed;},16);
+setInterval(()=>{if(!paused){rampProg=Math.min(1,rampProg+0.00004*speed);angle+=0.005*speed*rampProg;}if(viewYawAuto)viewYaw+=0.003*speed;},16);
 (function frame(){draw2D();drawFront();requestAnimationFrame(frame);})();
 async function captureScreenshot(){const btn=document.getElementById('btnCap');btn.textContent='⏳生成中...';btn.disabled=true;window.scrollTo(0,0);await new Promise(r=>setTimeout(r,200));try{const{default:h2c}=await import('https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.esm.js');const el=document.body;const canvas=await h2c(el,{scale:2,backgroundColor:'#ffffff',useCORS:true,logging:false,windowWidth:document.documentElement.scrollWidth,windowHeight:document.documentElement.scrollHeight});const a=document.createElement('a');a.download='SEG_截图_'+new Date().toISOString().slice(0,19).replace(/[T:]/g,'-')+'.png';a.href=canvas.toDataURL('image/png');a.click();}catch(e){alert('截图失败: '+e.message+'。可改用浏览器自带截图 Ctrl+Shift+S');}btn.textContent='📷截长图';btn.disabled=false;}
 </script></body></html>
