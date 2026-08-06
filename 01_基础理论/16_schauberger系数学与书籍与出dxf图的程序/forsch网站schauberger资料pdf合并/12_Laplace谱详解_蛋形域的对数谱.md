@@ -235,3 +235,17 @@ $\zeta$ 函数的非平凡零点 $\rho_n = 1/2 + i\gamma_n$ 的统计性质与�
 *参考：PKS千禧蛋_完全证明.md（蛋形域NS解）, 05_PKS全关联前沿分析.md（谱统计）*
 *数学背景：Weyl 1911, Kac 1966, Gordon-Webb-Wolpert 1992, Montgomery 1973*
 *整理日期：2026-06-02*
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

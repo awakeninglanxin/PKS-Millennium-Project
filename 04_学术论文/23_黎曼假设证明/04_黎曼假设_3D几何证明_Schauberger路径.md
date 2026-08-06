@@ -238,3 +238,17 @@ $$\mathbf{S}_k^- = (\Re(P_k(1-\sigma+it)), \Im(P_k(1-\sigma+it)), 1-\sigma)$$
 
 > **状态**：本方案为证明的概念框架，需要将 4 个构造严格化为完整的数学证明。
 > **与 PKS 的连接**：构造 2 直接借用了 Barbara Hero 的 Lambdoma 双三角形（P-12 THE GRID），构造 4 直接借用了 Schauberger 的蛋形闭合条件，构造 3 使用了射影几何的交比不变量（与 Servi 的 B3/B4 路径一致）。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

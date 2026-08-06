@@ -189,3 +189,17 @@ AF2 用 64 个 bins 编码两两距离 (0-22Å)
 高治源文档中提炼出的 **13 个距离等级、四种衍生周期、8 组三角循环空间分布、四款幻立方**——这四个结构是纯粹的数学事实，不依赖于幻方里填了什么具体数字。它们是否恰好为 AlphaFold2 的某些架构选择提供了参考框架，是需要实验验证的假设。
 
 **最可能出成果的验证**：距离分箱假说（改 AF2 的 64→13 bins，观察精度是否下降）——这个实验最快、最直接、也最安全（失败了不会破坏模型）。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

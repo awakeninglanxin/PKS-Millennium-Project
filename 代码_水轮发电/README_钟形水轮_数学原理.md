@@ -184,3 +184,17 @@ Python生成单锥 → 绕Z轴旋转复制×N → 形成完整的涡旋核心
 > - [../DXF生成程序集/03_蛋形与场约束曲线/](../DXF生成程序集/03_蛋形与场约束曲线/) — 蛋形场约束的同类数学方法
 > - [../../02_应用科技/24_searl_SEG/瑟尔技术总结SEG-Concept-Review/02_SEG_vs_Schauberger飞碟_全面对比.md](../../02_应用科技/24_searl_SEG/瑟尔技术总结SEG-Concept-Review/02_SEG_vs_Schauberger飞碟_全面对比.md) — SEG vs Schauberger
 > - [../导读_鳟鱼涡轮.md](../导读_鳟鱼涡轮.md) — 鳟鱼涡轮的同一物理原理
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

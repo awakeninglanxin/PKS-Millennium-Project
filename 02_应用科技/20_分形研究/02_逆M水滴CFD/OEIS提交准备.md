@@ -86,3 +86,17 @@
 提交**候选A**作为主序列，在Comments中提及候选B的存在。这样既满足OEIS的唯一性要求，又不丢失极简序列的信息。如果审稿人接受，可后续追加候选B作为交叉引用。
 
 > ⚠️ OEIS 格式要求序列成员以逗号分隔，不包含括号或省略号。建议额外增加 1-2 项以填满 3 行（约需 260 字符 ≈ 30 项）。可通过降低斜率阈值（2x代替3x）获得更多项，但需注明阈值参数。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

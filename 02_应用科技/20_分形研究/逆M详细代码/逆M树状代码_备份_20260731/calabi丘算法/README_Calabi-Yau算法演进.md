@@ -179,3 +179,17 @@ Calabi-Yau 流形是代数几何中 $\mathbb{C}^6$ 上的 Calabi-Yau 3 流形 �
 | 3 | 2024-09-22 ~ 2024-09-28 | 13 | 7 天（密集开发） |
 | 4 | 2025-02-28 ~ 2025-10-24 | 8 | 238 天（长期间歇） |
 | **总计** | 2024-05 ~ 2025-10 | **39** | 536 天 |
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

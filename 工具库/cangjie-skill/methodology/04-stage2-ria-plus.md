@@ -84,3 +84,17 @@ related_skills: []                    # 阶段 3 填充
 3. **E 段只有哲学没有动作** — "保持客观" 不是 step,"列出 3 个最不希望发生的结果" 才是。
 4. **缺 B 段** — 没边界的 skill 会被过度调用,最终用户失望。
 5. **从 I 直接跳到 E,跳过 A1** — 丢失了"作者亲自用过"的证据,skill 失去权威性。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

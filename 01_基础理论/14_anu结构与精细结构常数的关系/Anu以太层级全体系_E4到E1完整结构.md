@@ -202,3 +202,17 @@ Anu (UPA) 内部:
 > **源资料**：IMA 笔记 —《隐秘化学》知识库（Leadbeater & Besant, "Occult Chemistry", 1908 + Stephen Phillips, "ESP of Quarks", 1980 + "Occult Chemistry Re-evaluated", 2015）
 > **提取日期**：2026-06-06
 > **精度**：✅ 全部层级数据和粒子对应来自知识库原文 | 🔶 PKS 关联为跨领域推导 | ⚪ E4 四面体组→叮咚四面体映射待验证
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

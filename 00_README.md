@@ -42,12 +42,11 @@
 | 🌱 第2层 | 嫩芽 · 双曲锥 xy=1 | [L2_嫩芽_双曲锥xy=1](L2_嫩芽_双曲锥xy=1/README.md) |
 | 🌿 第3层 | 三主枝 · 蛋形/螺旋/波纹 | [L3_三主枝_蛋形螺旋波纹](L3_三主枝_蛋形螺旋波纹/README.md) |
 | 🌰 第4层 | 果实 · 应用与千禧证明 | [L4_果实_应用与千禧证明](L4_果实_应用与千禧证明/README.md) |
-| 🍎 第5层 | 整树 · 万物互联与文明愿景 | [L5_整树_万物互联](L5_整树_万物互联/README.md) |
+| 🍎 第5层 | 整树 · 万物互联与文明愿景 | [L6_整树_万物互联](L6_整树_万物互联/README.md) |
 
 配套：[★★★学习总入口_五层知识树地图](★★★学习总入口_五层知识树地图.md) ·
 [★本项目正确打开方式](★本项目正确打开方式_最省精力学习路径.md) ·
-[★入门三台阶资源导航卡](★入门三台阶_配套资源导航卡.md) ·
-[Python出图教程](Python出图教程_PNG与DXF快速上手.md)
+[★入门三台阶资源导航卡](★入门三台阶_配套资源导航卡.md)
 
 ---
 
@@ -65,7 +64,7 @@ research/                       → NS方程学术论文
 ufopolitics motor/              → 非对称电动力学马达原始资料
 PKS控制理论应用/                → PKS选股回测 + CLF/CBF控制器
 代码_*/                         → 7个按主题分类的代码目录
-L1~L5_*/                        → 五层知识树学习导航
+L1~L6_*/                        → 六层知识树学习导航
 ```
 
 ---
@@ -163,8 +162,23 @@ x · y = 1          ← 超双曲锥 (音调塔)
 
 - Python 3.8+（推荐 3.12），依赖 `numpy`/`matplotlib`/`ezdxf`/`scipy`/`pandas`
 - 本仓库已内置 `PIL`(Pillow) 和 `pdf2image` 包，减少安装步骤
-- 出图教程见 [Python出图教程_PNG与DXF快速上手](Python出图教程_PNG与DXF快速上手.md)
 
 ---
 
 > 本索引由 AI 辅助维护。项目部分主张（COP>1、反重力、文明愿景等）属探索性/理念性内容，重要结论请对照主流科学二次核验，并以各文件夹内原始文件为准。
+
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**
+

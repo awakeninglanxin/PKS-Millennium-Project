@@ -203,3 +203,17 @@ Croft 猜想 (×)
 ---
 
 > **一句话**：Croft 用 20 年独立研出的素数螺旋结构，我们的 GPU 实验在 6 小时内找到了同一个物理根源——多质因子合数的和频干涉。SPF 线性筛就是 Croft 毕生寻找的"重复因子分解公式化"的答案。区别在于：他是几何直觉，我们是数值验证 + GPU 加速。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

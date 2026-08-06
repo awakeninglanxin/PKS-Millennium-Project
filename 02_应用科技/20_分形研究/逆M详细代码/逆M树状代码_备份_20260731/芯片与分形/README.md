@@ -154,3 +154,17 @@
 > 目前可信度最高的只有五篇已发表论文的数据（L3）。整个芯片架构的闭环（幻方+Farey+AC-TEC+分形流道）是**首次组装**——单个零件在各自领域被验证过，但组装后的行为从未被测试。跑仿真是最低成本的打假方式。
 >
 > **特别警惕**：Feigenbaum δ=4.669 做层级设计、Misiurewicz(k,p) 做热点诊断、Kolmogorov简约做FOM——这三个是从纯数学推出来的，没有直接工程验证。很可能是"数学上优美但物理上不成立"的典型幻觉。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

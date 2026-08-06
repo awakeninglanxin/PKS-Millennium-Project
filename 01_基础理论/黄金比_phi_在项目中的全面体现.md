@@ -120,3 +120,17 @@ b = 1.618  # φ — 黄金比例 → 螺旋钟形的自然膨胀率
 | **SEG 幻方** §四 | 间接（整数比替代无理比） | 幻方结构的自洽性优先 |
 | **跨学科接引·核物理** | $\phi/\sqrt{2}$ 驱动柏拉图立体嵌套壳层模型 | PSF-I 核壳层 = φ/√2 的最直接工程应用 |
 | **历史演变·3D阴阳** | $2^n$ 白银比 + $\phi^n$ 黄金比 + 3D | 蛋形→正弦波演变中两种比例并列 |
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

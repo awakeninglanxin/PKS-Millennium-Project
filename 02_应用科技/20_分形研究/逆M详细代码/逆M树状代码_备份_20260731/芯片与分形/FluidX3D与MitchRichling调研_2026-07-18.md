@@ -155,3 +155,17 @@ while(norm(z) < 50 && count <= 1024) {
 | 🔥 2 | **用 FluidX3D 对比 6 种漏斗的涡量/压降** | 1 h |
 | 🟡 3 | 移植 Burning Ship / Tricorn 到 DNA_M 探索器 | 3 h |
 | 🟢 4 | 将 Mitch 的距离估计渲染加入 UF1b | 2 h |
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

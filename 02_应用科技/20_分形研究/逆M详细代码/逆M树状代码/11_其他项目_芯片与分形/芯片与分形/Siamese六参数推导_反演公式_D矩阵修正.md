@@ -202,3 +202,17 @@ M[r][c]  D[r][c]  ← 真正的行列守恒版本
 
 > **⚠️ 之前元宝对话中的 D 矩阵线性公式有误**：a·M+b 不能保持行列和守恒，因为 b 项加了 n 次。修正为归一化比例公式。
 > 这是一个典型的"AI推理自洽但数学不成立"的案例。需要在仿真中验证两种公式的热均匀性差异。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

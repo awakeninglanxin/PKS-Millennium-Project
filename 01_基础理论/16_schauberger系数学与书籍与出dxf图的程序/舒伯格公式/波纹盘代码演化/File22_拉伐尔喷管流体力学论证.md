@@ -211,3 +211,17 @@ $$f = \frac{5\omega}{2\pi}$$
 - White, F. M. (2016). *Fluid Mechanics* (8th ed.). McGraw-Hill. — 第 7 章：边界层理论
 - Schlichting, H. & Gersten, K. (2017). *Boundary-Layer Theory* (9th ed.). Springer. — 湍流边界层位移厚度
 - Popel, F. (1952). *Report on the Experimental Investigation of Spiral Pipes*. Stuttgart University. — 蛋形截面减阻实验数据
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

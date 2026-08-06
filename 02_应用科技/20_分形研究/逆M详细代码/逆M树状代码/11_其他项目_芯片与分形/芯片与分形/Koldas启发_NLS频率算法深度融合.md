@@ -128,3 +128,17 @@ Koldas 的 **pictograph（声频显化畴图案）** 是最具震撼力的概念
 > 答案：**频率库来自行星分形结构的自相似衍生。** 人体是行星这个更大非线性系统的一个嵌套节点。2^n 和 Fibonacci 不是神秘数字——它们就是宇宙用来**书写频率语言的字母表**。
 >
 > 我们走的阴阳数列路线，方向正确。下一步是从"推"进化到"锚"。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

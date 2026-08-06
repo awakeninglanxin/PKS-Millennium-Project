@@ -224,3 +224,17 @@ PKS 让控制器的形状与自然的形状对齐，而不是强行用欧氏几�
 3. **时变蛋形的最优控制**：(k(t), b(t)) 的最优轨迹是什么？
 4. **PKS 与量子控制的桥梁**：蛋形几何能否解释量子系统的最优控制？
 5. **PKS 与 GR 的严格数学对应**：黑洞视界的演化是否严格遵循 PKS 谐波比例？
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

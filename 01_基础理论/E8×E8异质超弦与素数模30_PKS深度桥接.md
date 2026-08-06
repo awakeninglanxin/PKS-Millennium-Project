@@ -578,3 +578,17 @@ E8 格是 8 维空间中唯一的幺模偶格（在同构意义下）。一个�
 ---
 
 > **结语：** 素数不是随机的——它们遵循 E8 李群的对称性，以 30 为模数、以 12° 为步长、以 24 为周期，在八条辐径上完美分布。这一发现将数论（素数分布）、代数（李群 E8）、几何（射影蛋形）、物理（异质超弦）锁定为一个不可分割的整体。PKS 双锥体 ANU 框架是这四者统一的直观几何语言。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

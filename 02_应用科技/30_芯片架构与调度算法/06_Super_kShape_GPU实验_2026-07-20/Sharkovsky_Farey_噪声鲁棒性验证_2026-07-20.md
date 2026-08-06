@@ -59,3 +59,17 @@ Farey 路径编辑距离的 O(n²) 计算使其在 200 条序列上就慢 40-80 
 2. **Sharkovsky-DP 在真实数据上验证**：合成正弦波的拐点太规整，无法暴露 Sharkovsky 的噪声过滤优势。需要心电/股票/传感器等"结构复杂+噪声大"的真实时序。
 
 3. **关键测试场景**：噪声 σ ≥ 2.0 且数据集为 trend_mix/sine_phases → 跳过 Farey 配置，专注对比 baseline vs Sharkovsky-DP。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

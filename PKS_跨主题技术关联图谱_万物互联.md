@@ -156,3 +156,19 @@ PKS 项目中所有技术遵循以下本体论互联法则：
 ---
 
 > **本体论说**：真正理解一个东西，就是看到它和所有其他东西的连接方式。PKS 不是关于"这个"或"那个"技术，而是关于**连接本身**——关于那个让波纹盘、螺旋管、蛋形曲线、千禧证明、非对称电机、SEG 瑟尔、36 小时历法（及其承载的人类文明蓝图）都成为一个活的统一体的**元结构**：$a \cdot b = 1$。
+
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**
+

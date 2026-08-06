@@ -89,3 +89,17 @@
 **共同结论**：Servi-Croft 核 + SPF 筛除 = 在整个 N∈[10³,10⁸] 稳定工作的素数探测器。这是 RH 方向今天最扎实的成果。
 
 *撰写：2026-07-17 | 基于专业报告 §1 + Servi_Mollifier_实验.py 源码*
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

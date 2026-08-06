@@ -425,3 +425,17 @@ Schauberger ab=1 极化原理 → ANU 7芒星结构
 > - `ANU数学工具深度整合_Milnor_陀螺互锁_群论.md` — Milnor 异 7-球面与三锁
 > - `01_geometry/anu_parameterization.py` — ANU 螺旋参数化
 > - `01_千禧年七大难题_总览与PKS视角.md` — 千禧难题总览
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

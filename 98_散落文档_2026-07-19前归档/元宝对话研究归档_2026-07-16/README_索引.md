@@ -62,3 +62,17 @@
 ---
 
 > **核心洞察**（2026-07-16 修正）：三篇元宝对话不约而同指向同一件事——"让物理自己算"。但物理有双面：均匀轴向流下 30°直锥夺冠（CFD已验证），贴壁螺旋流下 16bands 夺冠（液态金属所属流态，趋肤效应 + EMF 驱动）。PKS 的 a·b=1 是极性守恒的数学形式，双流态就是极性守恒在流体力学中的具体表现——同一几何参数（SA）在两种流态下扮演完全相反的角色。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

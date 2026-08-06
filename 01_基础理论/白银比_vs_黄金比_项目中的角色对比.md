@@ -127,3 +127,17 @@ x² − 18x + 1 = 0 →  φ⁶     (McCarthy，trace=18)
 **$\phi$ 和 $\chi$ 不是"两个不同的世界"**——它们是**同一族方程 $x^2 - T x + 1 = 0$ 在 $T=3$ 和 $T=6$ 时的两个解**。$T$ 可以取更多值（4, 18...），每个值对应一种 Pisot 数，对应一种拉糖机设计。
 
 > **终极洞察**：$\phi$ (T=3) 和 $\chi$ (T=6) 是同一谱系中的两个成员。PKS 项目中 $\phi$ 出现更多（T=3 的设计最简单），$\chi$ 出现在需要更高归一化常数的场合（T=6）。两者的"落地价值"不是对立的——它们是**同一族数学在 $T$ 轴上的两个采样点**。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

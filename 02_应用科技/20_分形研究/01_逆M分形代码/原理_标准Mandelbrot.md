@@ -67,3 +67,17 @@ result[y, x] = mandelbrot(re + 1j * im, max_iter)
 1. **逃逸半径 R=4**：对标准M集，|c|≤2 时 |zₙ|>2 确保发散。R=4 提供了安全余量，且不影响集合判定
 2. **原点必然在M内**：z₀=0，若 c=0，zₙ 恒为0→never escapes
 3. **实轴截距 [-2, 1/4]**：M ∩ ℝ 的精确范围
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

@@ -17,3 +17,17 @@ While the individual components (Croft sieve, SPF, Servi mollifier) are known fr
 ## 中文摘要
 
 本文提出一种新的数值核，将Gary W. Croft的模30轮筛（2018）、T. Servi的黎曼zeta函数柔化方法、标准的最小数素因子（SPF）线性筛三分类以及从计算几何移植的连续vShape权重函数融合为统一的素数-合数检测框架。在N=10^9尺度上，核的方差比R达到51,049，超过Loiseau B类阈值1.2的四万倍以上。四个单独组件虽各有文献来源，但其整合为单一GPU加速检测流水线并达到渐近无约束性能区间是首创贡献。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

@@ -335,3 +335,17 @@ NLS 系统对不同器官使用特定频段（b9 值对应不同频率），而�
 3. Jung, W. (2002). *The Mandelbrot set — boundary equation*. mandelbrot-numerics library.
 4. Milnor, J. (2006). *Dynamics in One Complex Variable*. Princeton University Press.
 5. Wikibooks. *Fractals/Computer graphic techniques/2D/plane inversion*.
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

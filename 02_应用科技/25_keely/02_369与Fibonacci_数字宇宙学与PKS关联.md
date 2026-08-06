@@ -216,3 +216,17 @@ PKS:    λ_n = 2π·ln(n)   = 只有特定频率的波模稳定存在
 > - [01_Keely技术全景_SVP同情振动物理学.md](./01_Keely技术全景_SVP同情振动物理学.md) — Keely 的完整技术史
 > - [../初学者避坑简单的永动机设计方案/永动机避坑指南.md](../初学者避坑简单的永动机设计方案/永动机避坑指南_建立正确宇宙科学观.md) — 区分开放系统与骗局
 > - [../24_searl/瑟尔技术总结SEG-Concept-Review/03_统一数学框架_外摆线蛋形SEG磁场.md](../24_searl/瑟尔技术总结SEG-Concept-Review/03_统一数学框架_外摆线蛋形SEG磁场.md) — 外摆线+Fiboancci三角数的关联
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

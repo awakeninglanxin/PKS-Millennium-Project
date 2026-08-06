@@ -251,3 +251,17 @@ $$\varepsilon_0 = \frac{1}{\mu_0 c \alpha} \quad \leftrightarrow \quad \alpha = 
 | α⁻¹ ≈ 137 | 需要测量输入 | 从 $20\Phi^4$ 精确导出（误差 0.03%） |
 
 > 🔑 **核心差异**：传统物理学中 α 是经验常数。在 Anu 几何中，α 从第一原理导出——蛋形曲率比 × 黄金比缩放 × 1680 匝约束。ε₀ 和 μ₀ 随之获得几何起源：分别对应蛋形截面两端的曲率特征。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

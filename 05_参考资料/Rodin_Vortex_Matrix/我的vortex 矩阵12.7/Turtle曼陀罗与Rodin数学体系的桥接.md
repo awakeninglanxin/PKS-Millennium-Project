@@ -212,3 +212,17 @@ f   走直线（右分支在后面）
 **这不是巧合**。Rodin 的数学描述了整数在模 9 下的行为，而 Turtle 算法恰好用数字根控制了步长和方向。二者是**同一个数学结构的两种表述**——Rodin 用代数语言，蓝馨老师用几何语言。
 
 Rodin 曾写道："数学是上帝的语言，几何是它的笔迹。" Turtle 曼陀罗就是那支笔。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

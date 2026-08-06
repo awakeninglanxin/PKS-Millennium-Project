@@ -306,3 +306,17 @@ Naudin 的同一个线圈，仅改接线方向便在一张铁粉图上同时呈�
 3. **SEG 的"平方法则"**是幻方数论构造，不是 Nε² 中的"平方"——后者是碰撞截面标度 `ε²`，前者是幻方 `square`，只是英文同词。
 
 4. **SEG 的合法工程空间**在"外部驱动 + 磁齿轮 + 感应取电"或"温差 → MHD 通道"框架内。在宇宙的"熵增段"，H 定理约束均匀热库净取功；但在循环宇宙视角下，数学上不排除熵减段存在逆向流动。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

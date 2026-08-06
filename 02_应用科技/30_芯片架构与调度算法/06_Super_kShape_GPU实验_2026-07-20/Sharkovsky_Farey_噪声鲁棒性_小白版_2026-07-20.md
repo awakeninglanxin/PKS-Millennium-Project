@@ -89,3 +89,17 @@
 ---
 
 > **诚实总结**：Sharkovsky-DP 不是分类质量的福音，是计算效率的福音。Farey 距离在当前形态下既不是质量的福音也不是效率的福音。但这两个结论本身就有价值——它帮我们明确了"什么是死路、什么值得再投入"。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

@@ -477,3 +477,17 @@ $$ 精细结构常数： \alpha = \frac{R_0}{R_c} \approx 20\Phi^4 \approx 137.0
 > 📌 本文档覆盖范围：从超双曲锥 xy=1 的平面斜切（§1）→ 6 种代数参数化（§2）→ 双锥体统一理论（§4）→ 射影几何框架（§5-§8）→ NS 证明路径（§9）→ 蛋咬一口公式（§10）。
 >
 > 📎 关联文档：`PKS千禧蛋_完全证明.md`（射影几何×12步证明总纲）、`PKS双锥体统一理论.md`（电性+磁性=NS）、`蛋形曲线生成算法_数学工序逻辑说明.md`（6种算法对比）。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

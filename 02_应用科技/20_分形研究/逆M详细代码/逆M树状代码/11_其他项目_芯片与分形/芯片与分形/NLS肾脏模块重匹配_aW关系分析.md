@@ -57,3 +57,17 @@ a与W可能存在近似关系: a ≈ 0.45 × (1 + k×(W-0.5))，但需要更多�
 3. **公式 `频谱 ≈ 0.45 × xch + b` 在W<0.6时有效**
 4. **高W值(>1.0)时a变大**，需要引入W值修正项
 5. **a-W函数关系需更多过渡区(0.6-1.0)数据确定**
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

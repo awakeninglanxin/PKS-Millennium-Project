@@ -169,3 +169,17 @@ Loiseau (2018) 证明: 对于一般柔化器, $K(0) > 1.2$ 为素数选择性的
 3. Sheth, A. "Euler product asymptotics for L-functions of elliptic curves." arXiv:2312.05236, 2024.
 4. Loiseau, B. "Servi's mollifier and the Riemann hypothesis." (unpublished, referenced in PKS project)
 5. Cluckers, R., Comte, G., Servi, T. "Parametric Fourier and Mellin transforms." Forum of Mathematics Sigma, 12, 2024.
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

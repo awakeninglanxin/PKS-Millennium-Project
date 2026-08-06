@@ -247,3 +247,17 @@ ANU 的 7 芒星之所以稳定，是因为 7 个陀螺被 Möbius 拓扑绑成�
 | 陀螺互锁 | `ANU数学工具深度整合_Milnor_陀螺互锁_群论.md` | ⑩ |
 | 辫群 Burau | `12_BSD猜想证明/00_BSD猜想_群论梯-辫群证明框架.md` M1 | ⑪ |
 | OC 数据 | `15_15_references/OCCULT CHEMISTRY-神秘化学-翻译.docx` | ⑫ |
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

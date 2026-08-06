@@ -200,3 +200,17 @@ PKS 双曲锥的 3D 扫掠路径本质上是**对数螺线在环面上的投影*
 ---
 
 > **归纳**：韩国 YouTuber 的这些 p5.js 代码虽不直接解决千禧难题，但其数学骨架（vShape、极坐标玫瑰、球面参数化、噪声生成）覆盖了我们已有的 Servi-Croft 核、Farey 分相、CFD 湍流建模。值得将 vShape 的参数空间扫描加入 GPU 任务队列。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

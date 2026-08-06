@@ -81,3 +81,17 @@ Farey 分数 p/q → 对应不同的时钟相位偏移 θ = 2π × p/q
 ---
 
 > **一句话**：GPU 的"线路共振"是分形几何在芯片物理学中的一个具体表现——逆M cardioid 的 Farey 分数天然提供了分散相位的数学工具，而幻立方是完美的理论极限。从分形散热到幻立方均衡，是工程可行→理论完美的渐进路线。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

@@ -175,3 +175,17 @@ orbit2 = (BR2 + Br3)/2
 
 *关联文件：`relation.nb` · `AAA searl机各参数方案.nb` · `index-滑动条备份.nb` · 使用说明 `程序使用方法.docx` / `重点：开发一个瑟尔seg或igv的wolfram模拟nb小程序.docx`*
 *解析方法：Python 解 gzip + 正则提取 BoxData/Input 单元 + `\[:xxxx]` Unicode 反转义*
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

@@ -88,3 +88,17 @@
 | 🔴 | 把 Dellacherie→DQN 作为 CPM→Hybrid 的类比案例写入 Related Work | 论文第2-3页 |
 | 🟡 | 实现 Sharkovsky-greedy 探索策略并对比 ε-greedy | 新实验 |
 | 🟡 | 用 Tetris DQN 撞死重开 的故事做知乎文章的第二篇 | 传播 |
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

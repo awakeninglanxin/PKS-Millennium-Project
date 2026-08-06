@@ -167,3 +167,17 @@ Calabi-Yau 螺旋臂的相位合并算法可以直接用于芯片供电网络的
 ---
 
 > **一句话**：千禧难题不是"要不要 GPU"，而是"GPU 够不够用"——BSD 需要 10^5 素数、NS 需要 128³ 网格、RH 需要 Conrey mollifier。反过来，千禧难题的数学结构（Farey 分形、幻立方平衡、Douglas-Peucker 最优性）恰好是优化下一代 GPU/AI 硬件的天然数学工具。验证过的原型已经在跑了。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

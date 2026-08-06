@@ -113,3 +113,17 @@ def miim(c, n_iter=10_000_000):
 | 2 | **Servi核 = 频谱角度折半** | 证明 cos(-t·log p)/√p 与角度折半的对应 | 理论 |
 | 3 | **5柏拉图立体 ↔ Feigenbaum分岔** | 验证五行分岔模式与 Servi核参数扫描的对应 | 1h GPU |
 | 4 | **"冷段"采样改进 Servi核** | MIIM hit-limit 启发 — 解决大N下p^k权重的稀疏问题 | 2h GPU |
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

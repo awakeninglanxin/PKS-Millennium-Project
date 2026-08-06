@@ -178,3 +178,17 @@ Schauberger 方案的答案更激进：**不需要让 AI 看几何。** 因为�
 | **Schauberger PKS** | **事前保证（参数→完美几何）** | **数学保证** | **无理论上限** |
 
 > 📂 全部引用源：`DXF生成程序集/README_程序族详解.md`、`钟形水轮_数学原理.md`、`波纹盘代码演化_思维谱系.md`、`舒伯格蛋形公式全集×项目代码对应.md`
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

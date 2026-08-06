@@ -57,3 +57,17 @@
 1. **把描述当原则** — "作者告诉我们投资要谨慎" 不是原则;"绝不投资你看不懂的生意" 是。
 2. **把一整章当一条** — 原则必须原子化,一章可能包含 3–5 条独立原则,要拆开。
 3. **和 framework 混淆** — framework 是"怎么想",principle 是"做不做"。一个告诉你推理方式,一个告诉你 yes/no。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

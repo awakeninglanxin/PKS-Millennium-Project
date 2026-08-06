@@ -142,3 +142,17 @@ Mandelbrot 本人最早提出：湍流耗散区的几何是**分形的**。湍�
 ---
 
 > **下一优先**：用 bugman123 的 SPH 公式 + PKS 锥体 STL + 韩国 YouTube 的 Perlin 噪声入口 → GPU 上的无网格 CFD，解决光谱法的壁面问题。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

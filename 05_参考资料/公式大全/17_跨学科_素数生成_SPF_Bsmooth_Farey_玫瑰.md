@@ -115,3 +115,17 @@ Farey分母 q    ≤2    ≤3    ≤4    ≤5    ≤7    ≤8    ≤15    ≤64
 > **λ_n = 2π·ln n（PKS蛋形谱）→ Croft模30旋转群(8) → Farey周期泡(q≤7) → SPF带通滤波(单频+倍频) → B-smooth基底(前5素数) → 极坐标玫瑰(k≤4)**
 
 这六步构成一条从**代数数论**到**计算几何**的完整推理链。每一步都在不断提炼"素数生成的本质是频谱中的基频选择"这一核心思想。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

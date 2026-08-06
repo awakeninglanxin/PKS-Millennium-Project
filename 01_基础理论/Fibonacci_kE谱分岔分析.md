@@ -226,3 +226,17 @@ k_E=2.0（n=2精确 Fibonacci 点）是这条谱线的**第一个非平凡离散
 
 *基础分析：`Die Ei-Kurve -fibonacci.py` + `egg_kE_scan.py`*
 *谱结构扩展：2026-05-26，结合 `ns_verify.py` + `Fibonacci_kE谱分岔分析.md` 联合推导*
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

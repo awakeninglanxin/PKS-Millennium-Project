@@ -107,3 +107,17 @@ ratio 全区间 > 16，是最低安全阈值 1.2 的 13 倍以上。
 ---
 
 > **一句话**：SPF 线性筛用 O(N) 时间标记每个数的最小质因子，从而精确区分素数、质数幂和多质因子合数。这是今天 RH 方向 ratio 从 0.09 飙到 30.64 的核心突破。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

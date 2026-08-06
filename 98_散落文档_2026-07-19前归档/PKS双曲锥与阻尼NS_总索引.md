@@ -124,3 +124,17 @@ x(t) = a / t                      ← 双曲螺旋 r = 1/φ
 ---
 
 > **阅读建议**：如果你是第一次接触 PKS 体系，请从 `PKS千禧蛋_项目总览.md` 或 `PKS双锥体统一理论.md` 入手。然后按 **阻尼NS桥接 (01→02→03) → PKS几何→NS映射 → PKS千禧蛋完全证明** 的顺序深入。最后阅读 `3-4-5勾股三角` 和 `E8×E8桥接` 理解体系的跨学科广度。
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

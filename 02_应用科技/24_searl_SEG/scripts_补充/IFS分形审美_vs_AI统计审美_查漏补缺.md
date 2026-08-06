@@ -215,3 +215,17 @@ Layer 3: 动力学终审（IFS新增 ★）
 | 4 | 对称性只有Z₂（双侧） | 只检测了最粗的对称 | 补Zₙ旋转+手性+中心点 → 多群对称谱 |
 | 5 | FID是集合级距离，不能评单张图 | Inception特征空间的统计距离 | Internal Address的Farey树编辑距离 |
 | 6 | 清晰度=Laplacian方差（一维标量） | 太粗糙 | Hausdorff维数 d_H(皮肤)→尖锐峰值=噪点, d_H≈2=自然 |
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**

@@ -397,3 +397,17 @@ Milnor:   M(4,-3) 是唯一满足 λ=0 mod 7 且 h+j=1 的 7 阶异球面
 > - `Anu力流_四种基本力统一.md` — Möbius 拓扑的力流解释
 > - `宇宙统一论导读_从Koilon到人类.md` — 七层贯通链条（本文补全 §二的数学深度）
 > - `PKS几何_NS方程映射.md` — NS 方程的几何证明（陀螺互锁 → 涡旋稳定性）
+
+---
+
+> ⚠️ **重要声明 / Important Disclaimer**
+> 
+> 本文档由 AI 辅助生成，部分结论可能存在 AI 幻觉导致的论证不严谨之处。
+> 文中提出的数学、物理及相关跨学科观点，需要经过专业数学家、物理学家
+> 及相关领域专家共同验证与检验。
+> 如有疏漏、错误或不同见解，敬请指正，不胜感激。
+> 
+> **This document was AI-assisted. Some conclusions may contain inaccuracies
+> due to AI hallucination. All mathematical, physical, and interdisciplinary
+> claims require verification by professional mathematicians, physicists,
+> and subject-matter experts. Corrections and feedback are warmly welcomed.**
