@@ -88,7 +88,7 @@ canvas{border:1px solid #ccc;border-radius:10px;display:block;margin:4px auto}
   <button onclick="showTrajectory=!showTrajectory" style="padding:2px 6px;font-size:.65em;background:#223;border:1px solid #334;color:#aac;border-radius:3px;cursor:pointer">📐轨迹线</button>
   <button onclick="showSpiral=!showSpiral" style="padding:2px 6px;font-size:.65em;background:#223;border:1px solid #334;color:#aac;border-radius:3px;cursor:pointer">🟠中心线</button>
   <button onclick="showBSpiral=!showBSpiral" style="padding:2px 6px;font-size:.65em;background:#223;border:1px solid #334;color:#aac;border-radius:3px;cursor:pointer">🔵边沿线</button>
-  <select id="curveMode" onchange="curveMode=this.value" style="padding:1px 3px;font-size:.65em;background:#223;border:1px solid #334;color:#aac;border-radius:3px"><option value="quad">二次</option><option value="cubic">三次</option><option value="catmull">内插</option></select>
+  <select id="curveMode" onchange="curveMode=this.value" style="padding:1px 3px;font-size:.65em;background:#223;border:1px solid #334;color:#aac;border-radius:3px"><option value="quad">二次</option><option value="cubic">三次</option><option value="catmull" selected>内插</option></select>
   <span style="font-size:.65em;color:#8899bb">尾迹<input type="range" id="trailR" min="1" max="12" value="1" step="0.5" oninput="trailMul=+this.value;document.getElementById('trailN').textContent=trailMul+'x'" style="width:50px;vertical-align:middle"><span id="trailN">1x</span></span>
   <button onclick="captureScreenshot()" id="btnCap" style="padding:2px 8px;font-size:.65em;background:#1d9e75;border:none;color:#fff;border-radius:3px;cursor:pointer">📷截长图</button>
   <label id="fullPoleLabel" style="font-size:.65em;color:#8899bb;cursor:pointer;user-select:none"><input type="checkbox" id="fullPoleChk" onchange="onFullPoleChange()"> 全极数直绘(不压缩)</label>
@@ -131,7 +131,7 @@ function computeMaterialDensity(mass, devk){
 }
 
 // Globals
-let devKey='SEG',schemeId=9,cfg=ALL_CFGS[0],geo,angle=0,viewYaw=0,viewYawAuto=true,speed=0,paused=true,showTrajectory=true,showSpiral=true,showBSpiral=true,curveMode='quad';
+let devKey='SEG',schemeId=9,cfg=ALL_CFGS[0],geo,angle=0,viewYaw=0,viewYawAuto=true,speed=0,paused=true,showTrajectory=true,showSpiral=true,showBSpiral=true,curveMode='catmull';
 let spiralTrail=[],bSpiralTrail=[],trailMul=1,rampProg=0,rampRate=0.002,selfRotLocked=true,selfRotOver=[-1,-1,-1],selfAngles=[0,0,0];
 function getSelfRot(i){return selfRotLocked?-(geo.layers[i].statorPoles/geo.layers[i].rollerPoles):selfRotOver[i];}
 let heightOverrides={s:[],r:[]},heightAuto=true;
