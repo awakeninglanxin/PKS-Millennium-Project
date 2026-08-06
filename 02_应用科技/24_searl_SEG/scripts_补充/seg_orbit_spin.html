@@ -86,8 +86,8 @@ canvas{border:1px solid #ccc;border-radius:10px;display:block;margin:4px auto}
   <span id="volInfo" style="font-size:.62em;color:#8899bb;max-width:360px;text-align:center;line-height:1.3"></span>
 </div>
 </div>
-<div class="cap">— 2D 俯视图 —</div><canvas id="c2d" width="500" height="500"></canvas>
-<div class="cap">— 2D 正视图 —</div><canvas id="c3dv" width="640" height="360"></canvas>
+<div class="cap">— 2D 俯视图 —</div><canvas id="c2d"></canvas>
+<div class="cap">— 2D 正视图 —</div><canvas id="c3dv"></canvas>
 <script>
 /* ============================================================
    文档物理公式引擎 + CSV质量推荐 + 双视图渲染
@@ -218,27 +218,27 @@ let drawTrajectory=function(ctx,cx,cy,sc,lay,col){const orb=lay.orbit*sc;ctx.beg
 function drawCheckerboard(ctx,w,h){const ss=16;for(let y=0;y<h;y+=ss)for(let x=0;x<w;x+=ss){ctx.fillStyle=(Math.floor(x/ss)+Math.floor(y/ss))%2===0?'#fff':'#e8f0ff';ctx.fillRect(x,y,ss,ss);}}
 
 function draw2D(){
-  const cx=250,cy=250,sc=scale2d();x2.clearRect(0,0,500,500);drawCheckerboard(x2,500,500);
-  updateParticles();drawParticles();
+  const W=Math.min(window.innerWidth-32,900),H=W,cx=W/2,cy=H/2,sc=W*0.45/geo.maxR;
+  const canvas=document.getElementById('c2d');
+  if(canvas.width!==W){canvas.width=W;canvas.height=H;}
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,W,H);drawCheckerboard(ctx,W,H);
+  updateParticles(sc,cx,cy);drawParticles(sc,cx,cy);
   const rings=geo.rings,mats=getMat(geo.devKey);
   for(let i=rings-1;i>=0;i--){const lay=geo.layers[i],col=LAYER_COLORS[i%6],opx=lay.orbit*sc;if(showTrajectory)drawTrajectory(x2,cx,cy,sc,lay,col);drawRoller2D(cx,cy,opx,lay.num,lay.rollerPoles,col,angle*layerSpeed(i),i);drawStator2D(cx,cy,lay.Br*sc,lay.BR*sc,lay.statorPoles,col,mats);}
   const sc2=smoothScore();x2.fillStyle='#333';x2.font='bold 9px system-ui';x2.textAlign='center';x2.fillText((cfg.name.split('★')[1]||cfg.name).substring(0,46),cx,12);x2.fillStyle=sc2>=80?'#1d9e75':sc2>=50?'#ba7517':'#e24b4a';x2.fillText('综合性价比 '+sc2+'分 | '+DEVICE[geo.devKey].name+' · 方案'+schemeId,cx,26);
 
 }
 
-function initParticles(){particles=[];const N=300;for(let i=0;i<N;i++){const ri=Math.floor(Math.random()*geo.rings),lay=geo.layers[ri],sc=scale2d(),r=lay.orbit*sc+(Math.random()*2-1)*lay.Yr*sc;particles.push({r,a:Math.random()*2*Math.PI,vr:0.02+Math.random()*0.08,vt:[1,2.5,6.25][ri]*0.01*(0.5+Math.random()),ring:ri,life:1,alpha:0.3+Math.random()*0.5});}}
-function updateParticles(){const scS=smoothScore(),rough=Math.max(0.005,(100-scS)/100*0.25),radU=scS/100,sc=scale2d();particles.forEach(p=>{p.life-=0.001;if(p.life<=0){const ri=Math.floor(Math.random()*geo.rings),lay=geo.layers[ri];p.ring=ri;p.r=lay.orbit*sc+(Math.random()*2-1)*lay.Yr*sc;p.a=Math.random()*2*Math.PI;p.vr=0.02+Math.random()*0.08;p.vt=[1,2.5,6.25][ri]*0.01*(0.5+Math.random());p.life=1;p.alpha=0.3+Math.random()*0.5;return;}p.vr+=0.0008*(1+p.r/180)*radU;const bA=p.a*(p.ring+1)*3;p.vt+=rough*Math.sin(bA)*0.001;p.vr*=0.998;p.vt*=0.998;p.r+=p.vr;p.a+=p.vt/p.r;const lay=geo.layers[p.ring];if(p.r>lay.orbit*sc+lay.Yr*sc+8)p.life=0;if(p.r<20){p.r=20;p.vr*=-0.5;}});}
-function drawParticles(){const bins=40,dens=new Array(bins).fill(0);particles.forEach(p=>{const bi=Math.min(bins-1,Math.max(0,Math.floor(p.r/200*bins)));dens[bi]++;});const maxD=Math.max(1,...dens);particles.forEach(p=>{if(p.life<=0)return;const cx=250,cy=250,px=cx+p.r*Math.cos(p.a),py=cy+p.r*Math.sin(p.a),bi=Math.min(bins-1,Math.max(0,Math.floor(p.r/200*bins))),dN=dens[bi]/maxD;x2.beginPath();x2.arc(px,py,1.5,0,2*Math.PI);x2.fillStyle=`rgba(${150+50*dN|0},${130+60*dN|0},${40+30*dN|0},${p.alpha*(0.3+0.7*dN)})`;x2.fill();});}
+function initParticles(){particles=[];const N=300,W=Math.min(window.innerWidth-32,900),sc=W*0.45/geo.maxR;for(let i=0;i<N;i++){const ri=Math.floor(Math.random()*geo.rings),lay=geo.layers[ri],r=lay.orbit*sc+(Math.random()*2-1)*lay.Yr*sc;particles.push({r,a:Math.random()*2*Math.PI,vr:0.02+Math.random()*0.08,vt:[1,2.5,6.25][ri]*0.01*(0.5+Math.random()),ring:ri,life:1,alpha:0.3+Math.random()*0.5});}}
+function updateParticles(sc,cx,cy){const scS=smoothScore(),rough=Math.max(0.005,(100-scS)/100*0.25),radU=scS/100;particles.forEach(p=>{p.life-=0.001;if(p.life<=0){const ri=Math.floor(Math.random()*geo.rings),lay=geo.layers[ri];p.ring=ri;p.r=lay.orbit*sc+(Math.random()*2-1)*lay.Yr*sc;p.a=Math.random()*2*Math.PI;p.vr=0.02+Math.random()*0.08;p.vt=[1,2.5,6.25][ri]*0.01*(0.5+Math.random());p.life=1;p.alpha=0.3+Math.random()*0.5;return;}p.vr+=0.0008*(1+p.r/cx)*radU;const bA=p.a*(p.ring+1)*3;p.vt+=rough*Math.sin(bA)*0.001;p.vr*=0.998;p.vt*=0.998;p.r+=p.vr;p.a+=p.vt/p.r;const lay=geo.layers[p.ring];if(p.r>lay.orbit*sc+lay.Yr*sc+8)p.life=0;if(p.r<20){p.r=20;p.vr*=-0.5;}});}
+function drawParticles(sc,cx,cy){const bins=40,dens=new Array(bins).fill(0);particles.forEach(p=>{const bi=Math.min(bins-1,Math.max(0,Math.floor(p.r/(cx*0.8)*bins)));dens[bi]++;});const maxD=Math.max(1,...dens);particles.forEach(p=>{if(p.life<=0)return;const px=cx+p.r*Math.cos(p.a),py=cy+p.r*Math.sin(p.a),bi=Math.min(bins-1,Math.max(0,Math.floor(p.r/(cx*0.8)*bins))),dN=dens[bi]/maxD;x2.beginPath();x2.arc(px,py,1.5,0,2*Math.PI);x2.fillStyle=`rgba(${150+50*dN|0},${130+60*dN|0},${40+30*dN|0},${p.alpha*(0.3+0.7*dN)})`;x2.fill();});}
 
 // 正视图（2D侧视，对称左右，半透明黄色）
 function drawFront(){
-  const pad=30; // 上下padding
-  const maxH=geo.layers[0].hStator; // 最内环最高
-  const H=Math.max(360, maxH*3.2 + pad*2); // 自动扩高
-  const W=640, cx=320, hScale=(H-pad*2)/maxH;
+  const W=Math.min(window.innerWidth-32,900),pad=30,maxH=geo.layers[0].hStator,H=Math.max(W*0.4,maxH*3.2+pad*2),cx=W/2,scale=W*0.40/geo.maxR,hScale=(H-pad*2)/maxH,midY=H/2;
   const canvas=document.getElementById('c3dv');
-  if(canvas.height!==H){canvas.height=H;canvas.style.height=H+'px';}
-  const midY=H/2, scale=240/geo.maxR;
+  if(canvas.width!==W||canvas.height!==H){canvas.width=W;canvas.height=H;}
   const ctx=canvas.getContext('2d');
   ctx.clearRect(0,0,W,H);drawCheckerboard(ctx,W,H);
   ctx.beginPath();ctx.setLineDash([4,5]);
