@@ -83,6 +83,7 @@ canvas{border:1px solid #ccc;border-radius:10px;display:block;margin:4px auto}
   <span class="htgroup"><label>V定子环min(cm³)</label><div class="row"><input type="range" id="vMin" min="1" max="100000" value="10" step="1" oninput="onVminChange()"><input type="number" id="vMinN" value="10"></div></span>
   <span class="htgroup"><label>质量推荐</label><select id="massSel" onchange="onMassSelect(this.value)" style="font-size:.75em;background:#f5f5f5;color:#333;border:1px solid #bbb;border-radius:3px;max-width:200px"><option value="-1">不使用</option></select></span>
   <button onclick="showTrajectory=!showTrajectory" style="padding:2px 6px;font-size:.65em;background:#223;border:1px solid #334;color:#aac;border-radius:3px;cursor:pointer">📐轨迹线</button>
+  <button onclick="showSpiral=!showSpiral" style="padding:2px 6px;font-size:.65em;background:#223;border:1px solid #334;color:#aac;border-radius:3px;cursor:pointer">🌀螺旋线</button>
   <button onclick="captureScreenshot()" id="btnCap" style="padding:2px 8px;font-size:.65em;background:#1d9e75;border:none;color:#fff;border-radius:3px;cursor:pointer">📷截长图</button>
   <label id="fullPoleLabel" style="font-size:.65em;color:#8899bb;cursor:pointer;user-select:none"><input type="checkbox" id="fullPoleChk" onchange="onFullPoleChange()"> 全极数直绘(不压缩)</label>
   <span id="volInfo" style="font-size:.62em;color:#8899bb;max-width:360px;text-align:center;line-height:1.3"></span>
@@ -124,7 +125,8 @@ function computeMaterialDensity(mass, devk){
 }
 
 // Globals
-let devKey='SEG',schemeId=8,cfg=ALL_CFGS[0],geo,angle=0,viewYaw=0,viewYawAuto=true,speed=1,paused=false,showTrajectory=true;
+let devKey='SEG',schemeId=8,cfg=ALL_CFGS[0],geo,angle=0,viewYaw=0,viewYawAuto=true,speed=1,paused=false,showTrajectory=true,showSpiral=true;
+let spiralTrail=[];
 let heightOverrides={s:[],r:[]},heightAuto=true;
 let paramOverrides={Yr:[2,2,2],Br0:0,n:[1,1,1]},paramAuto=true;
 let volumeOverrides={Bv:[2293,2512,2731]},volumeAuto=true;
@@ -229,6 +231,9 @@ function draw2D(){
   updateParticles(sc,cx,cy);drawParticles(sc,cx,cy);
   const rings=geo.rings,mats=getMat(geo.devKey),vList=fullPoles?geo.layers.map(l=>l.statorPoles):unifiedVis(geo.layers.map(l=>l.statorPoles));
   for(let i=rings-1;i>=0;i--){const lay=geo.layers[i],col=LAYER_COLORS[i%6],opx=lay.orbit*sc;if(showTrajectory)drawTrajectory(x2,cx,cy,sc,lay,col);drawRoller2D(cx,cy,opx,lay.num,lay.rollerPoles,col,angle*layerSpeed(i),i,sc);drawStator2D(cx,cy,lay.Br*sc,lay.BR*sc,lay.statorPoles,col,mats,vList[i]);}
+  if(showSpiral&&!paused){const pts=geo.layers.map((l,i)=>({x:cx+l.orbit*sc*Math.cos(angle*layerSpeed(i)),y:cy+l.orbit*sc*Math.sin(angle*layerSpeed(i))}));spiralTrail.push(pts);if(spiralTrail.length>90)spiralTrail.shift();}
+  if(showSpiral){for(let t=0;t<spiralTrail.length;t++){const p=spiralTrail[t],alpha=t/spiralTrail.length;x2.beginPath();x2.moveTo(p[0].x,p[0].y);x2.quadraticCurveTo(p[0].x+(p[1].x-p[0].x)*0.7,p[0].y+(p[1].y-p[0].y)*0.3,p[1].x,p[1].y);x2.quadraticCurveTo(p[1].x+(p[2].x-p[1].x)*0.7,p[1].y+(p[2].y-p[1].y)*0.3,p[2].x,p[2].y);x2.strokeStyle=`rgba(255,140,30,${alpha*0.7})`;x2.lineWidth=1.2+alpha*1.8;x2.stroke();}
+  x2.beginPath();const cp=spiralTrail[spiralTrail.length-1];if(cp){x2.moveTo(cp[0].x,cp[0].y);x2.quadraticCurveTo(cp[0].x+(cp[1].x-cp[0].x)*0.7,cp[0].y+(cp[1].y-cp[0].y)*0.3,cp[1].x,cp[1].y);x2.quadraticCurveTo(cp[1].x+(cp[2].x-cp[1].x)*0.7,cp[1].y+(cp[2].y-cp[1].y)*0.3,cp[2].x,cp[2].y);x2.strokeStyle='rgba(255,160,40,0.95)';x2.lineWidth=2.5;x2.shadowColor='rgba(255,120,20,0.6)';x2.shadowBlur=8;x2.stroke();x2.shadowBlur=0;}}
   const sc2=smoothScore();x2.fillStyle='#333';x2.font='bold 9px system-ui';x2.textAlign='center';x2.fillText((cfg.name.split('★')[1]||cfg.name).substring(0,46),cx,12);x2.fillStyle=sc2>=80?'#1d9e75':sc2>=50?'#ba7517':'#e24b4a';x2.fillText('综合性价比 '+sc2+'分 | '+DEVICE[geo.devKey].name+' · 方案'+schemeId,cx,26);
 
 }
@@ -294,7 +299,7 @@ function loadScheme(id){schemeId=parseInt(id);resetForRebuild();if(schemeId===9)
 function loadCfg(i){cfg=ALL_CFGS[i];rebuild();}
 function onMassSelect(idx){if(parseInt(idx)>=0){const d=MASSDATA[devKey][parseInt(idx)];const avgM=(d.sp[0]+d.sp[1]+d.sp[2])/3;const rho=computeMaterialDensity(avgM,devKey);cfg={id:'csv',name:'CSV推荐 '+d.sp.join('/'),sp:d.sp,rp:[34,34,34],num:[12,22,32],st:'good'};massAuto=false;massOverrides={m:d.sp,rho:rho};for(let i=0;i<3;i++){document.getElementById('m'+i).value=d.sp[i];document.getElementById('mn'+i).value=d.sp[i];}document.getElementById('rho').value=rho.toFixed(2);document.getElementById('rhoN').value=rho.toFixed(2);rebuild();}}
 function resetForRebuild(){heightAuto=true;heightOverrides={s:[],r:[]};paramAuto=true;paramOverrides={Yr:[2,2,2],Br0:0,n:[1,1,1]};volumeAuto=true;volumeOverrides={Bv:[]};massAuto=true;massOverrides={m:[],rho:2.5};rollerNumAuto=true;rollerNumOverrides={num:[]};}
-function rebuild(){geo=computeGeometry(devKey,schemeId,cfg);if(heightAuto)syncHtSliders();if(paramAuto&&getScheme(schemeId).ctrl==='size')syncParamSliders();if(rollerNumAuto)syncRNSliders();updateSliderLock();initParticles();updateStatus();}
+function rebuild(){geo=computeGeometry(devKey,schemeId,cfg);spiralTrail=[];if(heightAuto)syncHtSliders();if(paramAuto&&getScheme(schemeId).ctrl==='size')syncParamSliders();if(rollerNumAuto)syncRNSliders();updateSliderLock();initParticles();updateStatus();}
 function syncHtSliders(){for(let i=0;i<3;i++){const l=geo.layers[i];document.getElementById('hs'+i).value=Math.round(l.hStator);document.getElementById('hn'+i).value=Math.round(l.hStator);document.getElementById('hr'+i).value=Math.round(l.hRoller);document.getElementById('hnr'+i).value=Math.round(l.hRoller);}}
 function syncParamSliders(){document.getElementById('pBr0').value=0;document.getElementById('pnBr0').value=0;document.getElementById('pYr0').value=2;document.getElementById('pnYr0').value=2;document.getElementById('pn0').value=1;document.getElementById('pnn0').value=1;}
 function syncRNSliders(){const dn=(cfg.num&&cfg.num.length===3)?cfg.num:[12,22,32];for(let i=0;i<3;i++){document.getElementById('rn'+i).value=dn[i];document.getElementById('rnn'+i).value=dn[i];}}
