@@ -1,0 +1,4 @@
+# 数值实验缓存与中间产物（不进 git）
+_zeros_cache_*.pkl
+__pycache__/
+*.pyc
